@@ -5,6 +5,7 @@ from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, ExecuteProcess
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
+from launch.conditions import IfCondition
 
 def generate_launch_description():
     pkg_swarm_sim = get_package_share_directory('swarm_sim')
@@ -14,6 +15,7 @@ def generate_launch_description():
     map_type = LaunchConfiguration('map_type')
     map_file = LaunchConfiguration('map_file')
     open_rviz = LaunchConfiguration('open_rviz')
+    run_slam = LaunchConfiguration('slam')
     
     # 1. Main Simulation (Multi Ops)
     main_sim = IncludeLaunchDescription(
@@ -26,26 +28,23 @@ def generate_launch_description():
             'map_file': map_file
         }.items()
     )
+
+    # 1.1 Swarm SLAM (Optional)
+    swarm_slam = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_swarm_sim, 'launch', 'swarm_slam.launch.py')
+        ),
+        launch_arguments={
+            'num_drones': num_drones,
+        }.items(),
+        condition=IfCondition(run_slam)
+    )
     
     # 2. RViz
-    rviz_node = ExecuteProcess(
-        cmd=['rviz2', '-d', os.path.join(pkg_swarm_sim, 'swarm_sim/common/viz_utils.py')], # Placeholder config?
-        # Better: use default empty or specific config if we had one.
-        # But user wants "visualize everything".
-        # Let's verify if we have a config or just launch empty. 
-        # User said "rviz2 explain how visualize".
-        # I will launch empty rviz2 for now, but in docs explain which config to load if any.
-        # Or better: I will try to save a default config? No, I don't have X11 access to save.
-        # I will launch standard rviz2.
-        condition=LaunchConfiguration('open_rviz'), # This condition logic requires specific action type or just if check
-        output='screen'
-    )
-    # The condition kwarg works on specific actions like Node, but ExecuteProcess? Yes.
-    # However, 'condition' expects a Condition object (IfCondition).
+    rviz_config = os.path.join(pkg_swarm_sim, 'default.rviz')
     
-    from launch.conditions import IfCondition
     rviz_process = ExecuteProcess(
-        cmd=['rviz2'],
+        cmd=['rviz2', '-d', rviz_config],
         output='screen',
         condition=IfCondition(open_rviz)
     )
@@ -55,7 +54,9 @@ def generate_launch_description():
         DeclareLaunchArgument('map_type', default_value='world', description='Map Type'),
         DeclareLaunchArgument('map_file', default_value='city.sdf', description='Map File'),
         DeclareLaunchArgument('open_rviz', default_value='true', description='Open RViz?'),
+        DeclareLaunchArgument('slam', default_value='false', description='Run Swarm SLAM?'),
         
         main_sim,
+        swarm_slam,
         rviz_process
     ])

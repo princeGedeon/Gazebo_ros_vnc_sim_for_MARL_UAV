@@ -4,6 +4,9 @@ set -e
 # Setup ROS 2 environment
 source /opt/ros/jazzy/setup.bash
 
+# Fix Git Safety (Dubious Ownership in Container)
+git config --global --add safe.directory '*'
+
 # Check for custom workspace
 if [ -f "/root/ros2_ws/install/setup.bash" ]; then
     source /root/ros2_ws/install/setup.bash
