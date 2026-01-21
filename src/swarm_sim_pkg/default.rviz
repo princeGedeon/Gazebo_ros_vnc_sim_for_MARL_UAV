@@ -130,7 +130,6 @@ Visualization Manager:
         Value: /uav_1/sensors/lidar
       Style: Points
       Size (Pixels): 3
-      
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Description Source: Topic
@@ -156,6 +155,33 @@ Visualization Manager:
         Value: /uav_2/sensors/lidar
       Style: Points
       Size (Pixels): 3
+    - Class: rviz_default_plugins/Imu
+      Enabled: true
+      Name: UAV 0 IMU
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /uav_0/sensors/imu
+    - Class: rviz_default_plugins/Imu
+      Enabled: true
+      Name: UAV 1 IMU
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /uav_1/sensors/imu
+    - Class: rviz_default_plugins/Imu
+      Enabled: true
+      Name: UAV 2 IMU
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /uav_2/sensors/imu
 
   Enabled: true
   Global Options:

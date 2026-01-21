@@ -50,7 +50,9 @@ RUN pip3 install --break-system-packages \
     supersuit \
     shimmy \
     scipy \
-    open3d
+    open3d \
+    numba \
+    scikit-learn
 
 # Install Real SLAM Dependencies (Boost, PCL, Octomap)
 RUN apt-get update && apt-get install -y \
@@ -59,6 +61,7 @@ RUN apt-get update && apt-get install -y \
     libboost-all-dev \
     libpcl-dev \
     libgoogle-glog-dev \
+    python3-scipy \
     ros-jazzy-octomap-ros \
     ros-jazzy-octomap-server \
     ros-jazzy-pcl-ros \

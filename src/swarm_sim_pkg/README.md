@@ -47,6 +47,11 @@ Run the auto-launcher to clean, build, and launch everything in one go:
 ```bash
 ./autolaunch.sh
 ```
+**What this script does:**
+1.  **Fixes Git Permissions**: Resolves the "dubious ownership" error automatically.
+2.  **Cleans Build Errors**: Removes conflicting build folders (like `cslam_common_interfaces`) that cause failures.
+3.  **Builds Workspace**: Compiles the entire project with symlinks.
+4.  **Launches**: Starts the simulation + Visualization + SLAM with 3 drones.
 
 ### 3. Manual Launch
 If you prefer manual control:
@@ -80,6 +85,16 @@ RViz2 opens automatically. **If topics show "No messages received", CHECK QOS:**
 4.  **Add > Image**: Set Topic to `/uav_0/camera/image_raw` (Front) or `/uav_0/down_camera/image_raw` (Down).
     -   **CRITICAL**: Change **Reliability Policy** to **Best Effort**.
 5.  **Add > TF**: Enabled show "Frames" to see the drone moving.
+
+### ❓ Troubleshooting RViz & SLAM
+**"Points 0" / No Data?**
+1.  Check the Topic **QoS Reliability** in RViz. It MUST be **Best Effort**.
+2.  If `default.rviz` didn't load, manually File -> Open Config -> `src/swarm_sim_pkg/default.rviz`.
+
+**SLAM Not Working?**
+1.  Did you run `./autolaunch.sh`? It installs necessary libraries.
+2.  Check if `ros2 pkg list | grep cslam` returns packages. If not, the build failed.
+3.  Manually inspect: `ros_gz_bridge` nodes (are they running?).
 
 ### 4. 🔍 Inspect Data (RQT)
 If you want to debug raw data or check connections:
@@ -158,3 +173,41 @@ The web interface (NoVNC) can be slow. For better performance:
 3. If asked for a password, it is currently empty (or check entrypoint).
 
 This direct connection is often smoother than the browser-based one.
+
+## 🤝 Credits & Inspirations
+This project builds upon the excellent work of the open-source community:
+
+- **Swarm-SLAM (C-SLAM)**: [Lajoie et al.](https://github.com/MISTLab/Swarm-SLAM) - The core collaborative SLAM framework used here.
+- **Teaser++**: [Yang et al.](https://github.com/MIT-SPARK/TEASER-plusplus) - For fast and robust point cloud registration.
+- **GTSAM**: [Borglab](https://github.com/borglab/gtsam) - Smoothing and Mapping library.
+- **PX4**: For the X500 drone models.
+
+## 🐛 Bug Correction History
+If you are debugging, here is a list of fixed issues:
+1.  **"Dubious Ownership"**: Added `git config safe.directory '*'`.
+2.  **"No such file or directory" (SLAM)**: Added `LD_LIBRARY_PATH` export in `autolaunch.sh`.
+3.  **"Unable to find uri" (RSP)**: Modified `x500_sensors.sdf.xacro` to inline the base link, removing the dependency on Ignition Fuel.
+4.  **"No module named numba"**: Added system dependencies (`python3-numba`).
+5.  **RViz Empty**: Fixed `setup.py` to correctly install `default.rviz`.
+
+## 📦 Swarm-SLAM Installation Reference
+For those installing from source (without Docker), here are the core commands used to set up the environment (inspired by the official guide):
+
+```bash
+# Core Dependencies
+sudo apt install python3-vcstool python3-colcon-common-extensions
+# Fetch repos
+# mkdir src && vcs import src < cslam.repos
+
+# Python Dependencies (Managed via system packages in Docker)
+# sudo apt install python3-numba python3-scipy python3-sklearn
+
+# GTSAM (Built from source in Docker)
+# git clone https://github.com/borglab/gtsam.git && cd gtsam && git checkout 4.1.1
+# mkdir build && cd build && cmake .. && make install
+
+# Teaser++ (Built from source in Docker)
+# https://github.com/MIT-SPARK/TEASER-plusplus
+```
+
+**Note**: In this project, `autolaunch.sh` and the `Dockerfile` handle these steps automatically.

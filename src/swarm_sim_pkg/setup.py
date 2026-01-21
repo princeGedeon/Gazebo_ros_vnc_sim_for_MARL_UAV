@@ -14,10 +14,11 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        ('share/' + package_name, ['default.rviz']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
     ] + [
         (os.path.join('share', package_name, os.path.dirname(p).replace('swarm_sim/', '', 1)), [p]) 
-        for p in glob('swarm_sim/assets/**/*', recursive=True) if os.path.isfile(p)
+        for p in glob('swarm_sim/assets/**/*', recursive=True) if os.path.isfile(p) and '.git' not in p
     ],
     install_requires=['setuptools'],
     zip_safe=True,

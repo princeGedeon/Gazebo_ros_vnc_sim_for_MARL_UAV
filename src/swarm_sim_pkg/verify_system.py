@@ -14,7 +14,9 @@ class SystemVerifier(Node):
         self.get_logger().info("Starting System Verification...")
         
         self.lidar_count = 0
+        self.lidar_count = 0
         self.camera_count = 0
+        self.down_camera_count = 0
         self.imu_count = 0
         
         # QOS: Best Effort meant for Sensor Data
@@ -29,6 +31,7 @@ class SystemVerifier(Node):
         
         # Camera (Best Effort)
         self.create_subscription(Image, '/uav_0/camera/image_raw', self.camera_cb, best_effort_qos)
+        self.create_subscription(Image, '/uav_0/down_camera/image_raw', self.down_camera_cb, best_effort_qos)
         
         # IMU (Best Effort)
         self.create_subscription(Imu, '/uav_0/sensors/imu', self.imu_cb, best_effort_qos)
@@ -46,6 +49,9 @@ class SystemVerifier(Node):
         
     def camera_cb(self, msg):
         self.camera_count += 1
+
+    def down_camera_cb(self, msg):
+        self.down_camera_count += 1
         
     def imu_cb(self, msg):
         self.imu_count += 1
@@ -83,6 +89,12 @@ def main(args=None):
         print(f"[PASS] Front Camera Received: {node.camera_count} msgs")
     else:
         print(f"[FAIL] NO Camera Data!")
+
+    # Check Down Camera
+    if node.down_camera_count > 0:
+        print(f"[PASS] Down Camera Received: {node.down_camera_count} msgs")
+    else:
+        print(f"[FAIL] NO Down Camera Data!")
 
     # Check IMU
     if node.imu_count > 0:

@@ -14,6 +14,9 @@
 # EXTERNAL cache entries
 ########################
 
+//No help, variable specified on the command line.
+AMENT_CMAKE_SYMLINK_INSTALL:UNINITIALIZED=1
+
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
@@ -222,7 +225,7 @@ cslam_common_interfaces_BINARY_DIR:STATIC=/mnt/disk1/pgguedje/research/gazebo_ro
 cslam_common_interfaces_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-cslam_common_interfaces_SOURCE_DIR:STATIC=/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/src/cslam_workspace/cslam_interfaces/cslam_common_interfaces
+cslam_common_interfaces_SOURCE_DIR:STATIC=/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/src/swarm_slam_stack/cslam_interfaces/cslam_common_interfaces
 
 
 ########################
@@ -309,7 +312,7 @@ CMAKE_GENERATOR_PLATFORM:INTERNAL=
 CMAKE_GENERATOR_TOOLSET:INTERNAL=
 //Source directory with the top level CMakeLists.txt file for this
 // project
-CMAKE_HOME_DIRECTORY:INTERNAL=/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/src/cslam_workspace/cslam_interfaces/cslam_common_interfaces
+CMAKE_HOME_DIRECTORY:INTERNAL=/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/src/swarm_slam_stack/cslam_interfaces/cslam_common_interfaces
 //Install .so files without execute permission.
 CMAKE_INSTALL_SO_NO_EXE:INTERNAL=1
 //ADVANCED property for variable: CMAKE_LINKER
