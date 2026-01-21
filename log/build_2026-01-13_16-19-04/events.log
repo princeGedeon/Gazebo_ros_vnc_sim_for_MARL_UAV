@@ -1,0 +1,36 @@
+[0.000000] (-) TimerEvent: {}
+[0.000432] (-) JobUnselected: {'identifier': 'Eigen3'}
+[0.000492] (-) JobUnselected: {'identifier': 'cslam'}
+[0.000535] (-) JobUnselected: {'identifier': 'cslam_common_interfaces'}
+[0.000586] (-) JobUnselected: {'identifier': 'cslam_experiments'}
+[0.000657] (-) JobUnselected: {'identifier': 'gtsam'}
+[0.000699] (-) JobUnselected: {'identifier': 'teaserpp'}
+[0.000748] (swarm_sim) JobQueued: {'identifier': 'swarm_sim', 'dependencies': OrderedDict()}
+[0.000836] (swarm_sim) JobStarted: {'identifier': 'swarm_sim'}
+[0.099708] (-) TimerEvent: {}
+[0.200181] (-) TimerEvent: {}
+[0.300645] (-) TimerEvent: {}
+[0.401108] (-) TimerEvent: {}
+[0.439312] (swarm_sim) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'develop', '--editable', '--build-directory', '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim/build', '--no-deps', 'symlink_data'], 'cwd': '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim', 'env': {'USER': 'pgguedje', 'SSH_CLIENT': '192.168.30.3 58266 22', 'XDG_SESSION_TYPE': 'tty', 'GIT_ASKPASS': '/home/pgguedje/.antigravity-server/bin/94f91bc110994badc7c086033db813077a5226af/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'BROWSER': '/home/pgguedje/.antigravity-server/bin/94f91bc110994badc7c086033db813077a5226af/bin/helpers/browser.sh', 'ANTIGRAVITY_CLI_ALIAS': 'agy', 'MOTD_SHOWN': 'pam', 'HOME': '/home/pgguedje', 'TERM_PROGRAM_VERSION': '1.104.0', 'VSCODE_IPC_HOOK_CLI': '/run/user/1006/vscode-ipc-61d5de31-95d6-456e-afd1-cedd08bd4d65.sock', 'PAGER': 'cat', 'VSCODE_GIT_ASKPASS_MAIN': '/home/pgguedje/.antigravity-server/bin/94f91bc110994badc7c086033db813077a5226af/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/home/pgguedje/.antigravity-server/bin/94f91bc110994badc7c086033db813077a5226af/node', 'VSCODE_PYTHON_AUTOACTIVATE_GUARD': '1', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1006/bus', 'COLORTERM': 'truecolor', 'ANTIGRAVITY_AGENT': '1', 'LOGNAME': 'pgguedje', '_': '/home/pgguedje/.local/bin/colcon', 'XDG_SESSION_CLASS': 'user', 'TERM': 'xterm-256color', 'XDG_SESSION_ID': '832', 'PATH': '/home/pgguedje/.antigravity-server/bin/94f91bc110994badc7c086033db813077a5226af/bin/remote-cli:/home/pgguedje/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/snap/bin', 'XDG_RUNTIME_DIR': '/run/user/1006', 'LANG': 'fr_FR.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.avif=01;35:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:*~=00;90:*#=00;90:*.bak=00;90:*.old=00;90:*.orig=00;90:*.part=00;90:*.rej=00;90:*.swp=00;90:*.tmp=00;90:*.dpkg-dist=00;90:*.dpkg-old=00;90:*.ucf-dist=00;90:*.ucf-new=00;90:*.ucf-old=00;90:*.rpmnew=00;90:*.rpmorig=00;90:*.rpmsave=00;90:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1006/vscode-git-48ee0e8883.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/home/pgguedje/.antigravity-server/.94f91bc110994badc7c086033db813077a5226af-ssh-auth.sock', 'AMENT_PREFIX_PATH': '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim:', 'SHELL': '/bin/bash', 'VSCODE_GIT_ASKPASS_EXTRA_ARGS': '', 'PWD': '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim', 'SSH_CONNECTION': '192.168.30.3 58266 192.168.186.117 22', 'XDG_DATA_DIRS': '/usr/local/share:/usr/share:/var/lib/snapd/desktop', 'COLCON': '1', 'PYTHONPATH': '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim/prefix_override:/home/pgguedje/.local/lib/python3.11/site-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/lib/python3.11/site-packages:'}, 'shell': False}
+[0.501279] (-) TimerEvent: {}
+[0.583911] (swarm_sim) StdoutLine: {'line': b'running develop\n'}
+[0.601409] (-) TimerEvent: {}
+[0.626991] (swarm_sim) StdoutLine: {'line': b'running egg_info\n'}
+[0.630499] (swarm_sim) StdoutLine: {'line': b'writing swarm_sim.egg-info/PKG-INFO\n'}
+[0.630789] (swarm_sim) StdoutLine: {'line': b'writing dependency_links to swarm_sim.egg-info/dependency_links.txt\n'}
+[0.630964] (swarm_sim) StdoutLine: {'line': b'writing entry points to swarm_sim.egg-info/entry_points.txt\n'}
+[0.631055] (swarm_sim) StdoutLine: {'line': b'writing requirements to swarm_sim.egg-info/requires.txt\n'}
+[0.631150] (swarm_sim) StdoutLine: {'line': b'writing top-level names to swarm_sim.egg-info/top_level.txt\n'}
+[0.641587] (swarm_sim) StdoutLine: {'line': b"reading manifest file 'swarm_sim.egg-info/SOURCES.txt'\n"}
+[0.645824] (swarm_sim) StdoutLine: {'line': b"writing manifest file 'swarm_sim.egg-info/SOURCES.txt'\n"}
+[0.650276] (swarm_sim) StdoutLine: {'line': b'running build_ext\n'}
+[0.650469] (swarm_sim) StdoutLine: {'line': b'Creating /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/lib/python3.11/site-packages/swarm-sim.egg-link (link to .)\n'}
+[0.650668] (swarm_sim) StdoutLine: {'line': b'Installing train_single script to /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/bin\n'}
+[0.650813] (swarm_sim) StdoutLine: {'line': b'Installing train_swarm script to /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/bin\n'}
+[0.650962] (swarm_sim) StdoutLine: {'line': b'\n'}
+[0.651052] (swarm_sim) StdoutLine: {'line': b'Installed /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim\n'}
+[0.651134] (swarm_sim) StdoutLine: {'line': b'running symlink_data\n'}
+[0.686736] (swarm_sim) CommandEnded: {'returncode': 0}
+[0.701546] (-) TimerEvent: {}
+[0.723981] (swarm_sim) JobEnded: {'identifier': 'swarm_sim', 'rc': 0}
+[0.725251] (-) EventReactorShutdown: {}

@@ -1,0 +1,9 @@
+[0.000000] (-) TimerEvent: {}
+[0.000274] (-) JobUnselected: {'identifier': 'cslam_common_interfaces'}
+[0.000372] (-) JobUnselected: {'identifier': 'swarm_sim'}
+[0.000413] (cslam) JobQueued: {'identifier': 'cslam', 'dependencies': OrderedDict([('cslam_common_interfaces', '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/cslam_common_interfaces')])}
+[0.000472] (cslam_experiments) JobQueued: {'identifier': 'cslam_experiments', 'dependencies': OrderedDict([('cslam_common_interfaces', '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/cslam_common_interfaces'), ('cslam', '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/cslam')])}
+[0.000512] (cslam) JobStarted: {'identifier': 'cslam'}
+[0.007085] (cslam) JobEnded: {'identifier': 'cslam', 'rc': 1}
+[0.007714] (cslam_experiments) JobSkipped: {'identifier': 'cslam_experiments'}
+[0.007796] (-) EventReactorShutdown: {}

@@ -1,0 +1,29 @@
+services:
+  swarm_sim:
+    build: .
+    image: ros2-jazzy-swarm-sim
+    container_name: rosette_swarm
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      # --- GUI CONFIGURATION ---
+      - GUI=vnc # Change to 'host' for native windows
+      - DISPLAY=:1 # Change to ${DISPLAY} for native windows
+    ports:
+      - "6080:6080" # Web VNC (NoVNC)
+      - "5901:5901" # Direct VNC (Client)
+    volumes:
+      - ./src:/root/ros2_ws/src
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      # - ~/.Xauthority:/root/.Xauthority:rw # Uncomment for native X11
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+    ipc: host
+    stdin_open: true
+    tty: true

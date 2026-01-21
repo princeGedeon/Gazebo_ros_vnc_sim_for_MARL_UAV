@@ -1,0 +1,18 @@
+[0.419s] Invoking command in '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim': PYTHONPATH=/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim/prefix_override:/home/pgguedje/.local/lib/python3.11/site-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/lib/python3.11/site-packages: /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim/build --no-deps symlink_data
+[0.561s] running develop
+[0.604s] running egg_info
+[0.608s] writing swarm_sim.egg-info/PKG-INFO
+[0.608s] writing dependency_links to swarm_sim.egg-info/dependency_links.txt
+[0.608s] writing entry points to swarm_sim.egg-info/entry_points.txt
+[0.608s] writing requirements to swarm_sim.egg-info/requires.txt
+[0.608s] writing top-level names to swarm_sim.egg-info/top_level.txt
+[0.619s] reading manifest file 'swarm_sim.egg-info/SOURCES.txt'
+[0.623s] writing manifest file 'swarm_sim.egg-info/SOURCES.txt'
+[0.627s] running build_ext
+[0.627s] Creating /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/lib/python3.11/site-packages/swarm-sim.egg-link (link to .)
+[0.628s] Installing train_single script to /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/bin
+[0.628s] Installing train_swarm script to /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/bin
+[0.628s] 
+[0.628s] Installed /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim
+[0.628s] running symlink_data
+[0.664s] Invoked command in '/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim' returned '0': PYTHONPATH=/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim/prefix_override:/home/pgguedje/.local/lib/python3.11/site-packages/colcon_core/task/python/colcon_distutils_commands:/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/install/swarm_sim/lib/python3.11/site-packages: /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim/build --no-deps symlink_data

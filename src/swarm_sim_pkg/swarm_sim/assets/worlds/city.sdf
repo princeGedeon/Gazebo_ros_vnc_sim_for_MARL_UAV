@@ -1,0 +1,377 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+  <world name="urban_city">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"></plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"></plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"></plugin>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+        <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>100 100</size></plane></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_0">
+      <static>true</static>
+      <pose>-21.80090064811955 21.763684528473235 4.5839162674517855 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.510927397125091 4.516019428496205 9.167832534903571</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.510927397125091 4.516019428496205 9.167832534903571</size></box></geometry>
+          <material>
+            <ambient>0.0966216416461746 0.9154312812926659 0.31438854735178656 1</ambient>
+            <diffuse>0.9040627875210637 0.9620967887389605 0.08439720654819405 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_1">
+      <static>true</static>
+      <pose>-8.326670341050885 5.435193955911593 7.024090111836047 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.722495185199065 4.884025704707639 14.048180223672095</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.722495185199065 4.884025704707639 14.048180223672095</size></box></geometry>
+          <material>
+            <ambient>0.30336690731021587 0.31282286166009765 0.9698134288876714 1</ambient>
+            <diffuse>0.15047716541188316 0.4769938264777255 0.13584467741815942 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_2">
+      <static>true</static>
+      <pose>-8.132673475729408 -9.137356290669684 7.011109484218496 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2.6822470326051246 3.289868815930766 14.022218968436992</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2.6822470326051246 3.289868815930766 14.022218968436992</size></box></geometry>
+          <material>
+            <ambient>0.022351832989307874 0.354606963239001 0.9744444630736909 1</ambient>
+            <diffuse>0.06694606356595179 0.5710687075901155 0.20828864433662642 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_3">
+      <static>true</static>
+      <pose>-12.721251415289514 14.074183374865697 7.2881278878266285 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.859736100497523 3.2749632900647576 14.576255775653257</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.859736100497523 3.2749632900647576 14.576255775653257</size></box></geometry>
+          <material>
+            <ambient>0.9396965798982869 0.7964604071027035 0.6059943865935806 1</ambient>
+            <diffuse>0.5517335895102483 0.20874726992583292 0.37745605008464456 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_4">
+      <static>true</static>
+      <pose>-24.576638801875912 -23.35395910788084 5.482910779992228 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>5.664466945160386 2.1619116230012643 10.965821559984455</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.664466945160386 2.1619116230012643 10.965821559984455</size></box></geometry>
+          <material>
+            <ambient>0.2679366611124424 0.8479241595674023 0.9790001868835453 1</ambient>
+            <diffuse>0.1717912634530009 0.5275762049673473 0.933426412932553 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_5">
+      <static>true</static>
+      <pose>16.38039355322384 -22.182390651322635 4.378116026204601 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>5.851829220928613 3.830194474829647 8.756232052409201</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.851829220928613 3.830194474829647 8.756232052409201</size></box></geometry>
+          <material>
+            <ambient>0.1973257179588268 0.15348934431600303 0.9276864121542312 1</ambient>
+            <diffuse>0.7356053392334155 0.23357896233193942 0.14043838682605891 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_6">
+      <static>true</static>
+      <pose>10.953462539155709 24.83308904115377 5.841729898242139 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.386247930182093 2.735970976065121 11.683459796484279</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.386247930182093 2.735970976065121 11.683459796484279</size></box></geometry>
+          <material>
+            <ambient>0.7128106973420356 0.7221449750251044 0.1005438344102354 1</ambient>
+            <diffuse>0.5543337993684877 0.14269510161498722 0.5518050978371988 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_7">
+      <static>true</static>
+      <pose>-17.943098756311993 -14.838829375042467 5.69150057975785 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.3687637767175866 4.180645921371481 11.3830011595157</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.3687637767175866 4.180645921371481 11.3830011595157</size></box></geometry>
+          <material>
+            <ambient>0.24773389064837903 0.06609564608952745 0.39408828147780095 1</ambient>
+            <diffuse>0.4414838200933474 0.9949147919181086 0.84422149422703 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_8">
+      <static>true</static>
+      <pose>20.324219463653655 -11.363151730177368 6.798568149786954 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2.8505265166003815 5.5708955090208345 13.597136299573908</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2.8505265166003815 5.5708955090208345 13.597136299573908</size></box></geometry>
+          <material>
+            <ambient>0.4662187460292516 0.321084721892119 0.9937301304874115 1</ambient>
+            <diffuse>0.7997280381936498 0.2287945560618393 0.9701257190803676 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_9">
+      <static>true</static>
+      <pose>-21.384644676422543 21.95715815274577 6.553020229754615 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>5.70783511228071 5.022916071240742 13.10604045950923</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.70783511228071 5.022916071240742 13.10604045950923</size></box></geometry>
+          <material>
+            <ambient>0.12866145895076075 0.39121901912744195 0.17100548129471893 1</ambient>
+            <diffuse>0.30807242771889976 0.3907737111701558 0.0073386649428297535 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_10">
+      <static>true</static>
+      <pose>5.974434380451569 15.336100395258967 7.259461807852795 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.6126427674321246 3.3625636613493985 14.51892361570559</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.6126427674321246 3.3625636613493985 14.51892361570559</size></box></geometry>
+          <material>
+            <ambient>0.41402766584901907 0.2536015950790488 0.5711443931029071 1</ambient>
+            <diffuse>0.08478137808631758 0.09659742772896596 0.22490867439321394 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_11">
+      <static>true</static>
+      <pose>16.009278874459618 -18.454007431691227 5.827347229496452 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2.3236183837420588 2.8709170006088867 11.654694458992903</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2.3236183837420588 2.8709170006088867 11.654694458992903</size></box></geometry>
+          <material>
+            <ambient>0.8697003298092494 0.18291610850684703 0.0723161183128469 1</ambient>
+            <diffuse>0.9771731603096563 0.8199807048538376 0.33659895902461945 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_12">
+      <static>true</static>
+      <pose>-17.920420822066575 -15.095195148808067 6.433944117604767 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>5.670156804968503 3.9826749549935725 12.867888235209534</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.670156804968503 3.9826749549935725 12.867888235209534</size></box></geometry>
+          <material>
+            <ambient>0.6118834751939822 0.4204858023974387 0.4343854216964742 1</ambient>
+            <diffuse>0.399725137044589 0.0019257954292287716 0.8350869066941425 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_13">
+      <static>true</static>
+      <pose>6.984854174787657 14.357660400242167 4.523419933678166 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.964897776053403 4.648861052014807 9.046839867356333</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.964897776053403 4.648861052014807 9.046839867356333</size></box></geometry>
+          <material>
+            <ambient>0.9457223651664314 0.25851829691681805 0.022437516527285872 1</ambient>
+            <diffuse>0.8793922752503623 0.3119904238174831 0.8175081621759407 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_14">
+      <static>true</static>
+      <pose>4.25739092911336 15.068956519005596 3.456377355369422 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.984707178389143 4.1717183545511745 6.912754710738844</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.984707178389143 4.1717183545511745 6.912754710738844</size></box></geometry>
+          <material>
+            <ambient>0.4547438353135891 0.714572229924227 0.3897264227273861 1</ambient>
+            <diffuse>0.6326644059037727 0.7620993450518154 0.8509017577010327 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_15">
+      <static>true</static>
+      <pose>9.454630459233613 -17.383042063545762 2.592617034673146 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>5.297040510737121 5.512898564841621 5.185234069346292</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.297040510737121 5.512898564841621 5.185234069346292</size></box></geometry>
+          <material>
+            <ambient>0.6104869908522352 0.32986075718690233 0.7760119103937126 1</ambient>
+            <diffuse>0.18290175389462537 0.49608954227490043 0.8185086129322908 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_16">
+      <static>true</static>
+      <pose>11.99055732329964 15.047274712512973 2.6618300713715337 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.0186119526574813 2.1418403823990833 5.323660142743067</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.0186119526574813 2.1418403823990833 5.323660142743067</size></box></geometry>
+          <material>
+            <ambient>0.6054752574640775 0.20302900422628756 0.037086770463754304 1</ambient>
+            <diffuse>0.9463689997866739 0.6254705915841807 0.5238411175177767 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_17">
+      <static>true</static>
+      <pose>-20.14811396025959 10.168059605676781 5.846889078489088 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.91058573462697 5.485287422139173 11.693778156978176</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.91058573462697 5.485287422139173 11.693778156978176</size></box></geometry>
+          <material>
+            <ambient>0.12007563699280943 0.5435652006949011 0.8943597001007173 1</ambient>
+            <diffuse>0.6723177881964956 0.2702841256099652 0.008092499485021665 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_18">
+      <static>true</static>
+      <pose>-5.585559172889216 -4.051816113170442 6.885009373803433 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>4.937737289109295 2.722981164930308 13.770018747606866</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>4.937737289109295 2.722981164930308 13.770018747606866</size></box></geometry>
+          <material>
+            <ambient>0.11107525716764222 0.7887302030518661 0.6832056311017088 1</ambient>
+            <diffuse>0.6268317901219618 0.7666314866683341 0.858320436246415 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="building_19">
+      <static>true</static>
+      <pose>11.279352508723825 -9.734982011452804 7.427908113229057 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>5.143690546463362 2.6497893315079244 14.855816226458114</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>5.143690546463362 2.6497893315079244 14.855816226458114</size></box></geometry>
+          <material>
+            <ambient>0.45741411520789166 0.10894311599570605 0.10058618160644894 1</ambient>
+            <diffuse>0.8200803141738925 0.06371702604158769 0.6418110084093864 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
