@@ -6,6 +6,7 @@ from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, Opaq
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, Command
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 def launch_setup(context, *args, **kwargs):
     pkg_swarm_sim = get_package_share_directory('swarm_sim')
@@ -146,15 +147,12 @@ def launch_setup(context, *args, **kwargs):
         )
         nodes.append(spawn)
 
-        # Bridge TF Gap: Connect Gazebo Frame (uav_X) to URDF Root (uav_X/base_link)
-        # This is needed because Bridge output is 'uav_X' but RSP with prefix uses 'uav_X/base_link'
-        tf_gap = Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            arguments=['0', '0', '0', '0', '0', '0', name, f'{name}/base_link'],
-            output='screen'
-        )
-        nodes.append(tf_gap)
+
+
+        # Odom TF Broadcaster (REMOVED: Causing conflict with Bridge TF)
+        # We rely on ros_gz_bridge to publish /model/{name}/pose -> /tf
+        # tf_broadcaster = Node(...)
+        
 
         # Robot State Publisher - Needed for RViz Visuals and TF
         rsp_node = Node(
@@ -164,9 +162,8 @@ def launch_setup(context, *args, **kwargs):
             namespace=name,
             output='screen',
             parameters=[{
-                'robot_description': robot_desc_urdf,
-                'use_sim_time': True,
-                'frame_prefix': f'{name}/'
+                'robot_description': ParameterValue(robot_desc_urdf, value_type=str),
+                'use_sim_time': True
             }]
         )
         nodes.append(rsp_node)
@@ -177,38 +174,31 @@ def launch_setup(context, *args, **kwargs):
             executable='parameter_bridge',
             name=f'bridge_{name}',
             arguments=[
-                f"/model/{name}/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist",
-                f"/model/{name}/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry",
+                # Minimal Bridge for SLAM & Visualization
                 f"/model/{name}/lidar/points/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked",
-                f"/model/{name}/sonar/range@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked",
+                f"/model/{name}/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist",
                 f"/model/{name}/camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image",
                 f"/model/{name}/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
                 f"/model/{name}/down_camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image",
                 f"/model/{name}/down_camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
-                f"/model/{name}/imu@sensor_msgs/msg/Imu[gz.msgs.IMU",
                 f"/model/{name}/pose@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V"
             ],
             parameters=[{'qos_overrides./model': {'reliability': 'best_effort'}}],
             output='screen',
             remappings=[
+                # SLAM Inputs
                 (f"/model/{name}/cmd_vel", f"/{name}/cmd_vel"),
-                (f"/model/{name}/odometry", f"/{name}/odometry"),
-                (f"/model/{name}/lidar/points/points", f"/{name}/sensors/lidar"),
-                (f"/model/{name}/sonar/range", f"/{name}/sensors/sonar"),
+                (f"/model/{name}/lidar/points/points", f"/{name}/velodyne_points"),
                 (f"/model/{name}/camera/image_raw", f"/{name}/camera/image_raw"),
                 (f"/model/{name}/camera/camera_info", f"/{name}/camera/camera_info"),
                 (f"/model/{name}/down_camera/image_raw", f"/{name}/down_camera/image_raw"),
                 (f"/model/{name}/down_camera/camera_info", f"/{name}/down_camera/camera_info"),
-                (f"/model/{name}/imu", f"/{name}/sensors/imu"),
-                (f"/model/{name}/pose", f"/tf"), # Remap pose to /tf directly if bridge supports it, or let it publish to /tf
-                # Actually, gz bridge with TFMessage maps exactly to /tf usually if not remapped, 
-                # but here the topic is /model/{name}/pose. We want it into /tf.
-                # However, the bridge usually publishes to the exact topic name on ROS side unless remapped.
-                # So we remap /model/{name}/pose to /tf.
+                # TF for Ground Truth (RobotModel)
                 (f"/model/{name}/pose", "/tf")
             ]
         )
         nodes.append(bridge)
+
 
     return nodes
 

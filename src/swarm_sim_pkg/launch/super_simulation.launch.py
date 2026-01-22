@@ -30,15 +30,9 @@ def generate_launch_description():
     )
 
     # 1.1 Swarm SLAM (Optional)
-    swarm_slam = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            os.path.join(pkg_swarm_sim, 'launch', 'swarm_slam.launch.py')
-        ),
-        launch_arguments={
-            'num_drones': num_drones,
-        }.items(),
-        condition=IfCondition(run_slam)
-    )
+    # 1.1 Swarm SLAM (Optional - Disabled for Multi-Container)
+    # swarm_slam = IncludeLaunchDescription(...)
+    # Removed to avoid "No such file" error since we deleted swarm_slam.launch.py
     
     # 2. RViz
     rviz_config = os.path.join(pkg_swarm_sim, 'default.rviz')
@@ -57,6 +51,6 @@ def generate_launch_description():
         DeclareLaunchArgument('slam', default_value='false', description='Run Swarm SLAM?'),
         
         main_sim,
-        swarm_slam,
+        # swarm_slam,
         rviz_process
     ])

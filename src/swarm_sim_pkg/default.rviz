@@ -83,7 +83,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Best Effort
-        Value: /uav_0/sensors/lidar
+        Value: /uav_0/velodyne_points
       Style: Points
       Size (Pixels): 3
     - Class: rviz_default_plugins/Image
@@ -127,7 +127,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Best Effort
-        Value: /uav_1/sensors/lidar
+        Value: /uav_1/velodyne_points
       Style: Points
       Size (Pixels): 3
     - Alpha: 1
@@ -152,9 +152,94 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Best Effort
-        Value: /uav_2/sensors/lidar
+        Value: /uav_2/velodyne_points
       Style: Points
       Size (Pixels): 3
+    # MRG-SLAM Visualizations
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Global Map (UAV 0)
+      Topic:
+        Value: /uav_0/mrg_slam/map
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+    - Class: rviz_default_plugins/Path
+      Name: Trajectory (UAV 0)
+      Topic:
+        Value: /uav_0/mrg_slam/path
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Keyframes (UAV 0)
+      Topic:
+        Value: /uav_0/mrg_slam/keyframes
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+        
+    # UAV 1 SLAM
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Global Map (UAV 1)
+      Topic:
+        Value: /uav_1/mrg_slam/map
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+    - Class: rviz_default_plugins/Path
+      Name: Trajectory (UAV 1)
+      Topic:
+        Value: /uav_1/mrg_slam/path
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Keyframes (UAV 1)
+      Topic:
+        Value: /uav_1/mrg_slam/keyframes
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+
+    # UAV 2 SLAM
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Global Map (UAV 2)
+      Topic:
+        Value: /uav_2/mrg_slam/map
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+    - Class: rviz_default_plugins/Path
+      Name: Trajectory (UAV 2)
+      Topic:
+        Value: /uav_2/mrg_slam/path
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Keyframes (UAV 2)
+      Topic:
+        Value: /uav_2/mrg_slam/keyframes
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+
+    # Loop Closures (All)
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Loop Closures (UAV 0)
+      Topic:
+        Value: /uav_0/mrg_slam/loop_markers
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Node Names (UAV 0)
+      Topic:
+        Value: /uav_0/mrg_slam/markers/node_names
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Loop Closures (UAV 1)
+      Topic:
+        Value: /uav_1/mrg_slam/loop_markers
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Node Names (UAV 1)
+      Topic:
+        Value: /uav_1/mrg_slam/markers/node_names
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Loop Closures (UAV 2)
+      Topic:
+        Value: /uav_2/mrg_slam/loop_markers
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Node Names (UAV 2)
+      Topic:
+        Value: /uav_2/mrg_slam/markers/node_names
+        Reliability Policy: Reliable
+        Durability Policy: Transient Local
     - Class: rviz_default_plugins/Imu
       Enabled: true
       Name: UAV 0 IMU

@@ -31,6 +31,7 @@ setup(
         'console_scripts': [
             'train_single = swarm_sim.training.train_single:main',
             'train_swarm = swarm_sim.training.train_swarm:main',
+            'tf_broadcaster = swarm_sim.tf_broadcaster:main',
         ],
     },
 )

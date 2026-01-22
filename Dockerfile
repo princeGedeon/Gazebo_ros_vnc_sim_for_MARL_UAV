@@ -70,23 +70,14 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-nav2-msgs \
     ros-jazzy-rtabmap-conversions \
     ros-jazzy-teleop-twist-keyboard \
+    python3-vcstool \
+    libg2o-dev \
+    libsuitesparse-dev \
+    libgeographiclib-dev \
+    ros-jazzy-geodesy \
+    ros-jazzy-nmea-msgs \
     && rm -rf /var/lib/apt/lists/*
 
-# Build GTSAM (From Source - System Libs Missing in Jazzy Repo sometimes)
-RUN git clone https://github.com/borglab/gtsam.git /tmp/gtsam && \
-    cd /tmp/gtsam && \
-    mkdir build && cd build && \
-    cmake -DGTSAM_USE_SYSTEM_EIGEN=ON -DGTSAM_BUILD_TESTS=OFF -DGTSAM_BUILD_EXAMPLES=OFF .. && \
-    make -j4 install && \
-    rm -rf /tmp/gtsam
-
-# Build TEASER++
-RUN git clone https://github.com/MIT-SPARK/TEASER-plusplus.git /tmp/teaser && \
-    cd /tmp/teaser && \
-    # Patch for GCC 13 (Ubuntu 24.04) - Dynamically find the file
-    find . -name "tinyply.h" -exec sed -i '1i #include <cstdint>' {} + && \
-    pip3 install --break-system-packages . && \
-    rm -rf /tmp/teaser
 
 # Setup VNC and Supervisor
 RUN mkdir -p /var/log/supervisor

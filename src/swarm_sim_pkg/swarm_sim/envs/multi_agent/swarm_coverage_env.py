@@ -80,6 +80,12 @@ class SwarmCoverageEnv(ParallelEnv):
         # Wait for data
         rclpy.spin_once(self.node, timeout_sec=0.1)
         
+        # Detailed Logging (User Request)
+        print(f"\n[SwarmEnv] Reset Complete using Seed: {seed}")
+        print(f"[SwarmEnv] Active Drones: {self.num_drones} | Agents: {self.possible_agents}")
+        print(f"[SwarmEnv] Map Config: {self.global_map.__class__.__name__} | Bounds: {self.global_map.x_range}")
+        print(f"[SwarmEnv] Ground Stations: {len(self.station_positions)} active locations.")
+        
         observations = {agent: self._get_obs(agent) for agent in self.agents}
         infos = {agent: {} for agent in self.agents}
         
@@ -207,18 +213,40 @@ class SwarmCoverageEnv(ParallelEnv):
             
             r_time = -0.05
             
-            rewards[agent] = r_team_coverage + r_time + r_collision + r_energy + r_loop_closure
+            # 4. Total Reward
+            total_reward = r_team_coverage + r_time + r_collision + r_energy + r_loop_closure
+            rewards[agent] = total_reward
             
             # Termination: Collision OR Dead Battery
             terminations[agent] = collision or (bat_level <= 0.0)
             truncations[agent] = self.step_count >= 1000
             
+            # Info for Debug/Logging
             infos[agent] = {
                 "collision": collision,
-                "coverage": self.local_maps[agent].get_coverage_ratio(), # Agent's belief
-                "global_coverage": self.global_map.get_coverage_ratio(), # Truth
-                "battery": bat_level
+                "coverage": self.local_maps[agent].get_coverage_ratio(),
+                "global_coverage": self.global_map.get_coverage_ratio(),
+                "battery": bat_level,
+                "r_breakdown": {
+                    "cov": r_team_coverage,
+                    "col": r_collision,
+                    "energy": r_energy,
+                    "loop": r_loop_closure
+                }
             }
+            
+            # --- REAL-TIME LOGGING (User Request) ---
+            # Print status every step (or every N steps)
+            if self.step_count % 5 == 0: 
+                print(f"[{agent} | Step {self.step_count}] "
+                      f"Bat: {bat_level*100:.1f}% | "
+                      f"Pos: {np.round(uav.position, 1)} | "
+                      f"Rew: {total_reward:.2f} "
+                      f"(Cov:{r_team_coverage:.2f} Col:{r_collision:.0f} Eny:{r_energy:.2f} Loop:{r_loop_closure:.0f})")
+                if collision:
+                    print(f"!!! [{agent}] CRITICAL: COLLISION DETECTED !!!")
+                if bat_level < 0.2:
+                    print(f"!!! [{agent}] WARNING: BATTERY LOW (RTB Penalty Applied) !!!")
         
         if any(terminations.values()):
             for a in self.agents: terminations[a] = True
