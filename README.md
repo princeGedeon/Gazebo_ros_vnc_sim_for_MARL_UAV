@@ -73,6 +73,23 @@ python3 src/scripts/debug_rl_env.py
     *   **Occupancy Map (.npy / .laz)**: `src/swarm_sim_pkg/swarm_sim/outputs/debug_map.laz`. Use CloudCompare or similar to view the `.laz` file.
     *   **SLAM Maps (.pcd)**: `src/swarm_sim_pkg/swarm_sim/outputs/slam_map_uav_X.pcd` (if SLAM is running).
 
+### F. Visualization in RViz 📺
+You can visualize the Global Occupancy Map in real-time or post-simulation.
+
+**1. Real-Time (During Simulation)**:
+*   Open RViz2: `rviz2`
+*   Set **Fixed Frame** to `world`.
+*   Add a **PointCloud2** display.
+*   Set **Topic** to `/coverage_map_voxels`.
+*   Select **Style** as `Boxes` or `Points` to see the voxels.
+*   *Note: The map updates periodically (every 10 steps in debug script).*
+
+**2. Post-Processing (Matplotlib)**:
+To see the saved `.npy` map:
+```bash
+python3 src/scripts/visualize_occupancy.py src/swarm_sim_pkg/swarm_sim/outputs/debug_map.npy
+```
+
 ---
 **Author**: [Prince Gédéon]
 
