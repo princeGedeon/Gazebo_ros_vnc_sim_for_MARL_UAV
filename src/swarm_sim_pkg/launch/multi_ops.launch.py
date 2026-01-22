@@ -176,11 +176,13 @@ def launch_setup(context, *args, **kwargs):
             arguments=[
                 # Minimal Bridge for SLAM & Visualization
                 f"/model/{name}/lidar/points/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked",
+                f"/model/{name}/lidar_down/points/points@sensor_msgs/msg/PointCloud2[gz.msgs.PointCloudPacked",
                 f"/model/{name}/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist",
                 f"/model/{name}/camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image",
                 f"/model/{name}/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
                 f"/model/{name}/down_camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image",
                 f"/model/{name}/down_camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
+                f"/model/{name}/navsat@sensor_msgs/msg/NavSatFix[gz.msgs.NavSat",
                 f"/model/{name}/pose@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V"
             ],
             parameters=[{'qos_overrides./model': {'reliability': 'best_effort'}}],
@@ -189,10 +191,12 @@ def launch_setup(context, *args, **kwargs):
                 # SLAM Inputs
                 (f"/model/{name}/cmd_vel", f"/{name}/cmd_vel"),
                 (f"/model/{name}/lidar/points/points", f"/{name}/velodyne_points"),
+                (f"/model/{name}/lidar_down/points/points", f"/{name}/lidar_down/points"),
                 (f"/model/{name}/camera/image_raw", f"/{name}/camera/image_raw"),
                 (f"/model/{name}/camera/camera_info", f"/{name}/camera/camera_info"),
                 (f"/model/{name}/down_camera/image_raw", f"/{name}/down_camera/image_raw"),
                 (f"/model/{name}/down_camera/camera_info", f"/{name}/down_camera/camera_info"),
+                (f"/model/{name}/navsat", f"/{name}/gps"),
                 # TF for Ground Truth (RobotModel)
                 (f"/model/{name}/pose", "/tf")
             ]

@@ -16,7 +16,7 @@ class CoverageEnv(gym.Env):
     """
     metadata = {"render_modes": ["human"], "name": "uav_coverage_v0"}
 
-    def __init__(self, render_mode=None):
+    def __init__(self, render_mode=None, station_config=None):
         super().__init__()
         
         # 1. Config
@@ -42,7 +42,7 @@ class CoverageEnv(gym.Env):
         # - Local Voxel Grid (7x7x5 patch flattened): 245
         #   (radius_xy=3 -> width 7, radius_z=2 -> height 5)
         self.local_map_dim = (7 * 7 * 5)
-        obs_dim = 6 + 16 + self.local_map_dim
+        obs_dim = 6 + 16 + self.local_map_dim + 6 + 1 # +IMU + Battery
         self.observation_space = spaces.Box(low=-np.inf, high=np.inf, shape=(obs_dim,), dtype=np.float32)
 
         # 4. ROS Setup
@@ -51,9 +51,22 @@ class CoverageEnv(gym.Env):
         self.node = rclpy.create_node("coverage_gym_node")
         
         # Assuming model name 'X1' for single agent
-        self.uav = UAVBase(self.node, agent_id="X1", namespace="model")
+        self.uav = UAVBase(self.node, agent_id="uav_0", namespace="")
         
         self.current_step = 0
+        
+        # Stations
+        if station_config is None:
+             self.station_positions = np.array([[0.0, 0.0]])
+        elif isinstance(station_config, list):
+             self.station_positions = np.array(station_config)
+        else:
+             self.station_positions = np.array([[0.0, 0.0]])
+
+    def save_occupancy_map(self, filename="single_agent_map.npy"):
+        pc = self.voxel_manager.get_sparse_pointcloud()
+        np.save(filename, pc)
+        print(f"[SingleEnv] Map (Sparse) saved to {filename} | {pc.shape}")
 
     def reset(self, seed=None, options=None):
         super().reset(seed=seed)

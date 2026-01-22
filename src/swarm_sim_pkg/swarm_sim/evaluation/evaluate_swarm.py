@@ -22,6 +22,7 @@ def evaluate():
          print(f"Loaded Model: {model_path}")
 
     # Env Setup (Visual Mode)
+    # Env Setup (Visual Mode)
     env = SwarmCoverageEnv(num_drones=3, render_mode='human')
     
     # Wrappers (Must match training!)
@@ -58,6 +59,19 @@ def evaluate():
     print(f"Episode Finished.")
     print(f"Total Steps: {steps}")
     print(f"Total Reward: {total_reward}")
+    
+    # Save Generated Map
+    try:
+        # Depending on wrapper depth, we might need to access the original env
+        # vec_env -> original_env
+        raw_env = env.unwrapped
+        if hasattr(raw_env, 'save_occupancy_map'):
+             raw_env.save_occupancy_map("outputs/eval_associative_map.npy")
+        else:
+             # If parallel env wrapper hides it
+             env.get_attr("save_occupancy_map")[0]("outputs/eval_associative_map.npy")
+    except Exception as e:
+        print(f"Could not save map: {e}")
     
     # Save Metrics
     with open(f"{log_dir}/metrics.txt", "w") as f:

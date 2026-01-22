@@ -106,6 +106,35 @@ Visualization Manager:
         Value: /uav_0/down_camera/image_raw
         
     - Alpha: 1
+      Class: rviz_default_plugins/PointCloud2
+      Color Transformer: FlatColor
+      Color: 255; 0; 0
+      Enabled: true
+      Name: UAV 0 Lidar Scan
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /uav_0/velodyne_points
+      Style: Points
+      Size (Pixels): 2
+    - Alpha: 1
+      Class: rviz_default_plugins/PointCloud2
+      Color Transformer: FlatColor
+      Color: 0; 255; 0
+      Enabled: true
+      Name: UAV 0 Map Scanner (Down)
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /uav_0/lidar_down/points
+      Style: Points
+      Size (Pixels): 4
+      
+    - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Description Source: Topic
       Description Topic:
@@ -121,7 +150,7 @@ Visualization Manager:
       Color Transformer: FlatColor
       Color: 255; 0; 0
       Enabled: true
-      Name: UAV 1 Lidar
+      Name: UAV 1 Lidar Scan
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -129,7 +158,22 @@ Visualization Manager:
         Reliability Policy: Best Effort
         Value: /uav_1/velodyne_points
       Style: Points
-      Size (Pixels): 3
+      Size (Pixels): 2
+    - Alpha: 1
+      Class: rviz_default_plugins/PointCloud2
+      Color Transformer: FlatColor
+      Color: 0; 255; 0
+      Enabled: true
+      Name: UAV 1 Map Scanner (Down)
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /uav_1/lidar_down/points
+      Style: Points
+      Size (Pixels): 4
+
     - Alpha: 1
       Class: rviz_default_plugins/RobotModel
       Description Source: Topic
@@ -146,7 +190,7 @@ Visualization Manager:
       Color Transformer: FlatColor
       Color: 0; 0; 255
       Enabled: true
-      Name: UAV 2 Lidar
+      Name: UAV 2 Lidar Scan
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -154,7 +198,21 @@ Visualization Manager:
         Reliability Policy: Best Effort
         Value: /uav_2/velodyne_points
       Style: Points
-      Size (Pixels): 3
+      Size (Pixels): 2
+    - Alpha: 1
+      Class: rviz_default_plugins/PointCloud2
+      Color Transformer: FlatColor
+      Color: 0; 255; 0
+      Enabled: true
+      Name: UAV 2 Map Scanner (Down)
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /uav_2/lidar_down/points
+      Style: Points
+      Size (Pixels): 4
     # MRG-SLAM Visualizations
     - Class: rviz_default_plugins/PointCloud2
       Name: Global Map (UAV 0)

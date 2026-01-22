@@ -12,6 +12,7 @@ services:
     network_mode: host # Essential for ROS 2 communication between containers
     volumes:
       - ./src:/root/ros2_ws/src
+      - ./outputs:/root/ros2_ws/src/swarm_sim_pkg/swarm_sim/outputs
       - /tmp/.X11-unix:/tmp/.X11-unix
     ipc: host
     stdin_open: true

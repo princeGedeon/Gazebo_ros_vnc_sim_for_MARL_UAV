@@ -1,0 +1,1 @@
+/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim/swarm_sim/assets/PX4-gazebo-models/tools/motor_failure.sh

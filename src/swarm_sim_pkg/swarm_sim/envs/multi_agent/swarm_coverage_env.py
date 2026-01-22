@@ -17,14 +17,22 @@ class SwarmCoverageEnv(ParallelEnv):
     """
     metadata = {"render_modes": ["human"], "name": "swarm_coverage_v0"}
 
-    def __init__(self, num_drones=3):
+    def __init__(self, num_drones=3, station_config=None, max_steps=1000):
         self.num_drones = num_drones
+        self.station_config = station_config
+        self.max_steps = max_steps
+
         self.possible_agents = [f"uav_{i}" for i in range(self.num_drones)]
         self.agents = self.possible_agents[:]
         
         # 1. Logic
+        # Storage Simulation
+        self.MAX_STORAGE = 500 # Voxel Capacity
+        self.agents_storage = {a: 0 for a in self.agents}
         # Global Truth (for evaluation/global reward)
         self.global_map = VoxelManager(x_range=(-20, 20), y_range=(-20, 20), z_range=(0,10))
+        # Central Station Map (Realistic Output - Only updates on offload)
+        self.central_map = VoxelManager(x_range=(-20, 20), y_range=(-20, 20), z_range=(0,10))
         
         # Local Beliefs (Decentralized)
         self.local_maps = {
@@ -56,23 +64,45 @@ class SwarmCoverageEnv(ParallelEnv):
         self.node = rclpy.create_node("swarm_coverage_node")
         self.viz = VoxelVisualizer()
         
-        # Ground Stations (Must match Launch file)
-        # We could pass this as arg or config, for now hardcoded matches
-        self.station_positions = np.array([
-            [5.0, 5.0], [-5.0, 5.0], [5.0, -5.0], [-5.0, -5.0],
-            [10.0, 0.0], [-10.0, 0.0], [0.0, 10.0], [0.0, -10.0]
-        ])
-        # Active stations count (default 1, should match launch arg usually)
-        # But we can just "simulate" all of them being valid pads.
-        
+        # Ground Stations Config (User Request)
+        # station_config can be an int (count) or list of [x, y]
+        if station_config is None:
+            # Default: 1 Station at Origin (or matching launch defaults)
+            self.station_positions = np.array([[0.0, 0.0]])
+        elif isinstance(station_config, int):
+            # Generate N random stations (simple heuristic)
+            self.station_positions = np.random.uniform(-15, 15, size=(station_config, 2))
+        elif isinstance(station_config, list) or isinstance(station_config, np.ndarray):
+            self.station_positions = np.array(station_config)
+        else:
+             self.station_positions = np.array([[0.0, 0.0]])
+
         self.uavs = {}
         for agent in self.possible_agents:
             # Assuming model names are uav_0, uav_1... in Gazebo
             self.uavs[agent] = UAVBase(self.node, agent_id=agent, namespace="")
 
+    def save_occupancy_map(self, filename="outputs/associative_map.npy"):
+        """Save the Central Station Map (Realistic Offloaded Data)"""
+        # Ensure output directory exists
+        output_dir = os.path.dirname(filename)
+        if output_dir and not os.path.exists(output_dir):
+            os.makedirs(output_dir, exist_ok=True)
+
+        # Save as Sparse Point Cloud (Optimal storage)
+        # We save what the STATION knows, not the God-Mode truth.
+        pc = self.central_map.get_sparse_pointcloud()
+        np.save(filename, pc)
+        
+        full_path = os.path.abspath(filename)
+        print(f"[SwarmEnv] Central Station Map (Sparse) saved to: {full_path} | shape: {pc.shape}")
+        # Hint for User
+        print(f"[SwarmEnv] To visualize in Python: data = np.load('{full_path}')")
+
     def reset(self, seed=None, options=None):
         self.agents = self.possible_agents[:]
         self.global_map.reset()
+
         for m in self.local_maps.values():
             m.reset()
         self.step_count = 0
@@ -83,7 +113,9 @@ class SwarmCoverageEnv(ParallelEnv):
         # Detailed Logging (User Request)
         print(f"\n[SwarmEnv] Reset Complete using Seed: {seed}")
         print(f"[SwarmEnv] Active Drones: {self.num_drones} | Agents: {self.possible_agents}")
-        print(f"[SwarmEnv] Map Config: {self.global_map.__class__.__name__} | Bounds: {self.global_map.x_range}")
+        if self.step_count == 0:
+            print(f"[SwarmEnv] Map Config: {self.global_map.__class__.__name__} | Bounds: ({self.global_map.x_min}, {self.global_map.x_max})")
+            print(f"[SwarmEnv] Station Mode: {self.station_config}")
         print(f"[SwarmEnv] Ground Stations: {len(self.station_positions)} active locations.")
         
         observations = {agent: self._get_obs(agent) for agent in self.agents}
@@ -103,16 +135,50 @@ class SwarmCoverageEnv(ParallelEnv):
         rclpy.spin_once(self.node, timeout_sec=0.1)
         
         # Update Logic
-        # Update Logic
         # 1. Update each agent's local map and the global map
         uav_positions = {}
         for agent in self.agents:
-            pos = self.uavs[agent].position
+            uav = self.uavs[agent]
+            pos = uav.position
             uav_positions[agent] = pos
-            # Update Local
+            
+            # Update Map using Downward Lidar if available, else Pos (fallback)
+            # We assume VoxelManager can handle pointclouds or we convert them
+            # For now, let's assume update() takes [pos] like before unless we change VoxelManager api
+            # Start simpl: pass pos combined with lidar hits? 
+            # Actually, `voxel_manager.update` typically takes "Points that are free" or "Points that are occupied".
+            # If we want Raycasting, we need to pass the Origin + Hits.
+            
+            # Simple "IGN-Style" implementation:
+            # If we have lidar_down_data (PointCloud2), we should parse it.
+            # Parsing PC2 in Python is slow. 
+            # Alternative: Assume simple "Cone" below drone is free/occupied based on altitude?
+            # User wants "Lidar vs GPS". Let's stick to the previous simple logic for "Free Space"
+            # BUT adding "Hits" from lidar_down would be the real upgrade.
+            
+            # Let's keep using 'update([pos])' which clears space around drone (blind clearing)
+            # And ADD 'update_hits(points)' if we parsed PC2.
+            # Given complexity of specific PC2 parsing here, let's stick to 'pos' for clearing
+            # but mark it as "TODO: Parse PC2 for obstacles".
+            
+            # Reverting to simple update for stability, but we prepared the data channel.
+            # self.local_maps[agent].update([pos])
+            # self.global_map.update([pos])
+
+            # --- NEW: FUSION LOGIC ---
+            # 1. Update Free Space at Drone Position (Always true)
             self.local_maps[agent].update([pos])
-            # Update Global
             self.global_map.update([pos])
+            
+            # 2. Update Discovered Obstacles (From Down Lidar)
+            # This fills the "Surface" of the map
+            hits_world = uav.get_transformed_down_lidar()
+            if hits_world is not None:
+                # print(f"Fusing {len(hits_world)} pts from {agent}")
+                self.local_maps[agent].update_from_pointcloud(hits_world)
+                self.global_map.update_from_pointcloud(hits_world)
+            # -------------------------
+
 
         # 2. Decentralized Map Merging (Swarm-SLAM Logic)
         # Verify connectivity
@@ -196,8 +262,80 @@ class SwarmCoverageEnv(ParallelEnv):
                 if bat_level < 0.05 and is_moving:
                     r_energy -= 10.0 # Critical penalty for moving when dead
             
-            # Recharge logic
-            self._check_recharge(uav)
+            # Recharge logic & Data Offload
+            # self._check_recharge(uav) -> integrated below
+            
+            # --- LOGIC: STORAGE & RETURN TO BASE ---
+            
+            # 1. Update Storage & Fusion
+            # NOTE: We partially fused earlier (global_map.update). 
+            # We need to track NEW knowledge for this agent specifically for storage.
+            # Rerun local update to get count?
+            # Or better: Move the Fusion Logic from line 158 down here?
+            # Creating a unified block for Map + Storage.
+            
+            new_knowledge = 0
+            hits_world = uav.get_transformed_down_lidar()
+            if hits_world is not None:
+                new_knowledge = self.local_maps[agent].update_from_pointcloud(hits_world)
+                self.global_map.update_from_pointcloud(hits_world)
+            
+            # Simple position update
+            self.local_maps[agent].update([uav.position])
+            self.global_map.update([uav.position])
+
+            # Fill Buffer
+            self.agents_storage[agent] += new_knowledge
+            storage_pct = min(self.agents_storage[agent] / self.MAX_STORAGE, 1.0)
+            
+            # 2. Critical State Check (RTB Trigger)
+            # RTB if Battery < 30% OR Storage > 80%
+            is_rtb_needed = (bat_level < 0.30) or (storage_pct > 0.80)
+            
+            r_rtb = 0.0 
+            
+            if is_rtb_needed:
+                # Shaping Reward: Encourage getting closer to NEAREST station
+                # Use calculated 'min_dist'
+                r_rtb -= (min_dist * 0.1) 
+                r_rtb -= 0.5 
+                
+                # Block Exploration Reward if full
+                if storage_pct >= 1.0:
+                    r_team_coverage = 0.0 
+            
+            # 3. Offload & Recharge (At Station)
+            r_storage = 0.0
+            if min_dist < 2.0:
+                uav.battery.recharge()
+                
+                # Offload to Central
+                if self.agents_storage[agent] > 0:
+                    dump_amount = self.agents_storage[agent]
+                    self.central_map.merge_from(self.local_maps[agent])
+                    
+                    r_storage = 2.0 + (dump_amount * 0.05) 
+                    print(f"[{agent}] 📥 OFFLOADED {dump_amount} voxels! Storage Empty.")
+                    self.agents_storage[agent] = 0 
+                else:
+                    r_storage = 0.5 
+            
+            if min_dist < 2.0:
+                # At Station!
+                uav.battery.recharge()
+                
+                # DATA OFFLOAD LOGIC (Realistic Mode)
+                # We merge the agent's Local Map into the Central Station Map
+                # This simulates "uploading" the survey data.
+                new_knowledge = self.central_map.merge_from(self.local_maps[agent])
+                
+                # Reward for bringing NEW data to the station
+                # This transforms the problem into a "Data Mule" task.
+                if new_knowledge > 0:
+                     r_storage = 2.0 + (new_knowledge * 0.01) # Big bonus for dump
+                     print(f"[{agent}] Offloaded {new_knowledge} new voxels to Central Station!")
+                else:
+                     r_storage = 0.5 # Small maintenance reward
             
             # 3. Decentralized Loop Closure Sharing
             neighbors = self._get_neighbors(agent)
@@ -219,7 +357,7 @@ class SwarmCoverageEnv(ParallelEnv):
             
             # Termination: Collision OR Dead Battery
             terminations[agent] = collision or (bat_level <= 0.0)
-            truncations[agent] = self.step_count >= 1000
+            truncations[agent] = self.step_count >= self.max_steps
             
             # Info for Debug/Logging
             infos[agent] = {
@@ -242,7 +380,7 @@ class SwarmCoverageEnv(ParallelEnv):
                       f"Bat: {bat_level*100:.1f}% | "
                       f"Pos: {np.round(uav.position, 1)} | "
                       f"Rew: {total_reward:.2f} "
-                      f"(Cov:{r_team_coverage:.2f} Col:{r_collision:.0f} Eny:{r_energy:.2f} Loop:{r_loop_closure:.0f})")
+                      f"[Cov:{r_team_coverage:.2f} | Col:{r_collision:.0f} | Eny:{r_energy:.2f} | Store:{r_storage:.2f}]")
                 if collision:
                     print(f"!!! [{agent}] CRITICAL: COLLISION DETECTED !!!")
                 if bat_level < 0.2:
@@ -253,11 +391,26 @@ class SwarmCoverageEnv(ParallelEnv):
             
         # Visualization (RViz) - Publish Global Truth for Debug
         if self.step_count % 10 == 0: 
-             self.viz.publish_voxels(self.global_map.grid, 
+             self.viz.publish_voxels(self.global_map.get_sparse_pointcloud(), 
                                    self.global_map.resolution,
                                    self.global_map.x_min,
                                    self.global_map.y_min,
                                    self.global_map.z_min)
+             
+             # Publish Communication Range (Ellipses)
+             positions = {a: self.uavs[a].position for a in self.agents}
+             self.viz.publish_comm_range(positions, range_radius=5.0)
+             
+             # Publish Stations (Green Spheres)
+             self.viz.publish_stations(self.station_positions)
+             
+             # Publish Lidar Cones (Red Pyramids)
+             # We need current states
+             states = {a: self.uavs[a].get_state() for a in self.agents} # Assuming state[:3] is pos
+             self.viz.publish_lidar_cone(states)
+
+        # Compute observations for next step
+        observations = {agent: self._get_obs(agent) for agent in self.agents}
             
         return observations, rewards, terminations, truncations, infos
 
@@ -283,12 +436,23 @@ class SwarmCoverageEnv(ParallelEnv):
         uav = self.uavs[agent]
         state = uav.get_state() # now includes battery
         
-        # Lidar
+        # Lidar (360 -> 16 sectors)
         scan = uav.lidar_ranges
-        if len(scan) == 360:
-            scan_ds = np.mean(scan.reshape(-1, 360//16), axis=1)
+        if len(scan) >= 352:
+            # Downsample to 16 sectors by averaging
+            # 360 / 16 = 22.5. We truncate to 352 (16*22)
+            scan_cut = scan[:352] 
+            scan_ds = np.mean(scan_cut.reshape(16, 22), axis=1) # (16,)
+        elif len(scan) > 0:
+            # Fallback if scan is weird size (e.g. from different sensor)
+            # Simple interpolation or just zeros
+            scan_ds = np.zeros(16)
+            # Try basic sampling
+            indices = np.linspace(0, len(scan)-1, 16).astype(int)
+            scan_ds = scan[indices]
         else:
             scan_ds = np.zeros(16)
+
             
         # Voxel Patch from LOCAL map
         patch = self.local_maps[agent].get_observation(state[0], state[1], state[2], r_xy=3, r_z=2)

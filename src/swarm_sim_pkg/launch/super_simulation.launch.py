@@ -51,6 +51,14 @@ def generate_launch_description():
         DeclareLaunchArgument('slam', default_value='false', description='Run Swarm SLAM?'),
         
         main_sim,
+        
+        # Spawn Physical Ground Stations
+        IncludeLaunchDescription(
+             PythonLaunchDescriptionSource(
+                 os.path.join(pkg_swarm_sim, 'launch', 'spawn_stations.launch.py')
+             )
+        ),
+        
         # swarm_slam,
         rviz_process
     ])

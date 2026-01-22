@@ -1,90 +1,65 @@
+# Multi-UAV Swarm Coverage & Mapping Framework 🚁🌍
 
-# 🏗️ Swarm Simulation Package
-> **Realised by Prince Gedeon**
+**Research Project: Decentralized Multi-Agent Reinforcement Learning (MARL) for Cooperative 3D Urban Mapping.**
 
-This repository contains a modular **Multi-Agent Reinforcement Learning (MARL)** framework for UAV swarm coverage tasks in 3D urban environments, built on **ROS 2 Jazzy** and **Gazebo Harmonic**.
+## 1. Project Overview
 
-## 📂 Architecture
+This framework implements a **Decentralized Partially Observable Markov Decision Process (Dec-POMDP)** to solve the cooperative coverage path planning (CPP) problem in unknown 3D urban environments.
 
-The codebase is structured as a standard ROS 2 python package:
+It features a **Hybrid Architecture** combining:
+*   **Distributed Graph SLAM** (`mrg_slam`) using **360° Lidar** for localization (The "Skeleton").
+*   **Volumetric Mapping** (`VoxelManager`) using **Downward-Facing Lidar** for ground/obstacle coverage (The "Flesh").
+*   **Multi-Agent RL (MAPPO)** for autonomous decision-making using `SKRL` and `PettingZoo`.
 
-```text
-swarm_sim_pkg/
-├── setup.py                    # Build configuration (Fixed to ignore .git)
-├── package.xml                 # Dependencies
-└── swarm_sim/                  # Core Python Module
-    ├── assets/                 # Simulation Assets
-    │   ├── models/             # UAV SDF Models (x500_sensors.sdf.xacro)
-    │   └── PX4-gazebo-models/  # Official PX4 Assets (Cloned)
-```
+## 2. Key Features
 
-## 🚀 Getting Started
+*   **Dual-Sensor Setup**:
+    *   **Lidar 360°**: Used for SLAM, Loop Closures, and Obstacle Avoidance (Horizontal).
+    *   **Lidar Down (Nadir)**: Dedicated sensor for mapping the urban surface and roofs (Vertical).
+*   **Procedural City Generation**: Generate sparse to dense urban canyons with a single command.
+*   **Data Mule Logic**: UAVs must physically return to base stations to offload data, simulated by a realistic buffer constraints.
+*   **Sparse Voxel Hashing**: Optimized memory management for large-scale 3D mapping.
+*   **Global Georeferencing**: Fusion of GPS anchors with SLAM graph for GIS-compatible output (`.npy`, `.las`).
 
-**[📖 READ THE MASTER GUIDE HERE (docs/GUIDE.md)](docs/GUIDE.md)**
+## 3. Installation & Build
 
-### 0. Prerequisites (Critical)
-Before anything, you must download the official PX4 3D models.
-Run this inside `src/swarm_sim_pkg/swarm_sim/assets/`:
 ```bash
-cd src/swarm_sim_pkg/swarm_sim/assets/
-git clone https://github.com/PX4/PX4-gazebo-models.git
+cd ~/ros2_ws
+colcon build --symlink-install --packages-select swarm_sim
+source install/setup.bash
 ```
-*Without this, the drones will be invisible.*
 
-### 1. Automated Launch (Recommended)
-We have created a "magic script" that handles cleaning, building, and launching:
+## 4. Usage Guide
+
+### A. Procedural City Generation 🏙️
+Generate a custom testing ground:
+
 ```bash
-./autolaunch.sh
+# Generate a dense 100x100m city with 8m tall buildings
+python3 src/swarm_sim_pkg/swarm_sim/assets/worlds/generate_city.py \
+    --output src/swarm_sim_pkg/swarm_sim/assets/worlds/generated_city.sdf \
+    --mode full \
+    --width 100 \
+    --length 100 \
+    --max_height 8
 ```
-**What this script does:**
-1.  **Fixes Git Permissions**: Resolves "dubious ownership" errors.
-2.  **Cleans Build**: Removes conflicting artifacts.
-3.  **Builds Workspace**: Compiles `swarm_sim` (ignoring large `.git` folders).
-4.  **Launches**: Starts 3 drones with SLAM enabled.
 
-### 2. Manual Launch
-If you prefer manual control:
+### B. Launching Simulation 🚀
+Launch the environment with your generated map:
+
 ```bash
-# General Launch
-ros2 launch swarm_sim super_simulation.launch.py num_drones:=3
-
-# With SLAM
-ros2 launch swarm_sim super_simulation.launch.py num_drones:=3 slam:=true
+ros2 launch swarm_sim super_simulation.launch.py map_file:=generated_city.sdf num_drones:=3
 ```
 
-## 🛠 Features
+### C. Training / Debugging RL Agent 🧠
+Run the PettingZoo environment loop (with SKRL integration):
 
-- **Real Visuals**: Official PX4 X500 mesh integration with spinning Lidar and visible laser rays.
-- **Swarm-SLAM**: Integrated C-SLAM for collaborative mapping.
-- **Volumetric Coverage**: `VoxelManager` for 3D RL tasks.
-- **City Generation**: Procedural generation scripts.
-
-### 🏙️ City Generation
-You can generate custom 3D cities with random buildings:
 ```bash
-# Inside the container:
-cd src/swarm_sim_pkg/swarm_sim/assets/worlds/
-python3 generate_city.py --output my_city.sdf --num_blocks 50 --mode full --seed 42
+python3 src/scripts/debug_rl_env.py
 ```
-**Parameters:**
-- `--num_blocks`: Base number of buildings.
-- `--mode`: Density (`low`, `medium`, `full`).
-- `--seed`: For reproducible cities.
-- `--outputs`: Output filename (use this in launch: `map_file:=my_city.sdf`).
+*   **Logs**: storage status (`Sto: 80%`), rewards breakdown, and battery levels.
+*   **Output**: Saves `associative_map.npy` (The merged global map) upon completion.
 
-### 🔍 Visualization (RViz2)
-- **Topic Reliability**: Set to **Best Effort** for Lidar/Camera.
-- **Frames**: `map` or `world`.
-- **Displays**: RobotModel, LaserScan/PointCloud2, Image.
+---
+**Author**: [Prince Gédéon]
 
-## 🐛 Bug Correction History (Recent Fixes)
-1.  **Visuals Recovered**: Replaced broken `drone.stl` with official `PX4-gazebo-models`.
-2.  **Build Fixed**: Modified `setup.py` to exclude `.git` folders from asset globbing, preventing build failures.
-3.  **SDF Syntax Error**: Fixed `inertia` tag usage (SDF vs URDF attributes) which caused models to vanish.
-4.  **Autolaunch Fix**: Corrected package name `swarm_sim_pkg` -> `swarm_sim` in build command.
-5.  **Dubious Ownership**: Added `git config safe.directory '*'`.
-6.  **SLAM Dependencies**: Moved `numba`/`sklearn` to pip installation.
-
-## 🤝 Credits & Inspirations
-- **Swarm-SLAM (C-SLAM)**: [Lajoie et al.](https://github.com/MISTLab/Swarm-SLAM)
-- **PX4 Autopilot**: Official Gazebo Models.
