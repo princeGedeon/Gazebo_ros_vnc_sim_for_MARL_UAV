@@ -34,6 +34,10 @@ $$R_{total}^i = w_c \cdot R_{cov} + w_s \cdot R_{store} + w_e \cdot R_{energy} +
     $$P_{rtb} = - \lambda \cdot \| p_t^i - P_{station} \|$$
     Provides a gradient pushing the agent towards the station.
 
+4.  **Stability & Ground Safety ($R_{stab} + R_{ground}$)**:
+    *   **Stability**: $R_{stab} = -0.5 \cdot (|Roll| + |Pitch|)$. Encourages flat flight.
+    *   **Ground Safety**: If $z < 0.3m$ and tilt $> 0.26$ rad ($\approx 15^\circ$), huge penalty $(-5.0)$ to prevent crashing on landing.
+
 ## 2. System Architecture
 
 ### Hybrid Mapping Pipeline
@@ -83,6 +87,8 @@ Located in `src/scripts/train_skrl.py` and `swarm_coverage_env.py`.
 | **Collision Penalty** | $P_{col}$ | `-100.0` | Penalty for wall impact. |
 | **Storage Reward** | $w_s$ | `2.0` | Base reward for offloading data. |
 | **Energy Cost** | $w_e$ | `-0.1` | Cost per meter traveled. |
+| **Stability Penalty** | $w_{stab}$ | `-0.5` | Penalty scale for tilt (Roll/Pitch). |
+| **Ground Crash** | $P_{crash}$ | `-5.0` | Penalty for unsafe landing/tipping. |
 | **Learning Rate** | $\alpha$ | `3e-4` | Optimizer step size (PPO). |
 | **Gamma** | $\gamma$ | `0.99` | Discount factor. |
 
@@ -105,12 +111,21 @@ ros2 launch swarm_sim super_simulation.launch.py
 ```
 *Wait until you see the drones on the ground in Gazebo.*
 
-### Step 3: Run Mapping (Octomap)
-In a separate terminal, launch the mapping nodes (one per drone) to generate the 3D map:
+### Step 3: Run Swarm SLAM (MRG)
+In a separate terminal, launch the distributed Graph SLAM system (one node per drone):
 ```bash
-ros2 launch swarm_sim mapping.launch.py use_sim_time:=True
+ros2 launch swarm_sim swarm_slam.launch.py
 ```
-*   **Visualization**: In RViz, add "OccupancyGrid" or "OccupancyMap" displays for topics like `/uav_0/map` or `/uav_0/octomap_full`.
+*   **Verification**: This enables "Global Map" saving (with GPS constraints) and loop closure.
+*   **topics**: `/uav_*/mrg_slam/map`, `/uav_*/mrg_slam/graph`
+*   **Real-time Viz**:
+    *   **Occupancy (Global)**: Add `PointCloud2`, Topic `/coverage_map_voxels`.
+    *   **Markers (Cones/Stations)**: Add `MarkerArray`, Topic `/comm_range_markers`.
+
+### Note on Map Formats
+The environment now saves maps in **.npy** (Raw Indices), **.laz** (Compressed Lidar), and **.ply** (Mesh/Point Viz).
+*   **Best for Visualization**: `.laz` (use CloudCompare/QGIS) or `.ply` (MeshLab).
+*   **Best for Python**: `.npy` (use `visualize_occupancy.py`).
 
 ### Step 4: Start RL Training
 Launch the centralized training script (Multi-Agent PPO).
@@ -118,8 +133,9 @@ Launch the centralized training script (Multi-Agent PPO).
 cd src/swarm_sim_pkg/swarm_sim/training
 python3 train_swarm.py
 ```
-*   **Outputs**: Check `./logs/` for Tensorboard data.
-*   **Model**: Saved as `ppo_swarm_coverage.zip` upon completion.
+*   **Outputs**: Check `src/swarm_sim_pkg/swarm_sim/logs/` for Tensorboard data.
+*   **Model**: Saved to `src/swarm_sim_pkg/swarm_sim/models/ppo_swarm_coverage.zip` upon completion.
+*   **Visualization**: Open RViz and check `/coverage_map_voxels` to see the agents learning to explore.
 
 ### Step 5: Evaluation & Map Generation
 To test the trained policy and generate the final Associative Map:

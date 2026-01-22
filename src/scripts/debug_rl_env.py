@@ -31,7 +31,7 @@ def main():
     
     # Boucle de Test
     print("3. Boucle d'interaction (100 steps)...")
-    for step in range(100):
+    for step in range(1000):
         # Actions Aléatoires (Remplacer par votre Agent RL ici)
         actions = {agent: env.action_space(agent).sample() for agent in env.agents}
         
@@ -54,7 +54,47 @@ def main():
          output_path = "outputs/debug_map.npy"
          
     env.save_occupancy_map(output_path)
+    # Also save as LAZ for visualization
+    laz_path = output_path.replace(".npy", ".laz")
+    env.save_occupancy_map(laz_path)
+
+    # 5. Save Global SLAM Map (MRG) - User Requirement: "GPS et tout ça"
+    print("5. Sauvegarde des cartes Globales (SLAM MRG)...")
+    import subprocess
     
+    # Ensure outputs dir is absolute for ROS 2 service
+    # If script running from root, abspath is cleaner
+    abs_output_path = os.path.abspath("src/swarm_sim_pkg/swarm_sim/outputs")
+    if not os.path.exists(abs_output_path):
+        os.makedirs(abs_output_path, exist_ok=True)
+
+    for i in range(3): # Hardcoded for 3 drones in debug
+        agent = f"uav_{i}"
+        filename = os.path.join(abs_output_path, f"slam_map_{agent}.pcd")
+        
+        # Service Call structure:
+        # ros2 service call /uav_0/mrg_slam/save_map mrg_slam_msgs/srv/SaveMap "{file_path: ..., resolution: 0.1}"
+        cmd = [
+            "ros2", "service", "call",
+            f"/{agent}/mrg_slam/save_map",
+            "mrg_slam_msgs/srv/SaveMap",
+            f"{{file_path: '{filename}', resolution: 0.1}}"
+        ]
+        
+        print(f"   Requesting Map Save for {agent} -> {filename}...")
+        try:
+            # We use a timeout to avoid hanging if SLAM isn't running
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=5)
+            if "response" in result.stdout:
+                print(f"   [SUCCESS] {agent} Map Saved.")
+            else:
+                 print(f"   [WARNING] Failed to save {agent} map. Is SLAM running? (ros2 launch swarm_sim swarm_slam.launch.py)")
+                 # print(result.stderr)
+        except subprocess.TimeoutExpired:
+             print(f"   [TIMEOUT] Service call timed out for {agent}.")
+        except Exception as e:
+             print(f"   [ERROR] {e}")
+
     # Close
     env.close()
     print("=== Test Terminé avec Succès ===")

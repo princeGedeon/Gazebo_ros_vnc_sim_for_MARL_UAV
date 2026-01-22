@@ -23,15 +23,24 @@ def main():
     
     # 3. Model
     # Since observation space is uniform, we can use standard PPO (Parameter Sharing)
-    model = PPO("MlpPolicy", env, verbose=1, tensorboard_log="./logs/swarm_coverage/")
+    # 3. Model
+    # Since observation space is uniform, we can use standard PPO (Parameter Sharing)
+    # Logs validation: src/swarm_sim_pkg/swarm_sim/logs
+    log_path = os.path.abspath("src/swarm_sim_pkg/swarm_sim/logs")
+    model = PPO("MlpPolicy", env, verbose=1, tensorboard_log=log_path)
     
     # 4. Train
-    print("Starting Swarm Training (20k steps)...")
-    model.learn(total_timesteps=20000)
+    print("Starting Swarm Training (100k steps)...")
+    print(f"Monitor training with: tensorboard --logdir {log_path}")
+    print("Real-time Visualization: Open RViz -> /coverage_map_voxels")
+    model.learn(total_timesteps=100000)
     
     # 5. Save
-    model.save("ppo_swarm_coverage")
-    print("Model Saved.")
+    model_dir = os.path.abspath("src/swarm_sim_pkg/swarm_sim/models")
+    os.makedirs(model_dir, exist_ok=True)
+    save_path = os.path.join(model_dir, "ppo_swarm_coverage")
+    model.save(save_path)
+    print(f"Model Saved to {save_path}")
     
     env.close()
 

@@ -83,16 +83,70 @@ class SwarmCoverageEnv(ParallelEnv):
             self.uavs[agent] = UAVBase(self.node, agent_id=agent, namespace="")
 
     def save_occupancy_map(self, filename="outputs/associative_map.npy"):
-        """Save the Central Station Map (Realistic Offloaded Data)"""
+        """Save the Central Station Map. Supports .npy, .laz, .ply"""
         # Ensure output directory exists
         output_dir = os.path.dirname(filename)
         if output_dir and not os.path.exists(output_dir):
             os.makedirs(output_dir, exist_ok=True)
 
-        # Save as Sparse Point Cloud (Optimal storage)
-        # We save what the STATION knows, not the God-Mode truth.
-        pc = self.central_map.get_sparse_pointcloud()
-        np.save(filename, pc)
+        pc = self.central_map.get_sparse_pointcloud() # (N, 3) Ints (Indices)
+        
+        # Convert Indices to Meters for standard formats (LAZ/PLY)
+        # Assuming origin (0,0,0) of map is at x_min, y_min, z_min
+        # Center of voxel = min + (index + 0.5) * res
+        # User defined x_range, etc. in __init__
+        px = self.central_map.x_min + (pc[:,0] + 0.5) * self.central_map.resolution
+        py = self.central_map.y_min + (pc[:,1] + 0.5) * self.central_map.resolution
+        pz = self.central_map.z_min + (pc[:,2] + 0.5) * self.central_map.resolution
+        
+        points_metric = np.stack([px, py, pz], axis=1)
+
+        if filename.endswith(".npy"):
+            np.save(filename, pc) # Save INDICES (Raw Data)
+            
+        elif filename.endswith(".laz") or filename.endswith(".las"):
+            try:
+                import laspy
+                # Create LAS Header
+                header = laspy.LasHeader(point_format=3, version="1.2")
+                header.add_extra_dims([
+                    laspy.ExtraBytesParams(name="voxel_x", type=np.int32),
+                    laspy.ExtraBytesParams(name="voxel_y", type=np.int32),
+                    laspy.ExtraBytesParams(name="voxel_z", type=np.int32)
+                ])
+                header.offsets = [0,0,0]
+                header.scales = [0.01, 0.01, 0.01] # 1cm precision
+                
+                las = laspy.LasData(header)
+                las.x = points_metric[:, 0]
+                las.y = points_metric[:, 1]
+                las.z = points_metric[:, 2]
+                
+                # Store Indices as extra fields
+                las.voxel_x = pc[:, 0]
+                las.voxel_y = pc[:, 1]
+                las.voxel_z = pc[:, 2]
+                
+                las.write(filename)
+                print(f"[SwarmEnv] Saved LAZ/LAS to {filename}")
+            except ImportError:
+                print("[SwarmEnv] Error: 'laspy' not installed. saving as .npy instead.")
+                np.save(filename.replace(".laz", ".npy"), pc)
+
+        elif filename.endswith(".ply"):
+             # Simple PLY ASCII writer
+             with open(filename, 'w') as f:
+                 f.write("ply\nformat ascii 1.0\n")
+                 f.write(f"element vertex {len(points_metric)}\n")
+                 f.write("property float x\nproperty float y\nproperty float z\n")
+                 f.write("end_header\n")
+                 for p in points_metric:
+                     f.write(f"{p[0]:.3f} {p[1]:.3f} {p[2]:.3f}\n")
+             print(f"[SwarmEnv] Saved PLY to {filename}")
+        
+        else:
+            # Default to npy
+            np.save(filename, pc)
         
         full_path = os.path.abspath(filename)
         print(f"[SwarmEnv] Central Station Map (Sparse) saved to: {full_path} | shape: {pc.shape}")
@@ -351,12 +405,34 @@ class SwarmCoverageEnv(ParallelEnv):
             
             r_time = -0.05
             
-            # 4. Total Reward
-            total_reward = r_team_coverage + r_time + r_collision + r_energy + r_loop_closure
+            # --- 4. Stability & Ground Safety (New) ---
+            # Get Orientation
+            rpy = uav.get_rpy()
+            roll, pitch, _ = rpy
+            tilt_magnitude = abs(roll) + abs(pitch)
+            
+            # A. General Stability: Penalize any tilt (encourage flat hover)
+            r_stab = -0.5 * tilt_magnitude
+            
+            # B. Ground Instability (Crash/Tip-over Risk)
+            # If close to ground (< 0.2m) and tilted (> 15 deg ~= 0.26 rad), HUGE Penalty
+            r_ground = 0.0
+            z_height = uav.position[2]
+            if z_height < 0.3:
+                if tilt_magnitude > 0.26: 
+                     r_ground = -5.0 # Penalize tipping on landing
+                else: 
+                     # Safe landing zone bonus? Or just neutral.
+                     pass
+            
+            # 5. Total Reward
+            total_reward = r_team_coverage + r_time + r_collision + r_energy + r_loop_closure + r_stab + r_ground
             rewards[agent] = total_reward
             
-            # Termination: Collision OR Dead Battery
-            terminations[agent] = collision or (bat_level <= 0.0)
+            # Termination: Collision OR Dead Battery OR Tipped Over
+            is_tipped = (z_height < 0.3) and (tilt_magnitude > 1.0) # >60 deg tilt on ground = crashed
+            
+            terminations[agent] = collision or (bat_level <= 0.0) or is_tipped
             truncations[agent] = self.step_count >= self.max_steps
             
             # Info for Debug/Logging
@@ -365,11 +441,14 @@ class SwarmCoverageEnv(ParallelEnv):
                 "coverage": self.local_maps[agent].get_coverage_ratio(),
                 "global_coverage": self.global_map.get_coverage_ratio(),
                 "battery": bat_level,
+                "tilt": tilt_magnitude,
                 "r_breakdown": {
                     "cov": r_team_coverage,
                     "col": r_collision,
                     "energy": r_energy,
-                    "loop": r_loop_closure
+                    "loop": r_loop_closure,
+                    "stab": r_stab,
+                    "ground": r_ground
                 }
             }
             

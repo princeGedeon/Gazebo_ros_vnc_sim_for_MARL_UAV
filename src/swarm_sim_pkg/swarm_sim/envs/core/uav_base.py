@@ -28,7 +28,7 @@ class UAVBase:
         self.odom_sub = node.create_subscription(
             Odometry, 
             f'/{self.agent_id}/odometry', 
-            self.odom_callback, 10
+            self.odom_callback, qos_profile_sensor_data
         )
         self.lidar_sub = node.create_subscription(
             PointCloud2,
@@ -44,7 +44,7 @@ class UAVBase:
         self.imu_sub = node.create_subscription(
             Imu,
             f'/{self.agent_id}/imu',
-            self.imu_callback, 10
+            self.imu_callback, qos_profile_sensor_data
         )
         
         # State storage

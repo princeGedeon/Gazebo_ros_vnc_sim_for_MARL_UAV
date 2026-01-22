@@ -51,14 +51,27 @@ Launch the environment with your generated map:
 ros2 launch swarm_sim super_simulation.launch.py map_file:=generated_city.sdf num_drones:=3
 ```
 
-### C. Training / Debugging RL Agent 🧠
+### D. Launching Multi-Robot SLAM (Optional but Recommended) 🛰️
+To enable Graph SLAM and loop closures, run the SLAM nodes **in the SLAM container** (e.g., `rosette_slam`):
+
+```bash
+# Inside the SLAM container
+bash src/scripts/slam_launch.sh
+```
+*   This launches `mrg_slam` for `uav_0`, `uav_1`, and `uav_2`.
+*   Ensure the simulation is running first.
+
+### E. Training / Debugging RL Agent 🧠
 Run the PettingZoo environment loop (with SKRL integration):
 
 ```bash
+# In the main ROS 2 container
 python3 src/scripts/debug_rl_env.py
 ```
 *   **Logs**: storage status (`Sto: 80%`), rewards breakdown, and battery levels.
-*   **Output**: Saves `associative_map.npy` (The merged global map) upon completion.
+*   **Output**: 
+    *   **Occupancy Map (.npy / .laz)**: `src/swarm_sim_pkg/swarm_sim/outputs/debug_map.laz`. Use CloudCompare or similar to view the `.laz` file.
+    *   **SLAM Maps (.pcd)**: `src/swarm_sim_pkg/swarm_sim/outputs/slam_map_uav_X.pcd` (if SLAM is running).
 
 ---
 **Author**: [Prince Gédéon]
