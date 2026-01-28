@@ -150,43 +150,103 @@ class VoxelVisualizer(Node):
             
         self.pub_markers.publish(marker_array)
 
+            marker_array.markers.append(marker)
+            
+        self.pub_markers.publish(marker_array)
+
+    def get_agent_color(self, agent_id):
+        """Returns (r, g, b) based on agent ID suffix."""
+        try:
+            # simple hash or index mapping
+            # uav_0 -> Red, uav_1 -> Green, uav_2 -> Blue, etc.
+            idx = int(agent_id.split('_')[-1])
+            colors = [
+                (1.0, 0.0, 0.0), # Red
+                (0.0, 1.0, 0.0), # Green
+                (0.0, 0.0, 1.0), # Blue
+                (1.0, 1.0, 0.0), # Yellow
+                (0.0, 1.0, 1.0), # Cyan
+                (1.0, 0.0, 1.0)  # Magenta
+            ]
+            return colors[idx % len(colors)]
+        except:
+            return (1.0, 1.0, 1.0) # White
+
+    def publish_boundaries(self, x_min, x_max, y_min, y_max, z_max=10.0):
+        """
+        Visualizes the workspace limits as a Line Strip.
+        """
+        marker = Marker()
+        marker.header.frame_id = "world"
+        marker.header.stamp = self.get_clock().now().to_msg()
+        marker.ns = "boundary"
+        marker.id = 0
+        marker.type = Marker.LINE_STRIP
+        marker.action = Marker.ADD
+        marker.scale.x = 0.2 # Thickness
+        
+        # White Boundary
+        marker.color.a = 1.0
+        marker.color.r = 1.0
+        marker.color.g = 1.0
+        marker.color.b = 1.0
+        
+        # Draw Box at Ground and Ceiling
+        corners = [
+            (x_min, y_min), (x_max, y_min), 
+            (x_max, y_max), (x_min, y_max), 
+            (x_min, y_min) # Close loop
+        ]
+        
+        # Ground Loop
+        for x, y in corners:
+            marker.points.append(Point(x=float(x), y=float(y), z=0.0))
+            
+        # Ceiling Loop (Optional, to show 3D volume)
+        for x, y in corners:
+            marker.points.append(Point(x=float(x), y=float(y), z=float(z_max)))
+
+        # Vertical Pillars at corners
+        # (Requires LINE_LIST or just assume user infers volume)
+        # For simple LINE_STRIP, we just drew two loops.
+        
+        marker_array = MarkerArray()
+        marker_array.markers.append(marker)
+        self.pub_markers.publish(marker_array)
+
     def publish_lidar_cone(self, uav_poses):
         """
-        Visualizes Lidar Down FoV as a Red Pyramid/Cone.
-        uav_poses: dict {agent_id: [x,y,z, qx,qy,qz,qw] or just pos}
+        Visualizes Lidar Down FoV with Unique Agent Colors.
+        uav_poses: dict {agent_id: state}
         """
         marker_array = MarkerArray()
         id_counter = 2000 
         
-        # Cone params
         height = 5.0
-        fov_radius = 2.5 # tan(30deg) * 5m approx
+        fov_radius = 2.5 
         
         for agent_id, state in uav_poses.items():
             pos = state[:3]
+            r, g, b = self.get_agent_color(agent_id)
             
             marker = Marker()
             marker.header.frame_id = "world"
             marker.header.stamp = self.get_clock().now().to_msg()
-            marker.ns = "lidar_cone"
+            marker.ns = f"lidar_cone_{agent_id}" # Namespace per agent to avoid flickering
             marker.id = id_counter
             id_counter += 1
             
             marker.type = Marker.LINE_LIST
             marker.action = Marker.ADD
-            marker.scale.x = 0.05 # Line width
+            marker.scale.x = 0.05 
             
-            # Red color (Scanning)
             marker.color.a = 0.8
-            marker.color.r = 1.0
-            marker.color.g = 0.0
-            marker.color.b = 0.0
+            marker.color.r = r
+            marker.color.g = g
+            marker.color.b = b
             
-            # Pyramid vertices (Apex at UAV, 4 corners at bottom)
             apex = Point(x=float(pos[0]), y=float(pos[1]), z=float(pos[2]))
             
-            # Simple assumption: Lidar points DOWN (Z-)
-            # In a real impl, we would rotate these offsets by the UAV quaternion
             corners = [
                 (pos[0]+fov_radius, pos[1]+fov_radius, pos[2]-height),
                 (pos[0]-fov_radius, pos[1]+fov_radius, pos[2]-height),
@@ -194,18 +254,52 @@ class VoxelVisualizer(Node):
                 (pos[0]+fov_radius, pos[1]-fov_radius, pos[2]-height)
             ]
             
-            # Edges from Apex to Corners
+            # Edges from Apex
             for c in corners:
                 p_corn = Point(x=float(c[0]), y=float(c[1]), z=float(c[2]))
                 marker.points.append(apex)
                 marker.points.append(p_corn)
                 
-            # Base edges (Square)
+            # Base edges
             c_pts = [Point(x=float(c[0]), y=float(c[1]), z=float(c[2])) for c in corners]
             for j in range(4):
                 marker.points.append(c_pts[j])
                 marker.points.append(c_pts[(j+1)%4])
                 
+            marker_array.markers.append(marker)
+            
+        self.pub_markers.publish(marker_array)
+
+    def publish_nfz(self, nfz_list):
+        """
+        Visualizes No-Fly Zones as Red Cylinders.
+        """
+        marker_array = MarkerArray()
+        id_counter = 3000
+        
+        for i, (x, y, r) in enumerate(nfz_list):
+            marker = Marker()
+            marker.header.frame_id = "world"
+            marker.header.stamp = self.get_clock().now().to_msg()
+            marker.ns = "nfz"
+            marker.id = id_counter + i
+            
+            marker.type = Marker.CYLINDER
+            marker.action = Marker.ADD
+            
+            marker.pose.position.x = float(x)
+            marker.pose.position.y = float(y)
+            marker.pose.position.z = 5.0 
+            
+            marker.scale.x = float(r) * 2.0
+            marker.scale.y = float(r) * 2.0
+            marker.scale.z = 10.0 
+            
+            marker.color.a = 0.5
+            marker.color.r = 1.0
+            marker.color.g = 0.0
+            marker.color.b = 0.0
+            
             marker_array.markers.append(marker)
             
         self.pub_markers.publish(marker_array)

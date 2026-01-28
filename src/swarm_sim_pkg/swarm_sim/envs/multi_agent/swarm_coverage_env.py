@@ -17,10 +17,17 @@ class SwarmCoverageEnv(ParallelEnv):
     """
     metadata = {"render_modes": ["human"], "name": "swarm_coverage_v0"}
 
-    def __init__(self, num_drones=3, station_config=None, max_steps=1000):
+    def __init__(self, num_drones=3, station_config=None, max_steps=1000, 
+                 min_height=2.0, max_height=10.0, nfz_config='default'):
         self.num_drones = num_drones
         self.station_config = station_config
         self.max_steps = max_steps
+        
+        # Safety & Constraints
+        self.min_height = min_height
+        self.max_height = max_height
+        self.nfz_config = nfz_config # 'default', int (count), or list [(x,y,r)]
+        self.nfz_list = [] # Active NFZs [(x,y,r)]
 
         self.possible_agents = [f"uav_{i}" for i in range(self.num_drones)]
         self.agents = self.possible_agents[:]
@@ -91,10 +98,7 @@ class SwarmCoverageEnv(ParallelEnv):
 
         pc = self.central_map.get_sparse_pointcloud() # (N, 3) Ints (Indices)
         
-        # Convert Indices to Meters for standard formats (LAZ/PLY)
-        # Assuming origin (0,0,0) of map is at x_min, y_min, z_min
-        # Center of voxel = min + (index + 0.5) * res
-        # User defined x_range, etc. in __init__
+        # Convert Indices to Meters (Local Frame)
         px = self.central_map.x_min + (pc[:,0] + 0.5) * self.central_map.resolution
         py = self.central_map.y_min + (pc[:,1] + 0.5) * self.central_map.resolution
         pz = self.central_map.z_min + (pc[:,2] + 0.5) * self.central_map.resolution
@@ -107,20 +111,43 @@ class SwarmCoverageEnv(ParallelEnv):
         elif filename.endswith(".laz") or filename.endswith(".las"):
             try:
                 import laspy
+                import utm
+                
                 # Create LAS Header
                 header = laspy.LasHeader(point_format=3, version="1.2")
+                
+                # Check for Georeferencing Origin (Default: Paris)
+                lat0 = getattr(self, 'geo_origin_lat', 48.8566)
+                lon0 = getattr(self, 'geo_origin_lon', 2.3522)
+                alt0 = getattr(self, 'geo_origin_alt', 0.0)
+                
+                # Convert Origin to UTM
+                easting0, northing0, zone_num, zone_letter = utm.from_latlon(lat0, lon0)
+                
+                # Apply Offset to Points (Local (0,0) -> UTM Origin)
+                # x (Right) -> Easting ? Verify ENU vs NED
+                # Sim is usually ENU: x=East, y=North, z=Up or similar.
+                # Assuming ENU for standard ROS/Gazebo.
+                
+                utm_easting = easting0 + points_metric[:, 0]
+                utm_northing = northing0 + points_metric[:, 1]
+                abs_altitude = alt0 + points_metric[:, 2]
+                
+                # Configure Header Scales/Offsets for high precision
+                # UTM coordinates are large (millions), so we need offsets.
+                header.offsets = [np.min(utm_easting), np.min(utm_northing), np.min(abs_altitude)]
+                header.scales = [0.01, 0.01, 0.01] # 1cm precision
+                
                 header.add_extra_dims([
                     laspy.ExtraBytesParams(name="voxel_x", type=np.int32),
                     laspy.ExtraBytesParams(name="voxel_y", type=np.int32),
                     laspy.ExtraBytesParams(name="voxel_z", type=np.int32)
                 ])
-                header.offsets = [0,0,0]
-                header.scales = [0.01, 0.01, 0.01] # 1cm precision
                 
                 las = laspy.LasData(header)
-                las.x = points_metric[:, 0]
-                las.y = points_metric[:, 1]
-                las.z = points_metric[:, 2]
+                las.x = utm_easting
+                las.y = utm_northing
+                las.z = abs_altitude
                 
                 # Store Indices as extra fields
                 las.voxel_x = pc[:, 0]
@@ -128,9 +155,10 @@ class SwarmCoverageEnv(ParallelEnv):
                 las.voxel_z = pc[:, 2]
                 
                 las.write(filename)
-                print(f"[SwarmEnv] Saved LAZ/LAS to {filename}")
-            except ImportError:
-                print("[SwarmEnv] Error: 'laspy' not installed. saving as .npy instead.")
+                print(f"[SwarmEnv] Saved Georeferenced LAZ to {filename} (Origin: {lat0}, {lon0} | Zone: {zone_num}{zone_letter})")
+                
+            except ImportError as e:
+                print(f"[SwarmEnv] Error: {e}. saving as .npy instead.")
                 np.save(filename.replace(".laz", ".npy"), pc)
 
         elif filename.endswith(".ply"):
@@ -161,6 +189,32 @@ class SwarmCoverageEnv(ParallelEnv):
             m.reset()
         self.step_count = 0
         
+        # 2. Generate No-Fly Zones (NFZ)
+        self.nfz_list = []
+        if self.nfz_config == 'default':
+            # Create 1 random NFZ (Red Zone)
+            # Avoid origin (0,0) where stations/drones usually are
+            x = np.random.choice([-10, 10]) + np.random.uniform(-3, 3)
+            y = np.random.choice([-10, 10]) + np.random.uniform(-3, 3)
+            r = np.random.uniform(2.0, 5.0) # Random surface area
+            self.nfz_list.append((x, y, r))
+            
+        elif isinstance(self.nfz_config, int):
+            # Generate N random NFZs
+            count = self.nfz_config
+            for _ in range(count):
+                x = np.random.uniform(-15, 15)
+                y = np.random.uniform(-15, 15)
+                # Ensure not too close to center (Station)
+                if np.linalg.norm([x, y]) < 5.0:
+                    x += 10 # Shift away
+                    
+                r = np.random.uniform(2.0, 5.0)
+                self.nfz_list.append((x, y, r))
+                
+        elif isinstance(self.nfz_config, list):
+            self.nfz_list = self.nfz_config[:]
+        
         # Wait for data
         rclpy.spin_once(self.node, timeout_sec=0.1)
         
@@ -170,7 +224,9 @@ class SwarmCoverageEnv(ParallelEnv):
         if self.step_count == 0:
             print(f"[SwarmEnv] Map Config: {self.global_map.__class__.__name__} | Bounds: ({self.global_map.x_min}, {self.global_map.x_max})")
             print(f"[SwarmEnv] Station Mode: {self.station_config}")
-        print(f"[SwarmEnv] Ground Stations: {len(self.station_positions)} active locations.")
+            print(f"[SwarmEnv] Altitude Limits: [{self.min_height}, {self.max_height}]")
+        print(f"[SwarmEnv] Ground Stations: {len(self.station_positions)}")
+        print(f"[SwarmEnv] Active NFZs: {len(self.nfz_list)}")
         
         observations = {agent: self._get_obs(agent) for agent in self.agents}
         infos = {agent: {} for agent in self.agents}
@@ -414,19 +470,48 @@ class SwarmCoverageEnv(ParallelEnv):
             # A. General Stability: Penalize any tilt (encourage flat hover)
             r_stab = -0.5 * tilt_magnitude
             
+            # --- NEW: Altitude Constraints ---
+            r_altitude = 0.0
+            z_height = uav.position[2]
+            
+            # Max Height Penalty
+            if z_height > self.max_height:
+                r_altitude -= (z_height - self.max_height) * 2.0
+            
+            # Min Height Penalty (Unless near station for Landing)
+            if z_height < self.min_height:
+                # Check Station Proximity
+                if min_dist < 2.5: # Station Zone
+                    # Allowed to be low here (Landing/Takeoff)
+                    pass 
+                else:
+                    # Penalty for flying too low in the field
+                    r_altitude -= (self.min_height - z_height) * 2.0
+            
+            # --- NEW: No-Fly Zone (NFZ) ---
+            r_nfz = 0.0
+            in_nfz = False
+            for (nx, ny, nr) in self.nfz_list:
+                # Simple Cylinder Check (Infinite height or constrained?) 
+                # Usually NFZ is all altitudes.
+                dist_to_nfz = np.linalg.norm(uav_pos_2d - np.array([nx, ny]))
+                if dist_to_nfz < (nr + 0.5): # +0.5 buffer for drone radius
+                    r_nfz -= 10.0 # Heavy Penalty per step
+                    in_nfz = True
+                    # Optional: Terminate if deep inside?
+            
             # B. Ground Instability (Crash/Tip-over Risk)
             # If close to ground (< 0.2m) and tilted (> 15 deg ~= 0.26 rad), HUGE Penalty
             r_ground = 0.0
-            z_height = uav.position[2]
             if z_height < 0.3:
                 if tilt_magnitude > 0.26: 
                      r_ground = -5.0 # Penalize tipping on landing
                 else: 
-                     # Safe landing zone bonus? Or just neutral.
                      pass
             
             # 5. Total Reward
-            total_reward = r_team_coverage + r_time + r_collision + r_energy + r_loop_closure + r_stab + r_ground
+            total_reward = (r_team_coverage + r_time + r_collision + r_energy + 
+                           r_loop_closure + r_stab + r_ground + r_altitude + r_nfz)
             rewards[agent] = total_reward
             
             # Termination: Collision OR Dead Battery OR Tipped Over
@@ -482,6 +567,15 @@ class SwarmCoverageEnv(ParallelEnv):
              
              # Publish Stations (Green Spheres)
              self.viz.publish_stations(self.station_positions)
+             
+             # Publish NFZs (Red Zones)
+             self.viz.publish_nfz(self.nfz_list)
+
+             # Publish Workspace Boundaries (White Lines)
+             self.viz.publish_boundaries(
+                 self.global_map.x_min, self.global_map.x_max,
+                 self.global_map.y_min, self.global_map.y_max
+             )
              
              # Publish Lidar Cones (Red Pyramids)
              # We need current states

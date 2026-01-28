@@ -65,8 +65,15 @@ class UAVBase:
         
         self.first_odom = False
 
+        self.odom_count = 0
+        self.imu_count = 0
+
     def odom_callback(self, msg):
         self.first_odom = True
+        self.odom_count += 1
+        if self.odom_count % 100 == 0:
+            print(f"[{self.agent_id}] Odom received: {msg.pose.pose.position.x:.2f}, {msg.pose.pose.position.y:.2f}, {msg.pose.pose.position.z:.2f}")
+
         self.position = np.array([
             msg.pose.pose.position.x,
             msg.pose.pose.position.y,
@@ -90,6 +97,9 @@ class UAVBase:
         ])
 
     def imu_callback(self, msg):
+        self.imu_count += 1
+        if self.imu_count % 100 == 0:
+            print(f"[{self.agent_id}] IMU received")
         self.imu_data = np.array([
             msg.linear_acceleration.x, msg.linear_acceleration.y, msg.linear_acceleration.z,
             msg.angular_velocity.x, msg.angular_velocity.y, msg.angular_velocity.z

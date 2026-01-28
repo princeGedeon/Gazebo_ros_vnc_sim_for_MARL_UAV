@@ -8,7 +8,17 @@ from ray.tune.registry import register_env
 from swarm_sim.envs.multi_agent.swarm_coverage_env import SwarmCoverageEnv
 
 def env_creator(config):
-    env = SwarmCoverageEnv(num_drones=3)
+    # Retrieve config from the 'config' dict if passed by RLLib
+    num_drones = config.get("num_drones", 3)
+    nfz_config = config.get("nfz_config", 'default') # Can be 'default', int, or list
+    
+    env = SwarmCoverageEnv(
+        num_drones=num_drones,
+        nfz_config=nfz_config,
+        min_height=2.0,
+        max_height=10.0,
+        max_steps=500 # Shorter episodes to learn faster initially
+    )
     return env
 
 def train_mappo():
@@ -21,7 +31,13 @@ def train_mappo():
     
     config = (
         PPOConfig()
-        .environment("swarm_coverage")
+        .environment(
+            "swarm_coverage", 
+            env_config={
+                "num_drones": 3,
+                "nfz_config": "default" # Use 'default' (1 random zone) or pass list/int
+            }
+        )
         .framework("torch")
         .env_runners(num_env_runners=1, num_envs_per_env_runner=1)
         .training(

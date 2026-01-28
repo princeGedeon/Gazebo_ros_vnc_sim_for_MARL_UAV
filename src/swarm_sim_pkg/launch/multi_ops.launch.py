@@ -183,7 +183,9 @@ def launch_setup(context, *args, **kwargs):
                 f"/model/{name}/down_camera/image_raw@sensor_msgs/msg/Image[gz.msgs.Image",
                 f"/model/{name}/down_camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo",
                 f"/model/{name}/navsat@sensor_msgs/msg/NavSatFix[gz.msgs.NavSat",
-                f"/model/{name}/pose@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V"
+                f"/model/{name}/pose@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V",
+                f"/model/{name}/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry",
+                f"/model/{name}/imu@sensor_msgs/msg/Imu[gz.msgs.IMU"
             ],
             parameters=[{'qos_overrides./model': {'reliability': 'best_effort'}}],
             output='screen',
@@ -197,6 +199,10 @@ def launch_setup(context, *args, **kwargs):
                 (f"/model/{name}/down_camera/image_raw", f"/{name}/down_camera/image_raw"),
                 (f"/model/{name}/down_camera/camera_info", f"/{name}/down_camera/camera_info"),
                 (f"/model/{name}/navsat", f"/{name}/gps"),
+                # IMU
+                (f"/model/{name}/imu", f"/{name}/imu"),
+                # Odometry
+                (f"/model/{name}/odometry", f"/{name}/odometry"),
                 # TF for Ground Truth (RobotModel)
                 (f"/model/{name}/pose", "/tf")
             ]

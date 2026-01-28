@@ -2,6 +2,19 @@
 
 **Research Project: Decentralized Multi-Agent Reinforcement Learning (MARL) for Cooperative 3D Urban Mapping.**
 
+## 📚 Documentation Dashboard
+
+Key technical documents for the project architecture and training formulation:
+
+| Document | Description |
+| :--- | :--- |
+| **[DEC-POMDP Formulation](docs/DEC_POMDP.md)** | Formal mathematical definition of the problem ($S, A, \Omega, R, C$). |
+| **[System Architecture](docs/SYSTEM_ARCHITECTURE.md)** | Mermaid graph of the ROS 2 Nodes, Topics, and Data Flow. |
+| **[Scripts Guide](scripts/README.md)** | Explanation of utility scripts (`launch_all.sh`, `test_map_export.py`, etc.). |
+| **[RL Dev Guide](docs/RL_DEV_GUIDE.md)** | (Existing) Developer guide for RL environment and debugging. |
+
+---
+
 ## 1. Project Overview
 
 This framework implements a **Decentralized Partially Observable Markov Decision Process (Dec-POMDP)** to solve the cooperative coverage path planning (CPP) problem in unknown 3D urban environments.
@@ -9,19 +22,18 @@ This framework implements a **Decentralized Partially Observable Markov Decision
 It features a **Hybrid Architecture** combining:
 *   **Distributed Graph SLAM** (`mrg_slam`) using **360° Lidar** for localization (The "Skeleton").
 *   **Volumetric Mapping** (`VoxelManager`) using **Downward-Facing Lidar** for ground/obstacle coverage (The "Flesh").
-*   **Multi-Agent RL (MAPPO)** for autonomous decision-making using `SKRL` and `PettingZoo`.
+*   **Multi-Agent RL (MAPPO)** for autonomous decision-making using `SKRL` / `RLLib` and `PettingZoo`.
 
 ## 2. Key Features
 
 *   **Dual-Sensor Setup**:
-    *   **Lidar 360°**: Used for SLAM, Loop Closures, and Obstacle Avoidance (Horizontal).
-    *   **Lidar Down (Nadir)**: Dedicated sensor for mapping the urban surface and roofs (Vertical).
-*   **Procedural City Generation**: Generate sparse to dense urban canyons with a single command.
-*   **Data Mule Logic**: UAVs must physically return to base stations to offload data, simulated by a realistic buffer constraints.
-*   **Sparse Voxel Hashing**: Optimized memory management for large-scale 3D mapping.
-*   **Global Georeferencing**: Fusion of GPS anchors with SLAM graph for GIS-compatible output (`.npy`, `.las`).
+    *   **Lidar 360°**: Obstacle Avoidance & SLAM.
+    *   **Lidar Down**: Mapping urban surface/roofs.
+*   **Procedural City Generation**: Random urban canyons.
+*   **Constraint-Aware RL**: Penalty-based shaping for Battery, NFZ, and Altitude.
+*   **Global Georeferencing**: Outputs **UTM-georeferenced** `.laz` point clouds compatible with CloudCompare.
 
-## 3. Installation & Build
+## 3. Installation
 
 ```bash
 cd ~/ros2_ws
@@ -29,67 +41,42 @@ colcon build --symlink-install --packages-select swarm_sim
 source install/setup.bash
 ```
 
-## 4. Usage Guide
+## 4. Quick Start 🚀
 
-### A. Procedural City Generation 🏙️
-Generate a custom testing ground:
+### A. Launch Simulation + Training
+We provide a unified launch script in the `scripts/` folder:
 
 ```bash
-# Generate a dense 100x100m city with 8m tall buildings
+# Launch Simulation (Gazebo) AND Training Agent (MAPPO)
+./scripts/launch_all.sh train
+```
+*This starts Gazebo in the background and attaches the RL trainer.*
+
+### B. Generate Custom City
+```bash
 python3 src/swarm_sim_pkg/swarm_sim/assets/worlds/generate_city.py \
     --output src/swarm_sim_pkg/swarm_sim/assets/worlds/generated_city.sdf \
-    --mode full \
-    --width 100 \
-    --length 100 \
-    --max_height 8
+    --mode full --width 100 --length 100 --max_height 8
 ```
 
-### B. Launching Simulation 🚀
-Launch the environment with your generated map:
+## 5. Map Export & Visualization 🗺️
 
-```bash
-ros2 launch swarm_sim super_simulation.launch.py map_file:=generated_city.sdf num_drones:=3
-```
+### Real-Time Visualization (RViz)
+*   **Topic**: `/coverage_map_voxels` (PointCloud2)
+*   The map updates as drones explore.
 
-### D. Launching Multi-Robot SLAM (Optional but Recommended) 🛰️
-To enable Graph SLAM and loop closures, run the SLAM nodes **in the SLAM container** (e.g., `rosette_slam`):
+### Exporting to CloudCompare
+The system automatically exports the map as a georeferenced `.laz` file (e.g., `test_map_output.laz` or via `env.save_occupancy_map()`).
+1.  Open **CloudCompare**.
+2.  Drag & drop the `.laz` file.
+3.  Accept the "Global Shift" (UTM Coordinates).
 
-```bash
-# Inside the SLAM container
-bash src/scripts/slam_launch.sh
-```
-*   This launches `mrg_slam` for `uav_0`, `uav_1`, and `uav_2`.
-*   Ensure the simulation is running first.
+## 6. Project Structure
 
-### E. Training / Debugging RL Agent 🧠
-Run the PettingZoo environment loop (with SKRL integration):
-
-```bash
-# In the main ROS 2 container
-python3 src/scripts/debug_rl_env.py
-```
-*   **Logs**: storage status (`Sto: 80%`), rewards breakdown, and battery levels.
-*   **Output**: 
-    *   **Occupancy Map (.npy / .laz)**: `src/swarm_sim_pkg/swarm_sim/outputs/debug_map.laz`. Use CloudCompare or similar to view the `.laz` file.
-    *   **SLAM Maps (.pcd)**: `src/swarm_sim_pkg/swarm_sim/outputs/slam_map_uav_X.pcd` (if SLAM is running).
-
-### F. Visualization in RViz 📺
-You can visualize the Global Occupancy Map in real-time or post-simulation.
-
-**1. Real-Time (During Simulation)**:
-*   Open RViz2: `rviz2`
-*   Set **Fixed Frame** to `world`.
-*   Add a **PointCloud2** display.
-*   Set **Topic** to `/coverage_map_voxels`.
-*   Select **Style** as `Boxes` or `Points` to see the voxels.
-*   *Note: The map updates periodically (every 10 steps in debug script).*
-
-**2. Post-Processing (Matplotlib)**:
-To see the saved `.npy` map:
-```bash
-python3 src/scripts/visualize_occupancy.py src/swarm_sim_pkg/swarm_sim/outputs/debug_map.npy
-```
+*   `docs/` - System documentation.
+*   `scripts/` - Utility scripts for launching, testing, and installing.
+*   `src/` - Source code for ROS 2 packages (`swarm_sim_pkg`).
+*   `outputs/` - Generated maps and debug logs.
 
 ---
-**Author**: [Prince Gédéon]
-
+**Author**: Prince Gédéon
