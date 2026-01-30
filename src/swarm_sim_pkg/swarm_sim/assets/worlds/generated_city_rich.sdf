@@ -1,0 +1,944 @@
+<?xml version="1.0" ?>
+<sdf version="1.8">
+  <world name="urban_city_rich">
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"></plugin>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"></plugin>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"></plugin>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+        <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-wind-effects-system" name="gz::sim::systems::WindEffects"></plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>200 200</size></plane></geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>200 200</size></plane></geometry>
+          <material><ambient>0.3 0.3 0.3 1</ambient><diffuse>0.3 0.3 0.3 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_-2_-2">
+      <static>true</static>
+      <pose>-56.0 -56.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="roundabout_-2_-2">
+      <static>true</static>
+      <pose>-56.0 -56.0 0.3 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>2.6666666666666665</radius><length>0.6</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>2.6666666666666665</radius><length>0.6</length></cylinder></geometry>
+           <material><ambient>0.2 0.6 0.2 1</ambient><diffuse>0.2 0.6 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_-2_-2">
+      <static>true</static>
+      <pose>-42.0 -56.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_-2_-2">
+      <static>true</static>
+      <pose>-56.0 -42.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_0">
+      <static>true</static>
+      <pose>-42.0 -42.0 2.7501075522266696 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>10.200234546952954 9.785685905190583 5.500215104453339</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>10.200234546952954 9.785685905190583 5.500215104453339</size></box></geometry>
+           <material><ambient>0.7364712141640124 0.6766994874229113 0.8921795677048454 1</ambient><diffuse>0.7364712141640124 0.6766994874229113 0.8921795677048454 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_0">
+      <static>true</static>
+      <pose>-42.0 -46.99284295259529 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>3.4000781823176514 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_-2_-1">
+      <static>true</static>
+      <pose>-56.0 -28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_-2_-1">
+      <static>true</static>
+      <pose>-42.0 -28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_-2_-1">
+      <static>true</static>
+      <pose>-56.0 -14.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_1">
+      <static>true</static>
+      <pose>-42.0 -14.0 8.404925124490397 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>8.254261435854268 8.74956191889274 16.809850248980794</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>8.254261435854268 8.74956191889274 16.809850248980794</size></box></geometry>
+           <material><ambient>0.2326608933907396 0.6020187290499803 0.561245062938613 1</ambient><diffuse>0.2326608933907396 0.6020187290499803 0.561245062938613 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_1">
+      <static>true</static>
+      <pose>-42.0 -18.47478095944637 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>2.751420478618089 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_-2_0">
+      <static>true</static>
+      <pose>-56.0 0.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="roundabout_-2_0">
+      <static>true</static>
+      <pose>-56.0 0.0 0.3 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>2.6666666666666665</radius><length>0.6</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>2.6666666666666665</radius><length>0.6</length></cylinder></geometry>
+           <material><ambient>0.2 0.6 0.2 1</ambient><diffuse>0.2 0.6 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_-2_0">
+      <static>true</static>
+      <pose>-42.0 0.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_-2_0">
+      <static>true</static>
+      <pose>-56.0 14.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="park_-2_0">
+      <static>true</static>
+      <pose>-42.0 14.0 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_-2_1">
+      <static>true</static>
+      <pose>-56.0 28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_-2_1">
+      <static>true</static>
+      <pose>-42.0 28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_-2_1">
+      <static>true</static>
+      <pose>-56.0 42.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_2">
+      <static>true</static>
+      <pose>-42.0 42.0 2.1738135694257803 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>10.225525665845302 14.954402566343472 4.347627138851561</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>10.225525665845302 14.954402566343472 4.347627138851561</size></box></geometry>
+           <material><ambient>0.7588073671297673 0.15965931637689013 0.42261439815350255 1</ambient><diffuse>0.7588073671297673 0.15965931637689013 0.42261439815350255 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_2">
+      <static>true</static>
+      <pose>-42.0 34.42279871682826 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>3.408508555281767 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_-1_-2">
+      <static>true</static>
+      <pose>-28.0 -56.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_-1_-2">
+      <static>true</static>
+      <pose>-14.0 -56.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_-1_-2">
+      <static>true</static>
+      <pose>-28.0 -42.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_3">
+      <static>true</static>
+      <pose>-14.0 -42.0 4.054794998117815 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>7.828852288827125</radius><length>8.10958999623563</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>7.828852288827125</radius><length>8.10958999623563</length></cylinder></geometry>
+           <material><ambient>0.09274584338014791 0.09671637683346401 0.8474943663474598 1</ambient><diffuse>0.09274584338014791 0.09671637683346401 0.8474943663474598 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_3">
+      <static>true</static>
+      <pose>-14.0 -47.44637818045051 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>5.2192348592180835 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_-1_-1">
+      <static>true</static>
+      <pose>-28.0 -28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_-1_-1">
+      <static>true</static>
+      <pose>-14.0 -28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_-1_-1">
+      <static>true</static>
+      <pose>-28.0 -14.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_4">
+      <static>true</static>
+      <pose>-14.0 -14.0 10.571282732743802 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>6.918927146775271</radius><length>21.142565465487603</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>6.918927146775271</radius><length>21.142565465487603</length></cylinder></geometry>
+           <material><ambient>0.9731157639793706 0.3785343772083535 0.552040631273227 1</ambient><diffuse>0.9731157639793706 0.3785343772083535 0.552040631273227 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_4">
+      <static>true</static>
+      <pose>-14.0 -20.244912365818806 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>4.612618097850181 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_-1_0">
+      <static>true</static>
+      <pose>-28.0 0.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_-1_0">
+      <static>true</static>
+      <pose>-14.0 0.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_-1_0">
+      <static>true</static>
+      <pose>-28.0 14.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_5">
+      <static>true</static>
+      <pose>-14.0 14.0 8.273521452567621 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>6.818287344859694</radius><length>16.547042905135243</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>6.818287344859694</radius><length>16.547042905135243</length></cylinder></geometry>
+           <material><ambient>0.22789827565154686 0.28938796360210717 0.0797919769236275 1</ambient><diffuse>0.22789827565154686 0.28938796360210717 0.0797919769236275 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_5">
+      <static>true</static>
+      <pose>-14.0 9.71670246537735 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>4.54552489657313 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_-1_1">
+      <static>true</static>
+      <pose>-28.0 28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_-1_1">
+      <static>true</static>
+      <pose>-14.0 28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_-1_1">
+      <static>true</static>
+      <pose>-28.0 42.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_6">
+      <static>true</static>
+      <pose>-14.0 42.0 2.7997255001329044 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>11.04100980031333 11.627282418947484 5.599451000265809</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>11.04100980031333 11.627282418947484 5.599451000265809</size></box></geometry>
+           <material><ambient>0.8341104266407503 0.1626540971560848 0.3552707002275215 1</ambient><diffuse>0.8341104266407503 0.1626540971560848 0.3552707002275215 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_6">
+      <static>true</static>
+      <pose>-14.0 36.086358790526255 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>3.680336600104443 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_0_-2">
+      <static>true</static>
+      <pose>0.0 -56.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="roundabout_0_-2">
+      <static>true</static>
+      <pose>0.0 -56.0 0.3 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>2.6666666666666665</radius><length>0.6</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>2.6666666666666665</radius><length>0.6</length></cylinder></geometry>
+           <material><ambient>0.2 0.6 0.2 1</ambient><diffuse>0.2 0.6 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_0_-2">
+      <static>true</static>
+      <pose>14.0 -56.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_0_-2">
+      <static>true</static>
+      <pose>0.0 -42.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_7">
+      <static>true</static>
+      <pose>14.0 -42.0 9.518203134585512 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>6.734190662146669</radius><length>19.036406269171025</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>6.734190662146669</radius><length>19.036406269171025</length></cylinder></geometry>
+           <material><ambient>0.6349782881970603 0.534139877029708 0.24481092515142622 1</ambient><diffuse>0.6349782881970603 0.534139877029708 0.24481092515142622 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_7">
+      <static>true</static>
+      <pose>14.0 -46.38561003831419 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>4.489460441431112 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_0_-1">
+      <static>true</static>
+      <pose>0.0 -28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_0_-1">
+      <static>true</static>
+      <pose>14.0 -28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_0_-1">
+      <static>true</static>
+      <pose>0.0 -14.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="park_0_-1">
+      <static>true</static>
+      <pose>14.0 -14.0 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_0_0">
+      <static>true</static>
+      <pose>0.0 0.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_0_0">
+      <static>true</static>
+      <pose>14.0 0.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_0_0">
+      <static>true</static>
+      <pose>0.0 14.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="park_0_0">
+      <static>true</static>
+      <pose>14.0 14.0 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_0_1">
+      <static>true</static>
+      <pose>0.0 28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_0_1">
+      <static>true</static>
+      <pose>14.0 28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_0_1">
+      <static>true</static>
+      <pose>0.0 42.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_8">
+      <static>true</static>
+      <pose>14.0 42.0 12.395233506365953 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>6.559999039416372</radius><length>24.790467012731906</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>6.559999039416372</radius><length>24.790467012731906</length></cylinder></geometry>
+           <material><ambient>0.6846142509898746 0.8428519201898096 0.7759999115462448 1</ambient><diffuse>0.6846142509898746 0.8428519201898096 0.7759999115462448 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_8">
+      <static>true</static>
+      <pose>14.0 35.67220102490141 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>4.373332692944248 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_1_-2">
+      <static>true</static>
+      <pose>28.0 -56.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_1_-2">
+      <static>true</static>
+      <pose>42.0 -56.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_1_-2">
+      <static>true</static>
+      <pose>28.0 -42.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_9">
+      <static>true</static>
+      <pose>42.0 -42.0 2.7327038910102126 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>14.440366406169716 11.209318296178632 5.465407782020425</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>14.440366406169716 11.209318296178632 5.465407782020425</size></box></geometry>
+           <material><ambient>0.06618860521154724 0.913136124185545 0.5671800514785023 1</ambient><diffuse>0.06618860521154724 0.913136124185545 0.5671800514785023 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_9">
+      <static>true</static>
+      <pose>42.0 -47.70465914808932 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>4.813455468723238 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_1_-1">
+      <static>true</static>
+      <pose>28.0 -28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_1_-1">
+      <static>true</static>
+      <pose>42.0 -28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_1_-1">
+      <static>true</static>
+      <pose>28.0 -14.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_10">
+      <static>true</static>
+      <pose>42.0 -14.0 4.626265440541406 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>5.99692503796911</radius><length>9.252530881082812</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>5.99692503796911</radius><length>9.252530881082812</length></cylinder></geometry>
+           <material><ambient>0.6428518702004242 0.14287159044206266 0.1396303195255063 1</ambient><diffuse>0.6428518702004242 0.14287159044206266 0.1396303195255063 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_10">
+      <static>true</static>
+      <pose>42.0 -21.63873261554681 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>3.99795002531274 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_1_0">
+      <static>true</static>
+      <pose>28.0 0.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_1_0">
+      <static>true</static>
+      <pose>42.0 0.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_1_0">
+      <static>true</static>
+      <pose>28.0 14.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="bldg_11">
+      <static>true</static>
+      <pose>42.0 14.0 9.970138116522579 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>5.713735309178318</radius><length>19.940276233045157</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>5.713735309178318</radius><length>19.940276233045157</length></cylinder></geometry>
+           <material><ambient>0.36199644371361095 0.997325777989161 0.13833174489085587 1</ambient><diffuse>0.36199644371361095 0.997325777989161 0.13833174489085587 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_11">
+      <static>true</static>
+      <pose>42.0 7.565868300217375 1.0 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+           <geometry><box><size>3.8091568727855454 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_inter_1_1">
+      <static>true</static>
+      <pose>28.0 28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.1 0.1 0.1 1</ambient><diffuse>0.1 0.1 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="road_h_1_1">
+      <static>true</static>
+      <pose>42.0 28.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>20.0 8.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="road_v_1_1">
+      <static>true</static>
+      <pose>28.0 42.0 0.01 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>8.0 20.0 0.02</size></box></geometry>
+            <material><ambient>0.2 0.2 0.2 1</ambient><diffuse>0.2 0.2 0.2 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="park_1_1">
+      <static>true</static>
+      <pose>42.0 42.0 0.05 0 0 0</pose>
+      <link name="link">
+        <visual name="vis">
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

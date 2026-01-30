@@ -24,15 +24,24 @@ def generate_launch_description():
         ),
         launch_arguments={
             'num_drones': num_drones,
+            'num_stations': '3', # CRITICAL: Ensure multi_ops knows there are 3 stations so it spawns drones atop them
             'map_type': map_type,
             'map_file': map_file
         }.items()
     )
 
     # 1.1 Swarm SLAM (Optional)
-    # 1.1 Swarm SLAM (Optional - Disabled for Multi-Container)
-    # swarm_slam = IncludeLaunchDescription(...)
-    # Removed to avoid "No such file" error since we deleted swarm_slam.launch.py
+    # 1.1 Swarm SLAM (Optional)
+    swarm_slam = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_swarm_sim, 'launch', 'swarm_slam.launch.py')
+        ),
+        launch_arguments={
+            'num_drones': num_drones,
+            'map_cloud_update_interval': '2.0'
+        }.items(),
+        condition=IfCondition(run_slam)
+    )
     
     # 2. RViz
     rviz_config = os.path.join(pkg_swarm_sim, 'default.rviz')
@@ -48,7 +57,8 @@ def generate_launch_description():
         DeclareLaunchArgument('map_type', default_value='world', description='Map Type'),
         DeclareLaunchArgument('map_file', default_value='city.sdf', description='Map File'),
         DeclareLaunchArgument('open_rviz', default_value='true', description='Open RViz?'),
-        DeclareLaunchArgument('slam', default_value='false', description='Run Swarm SLAM?'),
+        DeclareLaunchArgument('slam', default_value='true', description='Run Swarm SLAM?'),
+        DeclareLaunchArgument('octomap', default_value='false', description='Run OctoMap Server?'),
         
         main_sim,
         
@@ -59,6 +69,13 @@ def generate_launch_description():
              )
         ),
         
-        # swarm_slam,
+        swarm_slam,
+        
+        # OctoMap Server
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(os.path.join(pkg_swarm_sim, 'launch/swarm_octomap.launch.py')),
+            condition=IfCondition(LaunchConfiguration('octomap'))
+        ),
+
         rviz_process
     ])

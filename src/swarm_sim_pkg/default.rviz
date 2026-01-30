@@ -6,8 +6,10 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /Grid1
         - /TF1
+        - /UAV 0 SLAM1
+        - /UAV 0 SLAM1/Loop Closures (UAV 0)1
+        - /UAV 0 SLAM1/Global Map (UAV 0)1
       Splitter Ratio: 0.5
     Tree Height: 557
   - Class: rviz_common/Selection
@@ -71,260 +73,125 @@ Visualization Manager:
       Enabled: true
       Name: UAV 0 Model
       Visual Enabled: true
-    - Alpha: 1
-      Class: rviz_default_plugins/PointCloud2
-      Color Transformer: FlatColor
-      Color: 0; 255; 0
-      Decay Time: 0
+    
+    # -----------------------------
+    # UAV 0 SLAM GROUP
+    # -----------------------------
+    - Class: rviz_default_plugins/Group
+      Name: UAV 0 SLAM
       Enabled: true
-      Name: UAV 0 Lidar
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_0/velodyne_points
-      Style: Points
-      Size (Pixels): 3
-    - Class: rviz_default_plugins/Image
-      Enabled: true
-      Name: UAV 0 Camera
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_0/camera/image_raw
-    - Class: rviz_default_plugins/Image
-      Enabled: true
-      Name: UAV 0 Down Cam
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_0/down_camera/image_raw
-        
-    - Alpha: 1
-      Class: rviz_default_plugins/PointCloud2
-      Color Transformer: FlatColor
-      Color: 255; 0; 0
-      Enabled: true
-      Name: UAV 0 Lidar Scan
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_0/velodyne_points
-      Style: Points
-      Size (Pixels): 2
-    - Alpha: 1
-      Class: rviz_default_plugins/PointCloud2
-      Color Transformer: FlatColor
-      Color: 0; 255; 0
-      Enabled: true
-      Name: UAV 0 Map Scanner (Down)
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_0/lidar_down/points
-      Style: Points
-      Size (Pixels): 4
-      
-    - Alpha: 1
-      Class: rviz_default_plugins/RobotModel
-      Description Source: Topic
-      Description Topic:
-        Depth: 5
-        Durability Policy: Transient Local
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /uav_1/robot_description
-      Enabled: true
-      Name: UAV 1 Model
-    - Alpha: 1
-      Class: rviz_default_plugins/PointCloud2
-      Color Transformer: FlatColor
-      Color: 255; 0; 0
-      Enabled: true
-      Name: UAV 1 Lidar Scan
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_1/velodyne_points
-      Style: Points
-      Size (Pixels): 2
-    - Alpha: 1
-      Class: rviz_default_plugins/PointCloud2
-      Color Transformer: FlatColor
-      Color: 0; 255; 0
-      Enabled: true
-      Name: UAV 1 Map Scanner (Down)
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_1/lidar_down/points
-      Style: Points
-      Size (Pixels): 4
+      Displays:
+        # HIDE RAW DATA
+        - Class: rviz_default_plugins/PointCloud2
+          Name: Raw Lidar (Hidden)
+          Topic:
+            Value: /uav_0/velodyne_points
+          Enabled: false
+          
+        # SHOW MAP
+        - Class: rviz_default_plugins/PointCloud2
+          Name: Global Map (UAV 0)
+          Topic:
+            Value: /uav_0/mrg_slam/map
+            Reliability Policy: Reliable
+            Durability Policy: Transient Local
+          Color Transformer: FlatColor
+          Color: 255; 255; 0
+          Size (Pixels): 3
+          Enabled: true
+          
+        # SHOW LOOP CLOSURES
+        - Class: rviz_default_plugins/MarkerArray
+          Name: Loop Closures (UAV 0)
+          Topic:
+            Value: /uav_0/mrg_slam/markers/loop_closures
+          Enabled: true
+          
+        - Class: rviz_default_plugins/Path
+          Name: Trajectory (UAV 0)
+          Topic:
+            Value: /uav_0/mrg_slam/path
+          Color: 255; 0; 0
+          Enabled: true
 
-    - Alpha: 1
-      Class: rviz_default_plugins/RobotModel
-      Description Source: Topic
-      Description Topic:
-        Depth: 5
-        Durability Policy: Transient Local
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /uav_2/robot_description
+    # -----------------------------
+    # UAV 1 SLAM GROUP
+    # -----------------------------
+    - Class: rviz_default_plugins/Group
+      Name: UAV 1 SLAM
       Enabled: true
-      Name: UAV 2 Model
-    - Alpha: 1
-      Class: rviz_default_plugins/PointCloud2
-      Color Transformer: FlatColor
-      Color: 0; 0; 255
-      Enabled: true
-      Name: UAV 2 Lidar Scan
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_2/velodyne_points
-      Style: Points
-      Size (Pixels): 2
-    - Alpha: 1
-      Class: rviz_default_plugins/PointCloud2
-      Color Transformer: FlatColor
-      Color: 0; 255; 0
-      Enabled: true
-      Name: UAV 2 Map Scanner (Down)
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_2/lidar_down/points
-      Style: Points
-      Size (Pixels): 4
-    # MRG-SLAM Visualizations
-    - Class: rviz_default_plugins/PointCloud2
-      Name: Global Map (UAV 0)
-      Topic:
-        Value: /uav_0/mrg_slam/map
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
-    - Class: rviz_default_plugins/Path
-      Name: Trajectory (UAV 0)
-      Topic:
-        Value: /uav_0/mrg_slam/path
-    - Class: rviz_default_plugins/PointCloud2
-      Name: Keyframes (UAV 0)
-      Topic:
-        Value: /uav_0/mrg_slam/keyframes
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
-        
-    # UAV 1 SLAM
-    - Class: rviz_default_plugins/PointCloud2
-      Name: Global Map (UAV 1)
-      Topic:
-        Value: /uav_1/mrg_slam/map
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
-    - Class: rviz_default_plugins/Path
-      Name: Trajectory (UAV 1)
-      Topic:
-        Value: /uav_1/mrg_slam/path
-    - Class: rviz_default_plugins/PointCloud2
-      Name: Keyframes (UAV 1)
-      Topic:
-        Value: /uav_1/mrg_slam/keyframes
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
+      Displays:
+        - Class: rviz_default_plugins/PointCloud2
+          Name: Global Map (UAV 1)
+          Topic:
+            Value: /uav_1/mrg_slam/map
+            Reliability Policy: Reliable
+            Durability Policy: Transient Local
+          Color Transformer: FlatColor
+          Color: 0; 255; 255
+          Size (Pixels): 3
+          Enabled: true
+        - Class: rviz_default_plugins/MarkerArray
+          Name: Loop Closures (UAV 1)
+          Topic:
+            Value: /uav_1/mrg_slam/markers/loop_closures
+          Enabled: true
+        - Class: rviz_default_plugins/Path
+          Name: Trajectory (UAV 1)
+          Topic:
+            Value: /uav_1/mrg_slam/path
+          Color: 0; 255; 0
+          Enabled: true
 
-    # UAV 2 SLAM
-    - Class: rviz_default_plugins/PointCloud2
-      Name: Global Map (UAV 2)
-      Topic:
-        Value: /uav_2/mrg_slam/map
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
-    - Class: rviz_default_plugins/Path
-      Name: Trajectory (UAV 2)
-      Topic:
-        Value: /uav_2/mrg_slam/path
-    - Class: rviz_default_plugins/PointCloud2
-      Name: Keyframes (UAV 2)
-      Topic:
-        Value: /uav_2/mrg_slam/keyframes
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
+    # -----------------------------
+    # UAV 2 SLAM GROUP
+    # -----------------------------
+    - Class: rviz_default_plugins/Group
+      Name: UAV 2 SLAM
+      Enabled: true
+      Displays:
+        - Class: rviz_default_plugins/PointCloud2
+          Name: Global Map (UAV 2)
+          Topic:
+            Value: /uav_2/mrg_slam/map
+            Reliability Policy: Reliable
+            Durability Policy: Transient Local
+          Color Transformer: FlatColor
+          Color: 255; 0; 255
+          Size (Pixels): 3
+          Enabled: true
+        - Class: rviz_default_plugins/MarkerArray
+          Name: Loop Closures (UAV 2)
+          Topic:
+            Value: /uav_2/mrg_slam/markers/loop_closures
+          Enabled: true
+        - Class: rviz_default_plugins/Path
+          Name: Trajectory (UAV 2)
+          Topic:
+            Value: /uav_2/mrg_slam/path
+          Color: 0; 0; 255
+          Enabled: true
 
-    # Loop Closures (All)
-    - Class: rviz_default_plugins/MarkerArray
-      Name: Loop Closures (UAV 0)
+    # -------------------------
+    # RL Maps (Voxels) - Occupancy
+    # -------------------------
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Coverage Map (Voxels)
       Topic:
-        Value: /uav_0/mrg_slam/loop_markers
-    - Class: rviz_default_plugins/MarkerArray
-      Name: Node Names (UAV 0)
-      Topic:
-        Value: /uav_0/mrg_slam/markers/node_names
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
-    - Class: rviz_default_plugins/MarkerArray
-      Name: Loop Closures (UAV 1)
-      Topic:
-        Value: /uav_1/mrg_slam/loop_markers
-    - Class: rviz_default_plugins/MarkerArray
-      Name: Node Names (UAV 1)
-      Topic:
-        Value: /uav_1/mrg_slam/markers/node_names
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
-    - Class: rviz_default_plugins/MarkerArray
-      Name: Loop Closures (UAV 2)
-      Topic:
-        Value: /uav_2/mrg_slam/loop_markers
-    - Class: rviz_default_plugins/MarkerArray
-      Name: Node Names (UAV 2)
-      Topic:
-        Value: /uav_2/mrg_slam/markers/node_names
-        Reliability Policy: Reliable
-        Durability Policy: Transient Local
-    - Class: rviz_default_plugins/Imu
-      Enabled: true
-      Name: UAV 0 IMU
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
+        Value: /coverage_map_voxels
         Reliability Policy: Best Effort
-        Value: /uav_0/sensors/imu
-    - Class: rviz_default_plugins/Imu
-      Enabled: true
-      Name: UAV 1 IMU
-      Topic:
-        Depth: 5
         Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_1/sensors/imu
-    - Class: rviz_default_plugins/Imu
+      Color Transformer: AxisColor
+      Axis: Z
+      Size (Pixels): 5
+      Style: Boxes
       Enabled: true
-      Name: UAV 2 IMU
+
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Task Boundaries & Zones
       Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Best Effort
-        Value: /uav_2/sensors/imu
+        Value: /comm_range_markers
+      Enabled: true
 
   Enabled: true
   Global Options:
@@ -337,6 +204,12 @@ Visualization Manager:
       Hide Inactive Objects: true
     - Class: rviz_default_plugins/MoveCamera
     - Class: rviz_default_plugins/Select
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /clicked_point
     - Class: rviz_default_plugins/FocusCamera
     - Class: rviz_default_plugins/Measure
       Line color: 128; 128; 0
@@ -366,7 +239,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 10
+      Distance: 60.0
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1

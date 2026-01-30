@@ -1,1 +1,0 @@
-/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/build/swarm_sim/launch/multi_ops.launch.py

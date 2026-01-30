@@ -258,21 +258,27 @@
           <ray>
             <scan>
               <horizontal>
-                <samples>360</samples>
+                <samples>512</samples>
                 <resolution>1</resolution>
                 <min_angle>-3.14159</min_angle>
                 <max_angle>3.14159</max_angle>
               </horizontal>
               <vertical>
-                <samples>16</samples>
+                <!-- Ouster OS1-64 Specs -->
+                <samples>64</samples>
                 <resolution>1</resolution>
-                <min_angle>-0.261799</min_angle>
-                <max_angle>0.261799</max_angle>
+                <min_angle>-0.2899</min_angle> <!-- -16.6 deg -->
+                <max_angle>0.2899</max_angle>  <!-- +16.6 deg -->
               </vertical>
             </scan>
-            <range><min>0.1</min><max>10.0</max></range>
+            <range><min>0.2</min><max>30.0</max></range>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.008</stddev>
+            </noise>
           </ray>
-          <visualize>true</visualize>
+          <visualize>false</visualize>
           <always_on>1</always_on>
         </sensor>
     </link>

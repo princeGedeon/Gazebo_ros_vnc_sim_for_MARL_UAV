@@ -1,1 +1,0 @@
-/mnt/disk1/pgguedje/research/gazebo_ros2_vnc/src/swarm_sim_pkg/launch/mapping.launch.py

@@ -77,13 +77,39 @@
     <child link="$(arg namespace)/imu_link"/>
     <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
-  
-  <!-- Sonar Link -->
-  <link name="$(arg namespace)/sonar_link"/>
-  <joint name="$(arg namespace)/sonar_joint" type="fixed">
+
+  <!-- Downward Lidar Link -->
+  <link name="$(arg namespace)/lidar_down_link">
+     <visual>
+      <geometry><cylinder length="0.02" radius="0.01"/></geometry>
+    </visual>
+  </link>
+  <joint name="$(arg namespace)/lidar_down_joint" type="fixed">
     <parent link="$(arg namespace)/base_link"/>
-    <child link="$(arg namespace)/sonar_link"/>
+    <child link="$(arg namespace)/lidar_down_link"/>
     <origin xyz="0 0 -0.05" rpy="0 1.5708 0"/>
   </joint>
+
+  <!-- Downward Lidar Sensor Frame (Matches Gazebo Frame ID) -->
+  <link name="$(arg namespace)/lidar_down_link/lidar_down"/>
+  <joint name="$(arg namespace)/lidar_down_sensor_joint" type="fixed">
+    <parent link="$(arg namespace)/lidar_down_link"/>
+    <child link="$(arg namespace)/lidar_down_link/lidar_down"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- GPS Link -->
+  <link name="$(arg namespace)/gps_link">
+    <visual>
+      <geometry><box size="0.01 0.01 0.01"/></geometry>
+    </visual>
+  </link>
+  <joint name="$(arg namespace)/gps_joint" type="fixed">
+    <parent link="$(arg namespace)/base_link"/>
+    <child link="$(arg namespace)/gps_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+
 
 </robot>

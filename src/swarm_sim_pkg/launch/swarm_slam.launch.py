@@ -11,6 +11,9 @@ def launch_setup(context, *args, **kwargs):
     
     nodes = []
     
+    robot_names_list = [f"uav_{k}" for k in range(num_drones)]
+    robot_names_str = str(robot_names_list)
+
     for i in range(num_drones):
         name = f"uav_{i}"
         
@@ -30,6 +33,7 @@ def launch_setup(context, *args, **kwargs):
             ),
             launch_arguments={
                 'model_namespace': name,
+                'multi_robot_names': robot_names_str,
                 'use_sim_time': 'true',
                 'x': str(x_init),
                 'y': str(y_init),

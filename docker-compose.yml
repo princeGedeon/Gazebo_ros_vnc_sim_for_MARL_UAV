@@ -10,9 +10,11 @@ services:
       - GUI=vnc
       - DISPLAY=:1
     network_mode: host # Essential for ROS 2 communication between containers
+    shm_size: 10gb # Required for Ray/RLLib
     volumes:
       - ./src:/root/ros2_ws/src
-      - ./outputs:/root/ros2_ws/src/swarm_sim_pkg/swarm_sim/outputs
+      - ./outputs:/root/ros2_ws/outputs
+      - ./rllib_results:/root/ros2_ws/rllib_results
       - /tmp/.X11-unix:/tmp/.X11-unix
     ipc: host
     stdin_open: true

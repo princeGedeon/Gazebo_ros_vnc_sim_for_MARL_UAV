@@ -16,6 +16,10 @@ class Battery:
     def recharge(self):
         self.current_level = min(self.capacity, self.current_level + self.recharge_rate)
         return self.current_level
+    
+    def reset(self):
+        """Restore full battery."""
+        self.current_level = self.capacity
         
     def get_percentage(self):
         return self.current_level / self.capacity

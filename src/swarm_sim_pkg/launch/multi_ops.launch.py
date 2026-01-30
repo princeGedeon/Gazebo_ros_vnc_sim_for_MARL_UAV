@@ -94,8 +94,15 @@ def launch_setup(context, *args, **kwargs):
     # Ground Stations Layout (Simple Grid/List)
     num_stations = int(context.launch_configurations['num_stations'])
     station_positions = [
-        (5.0, 5.0), (-5.0, 5.0), (5.0, -5.0), (-5.0, -5.0),
-        (10.0, 0.0), (-10.0, 0.0), (0.0, 10.0), (0.0, -10.0)
+        (0.0, 0.0),      # Center
+        (10.0, 0.0),     # Right
+        (-10.0, 0.0),    # Left
+        (0.0, 10.0),     # Top
+        (0.0, -10.0),    # Bottom
+        (10.0, 10.0),
+        (-10.0, -10.0),
+        (10.0, -10.0),
+        (-10.0, 10.0)
     ]
     
     gs_file = find_asset(os.path.join('assets', 'models', 'ground_station.sdf'))
@@ -127,7 +134,20 @@ def launch_setup(context, *args, **kwargs):
         # Position offset: Line them up along X axis
         # Start on ground (z=0.1) or low hover? User asked for ground start or "not floating in air".
         # x500 origin is at center, legs are below. z=0.25 (approx) might be needed to sit on ground.
-        x_pos = float(i) * 2.0
+        if num_stations > 1:
+            # Spaced out logic: Match station positions
+            # Assuming station_positions logic: 
+            # (-10, 0), (0, 0), (10, 0) for 3 stations
+            if i < len(station_positions):
+                x_pos = station_positions[i][0]
+                y_pos = station_positions[i][1]
+            else:
+                x_pos = float(i) * 2.0
+                y_pos = 0.0
+        else:
+             # Standard line
+             x_pos = float(i) * 2.0
+             y_pos = 0.0
         
         # Process Xacro (SDF)
         robot_desc = Command(['xacro ', xacro_file, ' namespace:=', name])
@@ -141,7 +161,7 @@ def launch_setup(context, *args, **kwargs):
             arguments=[
                 '-name', name,
                 '-string', robot_desc,
-                '-x', str(x_pos), '-y', '0', '-z', '0.24' # Start on ground
+                '-x', str(x_pos), '-y', str(y_pos), '-z', '0.24' # Start on ground
             ],
             output='screen'
         )
@@ -247,8 +267,13 @@ def generate_launch_description():
         ),
 
         DeclareLaunchArgument('num_drones', default_value='3', description='Number of drones'),
-        DeclareLaunchArgument('num_stations', default_value='1', description='Number of ground stations'),
+        DeclareLaunchArgument('num_drones', default_value='3', description='Number of drones'),
+        DeclareLaunchArgument('num_stations', default_value='3', description='Number of ground stations'),
         DeclareLaunchArgument('map_type', default_value='world', description='world OR model'),
-        DeclareLaunchArgument('map_file', default_value='city.sdf', description='Filename or Path'),
+        DeclareLaunchArgument(
+        'map_file',
+        default_value='generated_city_rich.sdf',
+        description='SDF World File'
+    ),
         OpaqueFunction(function=launch_setup)
     ])

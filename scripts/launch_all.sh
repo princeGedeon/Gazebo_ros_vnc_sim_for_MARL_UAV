@@ -5,7 +5,7 @@
 
 echo ">>> Starting Gazebo Simulation Environment..."
 # Run the super_simulation in background
-ros2 launch swarm_sim super_simulation.launch.py num_drones:=3 map_file:=city.sdf open_rviz:=true &
+ros2 launch swarm_sim super_simulation.launch.py num_drones:=3 map_file:=city.sdf open_rviz:=true slam:=true &
 SIM_PID=$!
 
 echo "Waiting for Simulation to stabilize (15s)..."

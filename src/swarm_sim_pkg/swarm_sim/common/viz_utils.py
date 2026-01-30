@@ -16,6 +16,8 @@ class VoxelVisualizer(Node):
         super().__init__('voxel_visualizer')
         self.pub_voxels = self.create_publisher(PointCloud2, '/coverage_map_voxels', 10)
         self.pub_markers = self.create_publisher(MarkerArray, '/comm_range_markers', 10)
+        from nav_msgs.msg import OccupancyGrid
+        self.pub_2d_map = self.create_publisher(OccupancyGrid, '/coverage_map_2d', 10)
 
     def publish_voxels(self, grid_or_sparse, resolution, x_min, y_min, z_min):
         """
@@ -51,10 +53,10 @@ class VoxelVisualizer(Node):
         if not points:
             return
 
-        # Create PC2 fields
-        # Simple slow python packing debug only
-        # Real impl uses point_cloud2.create_cloud_xyz32
-        
+        # Optimization: Use Numpy for fast packing
+        # points is currently a list of [x, y, z]. Convert to float32 array.
+        points_arr = np.array(points, dtype=np.float32)
+
         msg.height = 1
         msg.width = len(points)
         msg.fields = [
@@ -67,13 +69,55 @@ class VoxelVisualizer(Node):
         msg.row_step = 12 * len(points)
         msg.is_dense = True
         
-        buffer = []
-        for p in points:
-            buffer.append(struct.pack('fff', float(p[0]), float(p[1]), float(p[2])))
-        
-        msg.data = b''.join(buffer)
+        # Fast binary conversion
+        msg.data = points_arr.tobytes()
         
         self.pub_voxels.publish(msg)
+
+    def publish_2d_map(self, grid_or_sparse, resolution, x_min, y_min, z_min, x_max, y_max):
+        """
+        Publishes a 2D OccupancyGrid by projecting the 3D Voxel Map downwards.
+        Useful for visualizing coverage evolution clearly.
+        """
+        from nav_msgs.msg import OccupancyGrid
+        
+        msg = OccupancyGrid()
+        msg.header.frame_id = "world"
+        msg.header.stamp = self.get_clock().now().to_msg()
+        
+        # Grid Dimensions
+        width_m = x_max - x_min
+        height_m = y_max - y_min
+        
+        cells_x = int(width_m / resolution)
+        cells_y = int(height_m / resolution)
+        
+        msg.info.resolution = resolution
+        msg.info.width = cells_x
+        msg.info.height = cells_y
+        msg.info.origin.position.x = float(x_min)
+        msg.info.origin.position.y = float(y_min)
+        msg.info.origin.position.z = 0.0
+        
+        # Initialize grid with -1 (Unknown) or 0 (Free)
+        # We want to show "Covered" areas.
+        grid_data = np.zeros((cells_y, cells_x), dtype=np.int8)
+        
+        # Project 3D -> 2D
+        if isinstance(grid_or_sparse, list) or isinstance(grid_or_sparse, set):
+            for (gx, gy, gz) in grid_or_sparse:
+                if 0 <= gx < cells_x and 0 <= gy < cells_y:
+                    # Mark as Occupied/Visited (100)
+                    grid_data[gy, gx] = 100
+                    
+        elif isinstance(grid_or_sparse, np.ndarray) and grid_or_sparse.ndim == 3:
+             # Flatten dense
+             # Any voxel in Z column means covered?
+             projection = np.any(grid_or_sparse, axis=2)
+             grid_data[projection] = 100
+
+        msg.data = grid_data.flatten().tolist()
+        self.pub_2d_map.publish(msg)
 
     def publish_comm_range(self, positions, range_radius=5.0):
         """
@@ -150,9 +194,7 @@ class VoxelVisualizer(Node):
             
         self.pub_markers.publish(marker_array)
 
-            marker_array.markers.append(marker)
-            
-        self.pub_markers.publish(marker_array)
+
 
     def get_agent_color(self, agent_id):
         """Returns (r, g, b) based on agent ID suffix."""
@@ -172,46 +214,74 @@ class VoxelVisualizer(Node):
         except:
             return (1.0, 1.0, 1.0) # White
 
-    def publish_boundaries(self, x_min, x_max, y_min, y_max, z_max=10.0):
+    def publish_boundaries(self, x_min, x_max, y_min, y_max, z_min=0.0, z_max=10.0):
         """
-        Visualizes the workspace limits as a Line Strip.
+        Visualizes the workspace limits as a Line Strip AND Altitude Planes.
         """
+        marker_array = MarkerArray()
+        
+        # 1. Wireframe Box (White)
         marker = Marker()
         marker.header.frame_id = "world"
         marker.header.stamp = self.get_clock().now().to_msg()
-        marker.ns = "boundary"
+        marker.ns = "boundary_lines"
         marker.id = 0
         marker.type = Marker.LINE_STRIP
         marker.action = Marker.ADD
-        marker.scale.x = 0.2 # Thickness
-        
-        # White Boundary
-        marker.color.a = 1.0
-        marker.color.r = 1.0
-        marker.color.g = 1.0
-        marker.color.b = 1.0
-        
-        # Draw Box at Ground and Ceiling
-        corners = [
-            (x_min, y_min), (x_max, y_min), 
-            (x_max, y_max), (x_min, y_max), 
-            (x_min, y_min) # Close loop
-        ]
+        marker.scale.x = 0.1 # Thickness
+        marker.color = ColorRGBA(r=1.0, g=1.0, b=1.0, a=1.0)
         
         # Ground Loop
-        for x, y in corners:
-            marker.points.append(Point(x=float(x), y=float(y), z=0.0))
-            
-        # Ceiling Loop (Optional, to show 3D volume)
-        for x, y in corners:
-            marker.points.append(Point(x=float(x), y=float(y), z=float(z_max)))
-
-        # Vertical Pillars at corners
-        # (Requires LINE_LIST or just assume user infers volume)
-        # For simple LINE_STRIP, we just drew two loops.
+        corners = [(x_min, y_min), (x_max, y_min), (x_max, y_max), (x_min, y_max), (x_min, y_min)]
+        for x, y in corners: marker.points.append(Point(x=float(x), y=float(y), z=0.0))
+        # Ceiling Loop
+        for x, y in corners: marker.points.append(Point(x=float(x), y=float(y), z=float(z_max)))
         
-        marker_array = MarkerArray()
         marker_array.markers.append(marker)
+        
+        # 2. Min Altitude Plane (Red Floor) - "Danger Below"
+        if z_min > 0.0:
+            plane_min = Marker()
+            plane_min.header.frame_id = "world"
+            plane_min.header.stamp = self.get_clock().now().to_msg()
+            plane_min.ns = "boundary_planes"
+            plane_min.id = 1
+            plane_min.type = Marker.CUBE
+            plane_min.action = Marker.ADD
+            
+            cx = (x_min + x_max) / 2
+            cy = (y_min + y_max) / 2
+            
+            plane_min.pose.position = Point(x=float(cx), y=float(cy), z=float(z_min))
+            plane_min.scale.x = float(x_max - x_min)
+            plane_min.scale.y = float(y_max - y_min)
+            plane_min.scale.z = 0.05 # Thin sheet
+            
+            # Semi-transparent Red
+            plane_min.color = ColorRGBA(r=1.0, g=0.0, b=0.2, a=0.3)
+            marker_array.markers.append(plane_min)
+
+        # 3. Max Altitude Plane (Red Ceiling) - "Danger Above"
+        if z_max > 0.0:
+            plane_max = Marker()
+            plane_max.header.frame_id = "world"
+            plane_max.header.stamp = self.get_clock().now().to_msg()
+            plane_max.ns = "boundary_planes"
+            plane_max.id = 2
+            plane_max.type = Marker.CUBE
+            plane_max.action = Marker.ADD
+            
+            cx = (x_min + x_max) / 2
+            cy = (y_min + y_max) / 2
+            
+            plane_max.pose.position = Point(x=float(cx), y=float(cy), z=float(z_max))
+            plane_max.scale.x = float(x_max - x_min)
+            plane_max.scale.y = float(y_max - y_min)
+            plane_max.scale.z = 0.05 
+            
+            plane_max.color = ColorRGBA(r=1.0, g=0.0, b=0.2, a=0.3)
+            marker_array.markers.append(plane_max)
+
         self.pub_markers.publish(marker_array)
 
     def publish_lidar_cone(self, uav_poses):

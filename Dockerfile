@@ -35,17 +35,16 @@ RUN rm -rf /usr/lib/python3/dist-packages/typing_extensions* \
     /usr/lib/python3/dist-packages/mpmath* \
     /usr/lib/python3/dist-packages/packaging* \
     /usr/lib/python3/dist-packages/blinker* \
-    /usr/lib/python3/dist-packages/kiwisolver*
+    /usr/lib/python3/dist-packages/kiwisolver* \
+    /usr/lib/python3/dist-packages/zipp*
 
 RUN pip3 install --break-system-packages \
     gymnasium \
     websockify \
     pettingzoo \
     stable-baselines3 \
-    numpy \
-    matplotlib \
-    pillow \
-    "ray[rllib]" \
+    "ray[rllib,default]" \
+    "numpy<2.0.0" \
     torch \
     supersuit \
     shimmy \
@@ -62,6 +61,8 @@ RUN apt-get update && apt-get install -y \
     libpcl-dev \
     libgoogle-glog-dev \
     python3-scipy \
+    ros-jazzy-sensor-msgs \
+    ros-jazzy-sensor-msgs-py \
     ros-jazzy-octomap-ros \
     ros-jazzy-octomap-server \
     ros-jazzy-pcl-ros \
@@ -93,14 +94,18 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 
 # Expose ports (VNC and NoVNC)
-EXPOSE 5901 6080
+# Expose ports (VNC, NoVNC, Ray Dashboard 8265)
+EXPOSE 5901 6080 8265
 
 WORKDIR /root/ros2_ws
 COPY . /root/ros2_ws/
 
 # Pre-build the workspace
+# Import dependencies automatically
+RUN vcs import src < src/Multi-Robot-Graph-SLAM/mrg_slam.repos
+
 RUN . /opt/ros/jazzy/setup.sh && \
-    colcon build || echo "Build failed, user can fix later"
+    colcon build --parallel-workers 1 || echo "Build failed, user can fix later"
 
 ENTRYPOINT ["/entrypoint.sh"]
 

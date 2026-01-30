@@ -262,7 +262,9 @@ class UAVBase:
         vel_action: [vx, vy, vz, wz]
         """
         # Drain battery based on movement magnitude
-        move_cost = np.linalg.norm(vel_action[:3]) * 0.1 + 0.01
+        # User Request: "diminue moins rapidement mais les déplacemnt diminue plus que quand stagnante"
+        # Idle cost (0.002) is negligible vs Move cost (0.3 per m/s)
+        move_cost = np.linalg.norm(vel_action[:3]) * 0.3 + 0.002
         self.battery.consume(move_cost)
         
         if self.battery.is_empty():
@@ -272,7 +274,12 @@ class UAVBase:
         msg = Twist()
         msg.linear.x = float(vel_action[0])
         msg.linear.y = float(vel_action[1])
-        msg.linear.z = float(vel_action[2])
+        # HARD CLAMP on actuator side (Safety Net)
+        # Prevent any command > 1.0 or < -1.0 (though Env sends smaller)
+        # And specifically limit UPWARD velocity to 0.5 to prevent skyrocketing
+        z_cmd = float(vel_action[2])
+        z_cmd = np.clip(z_cmd, -1.0, 0.5)
+        msg.linear.z = z_cmd
         msg.angular.z = float(vel_action[3])
         self.pub_cmd_vel.publish(msg)
 
