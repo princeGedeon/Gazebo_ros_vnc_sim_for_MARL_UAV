@@ -90,24 +90,24 @@
 
     <model name="bldg_0">
       <static>true</static>
-      <pose>-98.0 -98.0 8.334103244075074 0 0 0</pose>
+      <pose>-98.0 -98.0 2.5235670317674987 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>4.451814415886709</radius><length>16.668206488150147</length></cylinder></geometry>
+           <geometry><box><size>15.342661748203877 11.08600410563863 5.0471340635349975</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>4.451814415886709</radius><length>16.668206488150147</length></cylinder></geometry>
-           <material><ambient>0.9787629967358746 0.03336153111058415 0.198793632094854 1</ambient><diffuse>0.9787629967358746 0.03336153111058415 0.198793632094854 1</diffuse></material>
+           <geometry><box><size>15.342661748203877 11.08600410563863 5.0471340635349975</size></box></geometry>
+           <material><ambient>0.07891768210494154 0.100371998829073 0.49105680813120545 1</ambient><diffuse>0.07891768210494154 0.100371998829073 0.49105680813120545 1</diffuse></material>
         </visual>
       </link>
     </model>
 
     <model name="door_0">
       <static>true</static>
-      <pose>-98.0 -105.40685723729185 1.0 0 0 0</pose>
+      <pose>-98.0 -103.64300205281931 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.967876277257806 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.114220582734625 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -145,27 +145,13 @@
       </link>
     </model>
 
-    <model name="bldg_1">
+    <model name="park_-4_-3">
       <static>true</static>
-      <pose>-98.0 -70.0 1.682156860898222 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>11.732924743894504 15.447695873061353 3.364313721796444</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>11.732924743894504 15.447695873061353 3.364313721796444</size></box></geometry>
-           <material><ambient>0.06564957514862302 0.6342917819300694 0.6989467228254145 1</ambient><diffuse>0.06564957514862302 0.6342917819300694 0.6989467228254145 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_1">
-      <static>true</static>
-      <pose>-98.0 -77.82384793653067 1.0 0 0 0</pose>
+      <pose>-98.0 -70.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.910974914631501 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -216,26 +202,26 @@
       </link>
     </model>
 
-    <model name="bldg_2">
+    <model name="bldg_1">
       <static>true</static>
-      <pose>-98.0 -42.0 3.9479153364611697 0 0 0</pose>
+      <pose>-98.0 -42.0 3.6376901776272232 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>6.2124980821343785</radius><length>7.895830672922339</length></cylinder></geometry>
+           <geometry><box><size>11.35202361768915 14.776690094084369 7.2753803552544465</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>6.2124980821343785</radius><length>7.895830672922339</length></cylinder></geometry>
-           <material><ambient>0.7144579922461237 0.8205443545759845 0.9350840563439466 1</ambient><diffuse>0.7144579922461237 0.8205443545759845 0.9350840563439466 1</diffuse></material>
+           <geometry><box><size>11.35202361768915 14.776690094084369 7.2753803552544465</size></box></geometry>
+           <material><ambient>0.5092049025601565 0.32316817157173483 0.43274199991856177 1</ambient><diffuse>0.5092049025601565 0.32316817157173483 0.43274199991856177 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_2">
+    <model name="door_1">
       <static>true</static>
-      <pose>-98.0 -47.47856834764767 1.0 0 0 0</pose>
+      <pose>-98.0 -49.48834504704219 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.141665388089586 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.78400787256305 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -273,27 +259,13 @@
       </link>
     </model>
 
-    <model name="bldg_3">
+    <model name="park_-4_-1">
       <static>true</static>
-      <pose>-98.0 -14.0 7.727744864838097 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><cylinder><radius>4.274894073861852</radius><length>15.455489729676193</length></cylinder></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><cylinder><radius>4.274894073861852</radius><length>15.455489729676193</length></cylinder></geometry>
-           <material><ambient>0.07343139725076853 0.7194924009525266 0.41286532468152626 1</ambient><diffuse>0.07343139725076853 0.7194924009525266 0.41286532468152626 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_3">
-      <static>true</static>
-      <pose>-98.0 -21.858931861761256 1.0 0 0 0</pose>
+      <pose>-98.0 -14.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.8499293825745684 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -344,13 +316,27 @@
       </link>
     </model>
 
-    <model name="park_-4_0">
+    <model name="bldg_2">
       <static>true</static>
-      <pose>-98.0 14.0 0.05 0 0 0</pose>
+      <pose>-98.0 14.0 6.871921854589109 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>15.495885785892245 14.268601737189726 13.743843709178218</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>15.495885785892245 14.268601737189726 13.743843709178218</size></box></geometry>
+           <material><ambient>0.007378564841799773 0.23080644680875095 0.8802637911668005 1</ambient><diffuse>0.007378564841799773 0.23080644680875095 0.8802637911668005 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_2">
+      <static>true</static>
+      <pose>-98.0 6.765699131405137 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>5.165295261964082 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -387,26 +373,26 @@
       </link>
     </model>
 
-    <model name="bldg_4">
+    <model name="bldg_3">
       <static>true</static>
-      <pose>-98.0 42.0 4.539866508895002 0 0 0</pose>
+      <pose>-98.0 42.0 2.091871394252661 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>4.516855894334848</radius><length>9.079733017790003</length></cylinder></geometry>
+           <geometry><box><size>12.65519496365092 12.680258744932562 4.183742788505322</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>4.516855894334848</radius><length>9.079733017790003</length></cylinder></geometry>
-           <material><ambient>0.17723739641916714 0.8148387839232747 0.6488204414204242 1</ambient><diffuse>0.17723739641916714 0.8148387839232747 0.6488204414204242 1</diffuse></material>
+           <geometry><box><size>12.65519496365092 12.680258744932562 4.183742788505322</size></box></geometry>
+           <material><ambient>0.1498548266455363 0.6387725588322049 0.955054819178483 1</ambient><diffuse>0.1498548266455363 0.6387725588322049 0.955054819178483 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_4">
+    <model name="door_3">
       <static>true</static>
-      <pose>-98.0 37.1781889678164 1.0 0 0 0</pose>
+      <pose>-98.0 35.55987062753372 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.0112372628898982 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.218398321216974 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -458,26 +444,26 @@
       </link>
     </model>
 
-    <model name="bldg_5">
+    <model name="bldg_4">
       <static>true</static>
-      <pose>-98.0 70.0 11.535375802320841 0 0 0</pose>
+      <pose>-98.0 70.0 11.17141163954446 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>13.794233272439724 10.05632796829989 23.070751604641682</size></box></geometry>
+           <geometry><cylinder><radius>4.861963068080618</radius><length>22.34282327908892</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>13.794233272439724 10.05632796829989 23.070751604641682</size></box></geometry>
-           <material><ambient>0.6548148545572942 0.005233794603644704 0.7152609561271142 1</ambient><diffuse>0.6548148545572942 0.005233794603644704 0.7152609561271142 1</diffuse></material>
+           <geometry><cylinder><radius>4.861963068080618</radius><length>22.34282327908892</length></cylinder></geometry>
+           <material><ambient>0.6452800324957052 0.34005277793005484 0.035646647061961856 1</ambient><diffuse>0.6452800324957052 0.34005277793005484 0.035646647061961856 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_5">
+    <model name="door_4">
       <static>true</static>
-      <pose>-98.0 64.87183601585006 1.0 0 0 0</pose>
+      <pose>-98.0 64.91522386664495 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.598077757479908 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.2413087120537454 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -515,13 +501,27 @@
       </link>
     </model>
 
-    <model name="park_-4_3">
+    <model name="bldg_5">
       <static>true</static>
-      <pose>-98.0 98.0 0.05 0 0 0</pose>
+      <pose>-98.0 98.0 6.102142837959303 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>11.222737588818491 15.767643930074145 12.204285675918605</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>11.222737588818491 15.767643930074145 12.204285675918605</size></box></geometry>
+           <material><ambient>0.5592032974253442 0.2837923102071037 0.8228978980625674 1</ambient><diffuse>0.5592032974253442 0.2837923102071037 0.8228978980625674 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_5">
+      <static>true</static>
+      <pose>-98.0 90.01617803496293 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>3.7409125296061636 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -572,27 +572,13 @@
       </link>
     </model>
 
-    <model name="bldg_6">
+    <model name="park_-4_4">
       <static>true</static>
-      <pose>-98.0 126.0 6.093467344361113 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>13.55607329755189 14.647509131346542 12.186934688722227</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>13.55607329755189 14.647509131346542 12.186934688722227</size></box></geometry>
-           <material><ambient>0.9502942637053859 0.6895258501634329 0.060362069501941784 1</ambient><diffuse>0.9502942637053859 0.6895258501634329 0.060362069501941784 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_6">
-      <static>true</static>
-      <pose>-98.0 118.57624543432674 1.0 0 0 0</pose>
+      <pose>-98.0 126.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.518691099183964 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -672,26 +658,26 @@
       </link>
     </model>
 
-    <model name="bldg_7">
+    <model name="bldg_6">
       <static>true</static>
-      <pose>-70.0 -70.0 6.573679031313382 0 0 0</pose>
+      <pose>-70.0 -70.0 11.145302864680088 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>11.178415717967777 10.07490052765262 13.147358062626765</size></box></geometry>
+           <geometry><box><size>9.249776720305364 13.105119866609332 22.290605729360177</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>11.178415717967777 10.07490052765262 13.147358062626765</size></box></geometry>
-           <material><ambient>0.2459653787662176 0.831617040297631 0.29504041456006014 1</ambient><diffuse>0.2459653787662176 0.831617040297631 0.29504041456006014 1</diffuse></material>
+           <geometry><box><size>9.249776720305364 13.105119866609332 22.290605729360177</size></box></geometry>
+           <material><ambient>0.8486679505580024 0.21356448876894685 0.12262370836348857 1</ambient><diffuse>0.8486679505580024 0.21356448876894685 0.12262370836348857 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_7">
+    <model name="door_6">
       <static>true</static>
-      <pose>-70.0 -75.13745026382631 1.0 0 0 0</pose>
+      <pose>-70.0 -76.65255993330466 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.7261385726559255 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.083258906768455 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -729,26 +715,26 @@
       </link>
     </model>
 
-    <model name="bldg_8">
+    <model name="bldg_7">
       <static>true</static>
-      <pose>-70.0 -42.0 5.581432126461019 0 0 0</pose>
+      <pose>-70.0 -42.0 10.33584450808003 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>13.472549850674866 13.733666839915596 11.162864252922038</size></box></geometry>
+           <geometry><box><size>12.347266834379655 10.477315987206403 20.67168901616006</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>13.472549850674866 13.733666839915596 11.162864252922038</size></box></geometry>
-           <material><ambient>0.15750327649406515 0.7656076347480107 0.05571804301236216 1</ambient><diffuse>0.15750327649406515 0.7656076347480107 0.05571804301236216 1</diffuse></material>
+           <geometry><box><size>12.347266834379655 10.477315987206403 20.67168901616006</size></box></geometry>
+           <material><ambient>0.5452253943904294 0.27323704681909844 0.22826414803682094 1</ambient><diffuse>0.5452253943904294 0.27323704681909844 0.22826414803682094 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_8">
+    <model name="door_7">
       <static>true</static>
-      <pose>-70.0 -48.9668334199578 1.0 0 0 0</pose>
+      <pose>-70.0 -47.3386579936032 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.4908499502249555 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.1157556114598846 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -786,26 +772,26 @@
       </link>
     </model>
 
-    <model name="bldg_9">
+    <model name="bldg_8">
       <static>true</static>
-      <pose>-70.0 -14.0 7.116389247655055 0 0 0</pose>
+      <pose>-70.0 -14.0 4.16093976846412 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>5.027173281508501</radius><length>14.23277849531011</length></cylinder></geometry>
+           <geometry><cylinder><radius>7.724120574102244</radius><length>8.32187953692824</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>5.027173281508501</radius><length>14.23277849531011</length></cylinder></geometry>
-           <material><ambient>0.007693075101909974 0.8758857865616854 0.4711335638418178 1</ambient><diffuse>0.007693075101909974 0.8758857865616854 0.4711335638418178 1</diffuse></material>
+           <geometry><cylinder><radius>7.724120574102244</radius><length>8.32187953692824</length></cylinder></geometry>
+           <material><ambient>0.8154843360258764 0.20335821501575657 0.9309179945168319 1</ambient><diffuse>0.8154843360258764 0.20335821501575657 0.9309179945168319 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_9">
+    <model name="door_8">
       <static>true</static>
-      <pose>-70.0 -21.728112437632763 1.0 0 0 0</pose>
+      <pose>-70.0 -19.347105833627378 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.351448854339001 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.149413716068163 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -843,27 +829,13 @@
       </link>
     </model>
 
-    <model name="bldg_10">
+    <model name="park_-3_0">
       <static>true</static>
-      <pose>-70.0 14.0 3.4737987561321404 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>9.147953557970423 9.673786814784602 6.947597512264281</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>9.147953557970423 9.673786814784602 6.947597512264281</size></box></geometry>
-           <material><ambient>0.17002461339749453 0.5750265043405539 0.8238114902155127 1</ambient><diffuse>0.17002461339749453 0.5750265043405539 0.8238114902155127 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_10">
-      <static>true</static>
-      <pose>-70.0 9.0631065926077 1.0 0 0 0</pose>
+      <pose>-70.0 14.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.0493178526568077 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -900,26 +872,26 @@
       </link>
     </model>
 
-    <model name="bldg_11">
+    <model name="bldg_9">
       <static>true</static>
-      <pose>-70.0 42.0 8.787843410166452 0 0 0</pose>
+      <pose>-70.0 42.0 9.960052538225515 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>7.742208869902609</radius><length>17.575686820332905</length></cylinder></geometry>
+           <geometry><cylinder><radius>7.8172579100735575</radius><length>19.92010507645103</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>7.742208869902609</radius><length>17.575686820332905</length></cylinder></geometry>
-           <material><ambient>0.6938298682726439 0.32213265571256755 0.9533064778316453 1</ambient><diffuse>0.6938298682726439 0.32213265571256755 0.9533064778316453 1</diffuse></material>
+           <geometry><cylinder><radius>7.8172579100735575</radius><length>19.92010507645103</length></cylinder></geometry>
+           <material><ambient>0.3586243095088105 0.24959450865288613 0.012275405890124547 1</ambient><diffuse>0.3586243095088105 0.24959450865288613 0.012275405890124547 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_11">
+    <model name="door_9">
       <static>true</static>
-      <pose>-70.0 34.11850577766644 1.0 0 0 0</pose>
+      <pose>-70.0 34.14622287364215 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>5.161472579935073 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.211505273382372 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -957,26 +929,26 @@
       </link>
     </model>
 
-    <model name="bldg_12">
+    <model name="bldg_10">
       <static>true</static>
-      <pose>-70.0 70.0 2.7399466321609682 0 0 0</pose>
+      <pose>-70.0 70.0 1.8771646480618858 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>9.18907754113869 9.364157114340085 5.4798932643219365</size></box></geometry>
+           <geometry><box><size>12.654126522715291 14.81363523251945 3.7543292961237715</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>9.18907754113869 9.364157114340085 5.4798932643219365</size></box></geometry>
-           <material><ambient>0.7168827684858413 0.7716606667447272 0.1587067862543674 1</ambient><diffuse>0.7168827684858413 0.7716606667447272 0.1587067862543674 1</diffuse></material>
+           <geometry><box><size>12.654126522715291 14.81363523251945 3.7543292961237715</size></box></geometry>
+           <material><ambient>0.6026039844535511 0.08320478289895294 0.7268993759771187 1</ambient><diffuse>0.6026039844535511 0.08320478289895294 0.7268993759771187 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_12">
+    <model name="door_10">
       <static>true</static>
-      <pose>-70.0 65.21792144282996 1.0 0 0 0</pose>
+      <pose>-70.0 62.493182383740276 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.06302584704623 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.21804217423843 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1014,26 +986,26 @@
       </link>
     </model>
 
-    <model name="bldg_13">
+    <model name="bldg_11">
       <static>true</static>
-      <pose>-70.0 98.0 4.080254313031201 0 0 0</pose>
+      <pose>-70.0 98.0 3.8265298128650302 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>7.712726951259202</radius><length>8.160508626062402</length></cylinder></geometry>
+           <geometry><cylinder><radius>5.824363381465605</radius><length>7.6530596257300605</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>7.712726951259202</radius><length>8.160508626062402</length></cylinder></geometry>
-           <material><ambient>0.3587646955747741 0.7035193543534198 0.3625583343144638 1</ambient><diffuse>0.3587646955747741 0.7035193543534198 0.3625583343144638 1</diffuse></material>
+           <geometry><cylinder><radius>5.824363381465605</radius><length>7.6530596257300605</length></cylinder></geometry>
+           <material><ambient>0.14358297201273418 0.4594956118217749 0.818678515794683 1</ambient><diffuse>0.14358297201273418 0.4594956118217749 0.818678515794683 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_13">
+    <model name="door_11">
       <static>true</static>
-      <pose>-70.0 91.97978911384993 1.0 0 0 0</pose>
+      <pose>-70.0 93.88478456954448 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>5.141817967506134 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.8829089209770697 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1071,27 +1043,13 @@
       </link>
     </model>
 
-    <model name="bldg_14">
+    <model name="park_-3_4">
       <static>true</static>
-      <pose>-70.0 126.0 5.712705874022833 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>9.454333170714438 8.96303771133363 11.425411748045667</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>9.454333170714438 8.96303771133363 11.425411748045667</size></box></geometry>
-           <material><ambient>0.7845527543635881 0.6043038193209601 0.6149831786131983 1</ambient><diffuse>0.7845527543635881 0.6043038193209601 0.6149831786131983 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_14">
-      <static>true</static>
-      <pose>-70.0 121.41848114433319 1.0 0 0 0</pose>
+      <pose>-70.0 126.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.151444390238146 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -1142,27 +1100,13 @@
       </link>
     </model>
 
-    <model name="bldg_15">
+    <model name="park_-2_-4">
       <static>true</static>
-      <pose>-42.0 -98.0 1.812425182462427 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>8.236305265112598 14.267231634191115 3.624850364924854</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>8.236305265112598 14.267231634191115 3.624850364924854</size></box></geometry>
-           <material><ambient>0.8848137805364757 0.03330747802436107 0.12730777289829764 1</ambient><diffuse>0.8848137805364757 0.03330747802436107 0.12730777289829764 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_15">
-      <static>true</static>
-      <pose>-42.0 -105.23361581709555 1.0 0 0 0</pose>
+      <pose>-42.0 -98.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.7454350883708663 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -1199,26 +1143,26 @@
       </link>
     </model>
 
-    <model name="bldg_16">
+    <model name="bldg_12">
       <static>true</static>
-      <pose>-42.0 -70.0 9.453982372134615 0 0 0</pose>
+      <pose>-42.0 -70.0 5.734184694096465 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>7.4624648816769374</radius><length>18.90796474426923</length></cylinder></geometry>
+           <geometry><box><size>12.679352574609744 8.170057510644643 11.46836938819293</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>7.4624648816769374</radius><length>18.90796474426923</length></cylinder></geometry>
-           <material><ambient>0.4600924233801492 0.5064213645081246 0.9765540441255716 1</ambient><diffuse>0.4600924233801492 0.5064213645081246 0.9765540441255716 1</diffuse></material>
+           <geometry><box><size>12.679352574609744 8.170057510644643 11.46836938819293</size></box></geometry>
+           <material><ambient>0.724466864392436 0.8841149506035106 0.2005147474207506 1</ambient><diffuse>0.724466864392436 0.8841149506035106 0.2005147474207506 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_16">
+    <model name="door_12">
       <static>true</static>
-      <pose>-42.0 -74.26983633854253 1.0 0 0 0</pose>
+      <pose>-42.0 -74.18502875532232 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.974976587784625 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.226450858203248 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1270,26 +1214,26 @@
       </link>
     </model>
 
-    <model name="bldg_17">
+    <model name="bldg_13">
       <static>true</static>
-      <pose>-42.0 -42.0 3.6991466147119 0 0 0</pose>
+      <pose>-42.0 -42.0 2.522974517584019 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>5.513526434932745</radius><length>7.3982932294238</length></cylinder></geometry>
+           <geometry><box><size>12.931677133729247 9.709780513660842 5.045949035168038</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>5.513526434932745</radius><length>7.3982932294238</length></cylinder></geometry>
-           <material><ambient>0.7643989408001596 0.9046492953189439 0.176098443486553 1</ambient><diffuse>0.7643989408001596 0.9046492953189439 0.176098443486553 1</diffuse></material>
+           <geometry><box><size>12.931677133729247 9.709780513660842 5.045949035168038</size></box></geometry>
+           <material><ambient>0.48810979955961264 0.45837308282455147 0.07947602669510367 1</ambient><diffuse>0.48810979955961264 0.45837308282455147 0.07947602669510367 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_17">
+    <model name="door_13">
       <static>true</static>
-      <pose>-42.0 -46.49994180426656 1.0 0 0 0</pose>
+      <pose>-42.0 -46.954890256830424 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.675684289955163 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.310559044576416 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1327,26 +1271,26 @@
       </link>
     </model>
 
-    <model name="bldg_18">
+    <model name="bldg_14">
       <static>true</static>
-      <pose>-42.0 -14.0 3.327264514310835 0 0 0</pose>
+      <pose>-42.0 -14.0 1.5267114841007532 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>8.636354879296244 11.964733037711769 6.65452902862167</size></box></geometry>
+           <geometry><box><size>13.632911136492433 11.555225343470225 3.0534229682015064</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>8.636354879296244 11.964733037711769 6.65452902862167</size></box></geometry>
-           <material><ambient>0.8508170586799255 0.5689485548956676 0.7453840513181563 1</ambient><diffuse>0.8508170586799255 0.5689485548956676 0.7453840513181563 1</diffuse></material>
+           <geometry><box><size>13.632911136492433 11.555225343470225 3.0534229682015064</size></box></geometry>
+           <material><ambient>0.7042233576448294 0.21905984064392303 0.6998118177265623 1</ambient><diffuse>0.7042233576448294 0.21905984064392303 0.6998118177265623 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_18">
+    <model name="door_14">
       <static>true</static>
-      <pose>-42.0 -20.082366518855885 1.0 0 0 0</pose>
+      <pose>-42.0 -19.877612671735115 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.8787849597654147 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.544303712164145 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1398,27 +1342,13 @@
       </link>
     </model>
 
-    <model name="bldg_19">
+    <model name="park_-2_0">
       <static>true</static>
-      <pose>-42.0 14.0 2.3721989961783816 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>13.104844011085133 13.442345523662189 4.744397992356763</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>13.104844011085133 13.442345523662189 4.744397992356763</size></box></geometry>
-           <material><ambient>0.15847964372960555 0.670887644966736 0.6156197042652176 1</ambient><diffuse>0.15847964372960555 0.670887644966736 0.6156197042652176 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_19">
-      <static>true</static>
-      <pose>-42.0 7.178827238168906 1.0 0 0 0</pose>
+      <pose>-42.0 14.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.368281337028377 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -1455,26 +1385,26 @@
       </link>
     </model>
 
-    <model name="bldg_20">
+    <model name="bldg_15">
       <static>true</static>
-      <pose>-42.0 42.0 4.49287748234403 0 0 0</pose>
+      <pose>-42.0 42.0 4.647097805640947 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>6.018306908711438</radius><length>8.98575496468806</length></cylinder></geometry>
+           <geometry><box><size>15.76349798601867 13.472286385605344 9.294195611281895</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>6.018306908711438</radius><length>8.98575496468806</length></cylinder></geometry>
-           <material><ambient>0.004706878468245357 0.6690605545483969 0.37761940711339836 1</ambient><diffuse>0.004706878468245357 0.6690605545483969 0.37761940711339836 1</diffuse></material>
+           <geometry><box><size>15.76349798601867 13.472286385605344 9.294195611281895</size></box></geometry>
+           <material><ambient>0.7191576907212245 0.7760415757399151 0.4462818985575434 1</ambient><diffuse>0.7191576907212245 0.7760415757399151 0.4462818985575434 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_20">
+    <model name="door_15">
       <static>true</static>
-      <pose>-42.0 35.28853097031001 1.0 0 0 0</pose>
+      <pose>-42.0 35.16385680719733 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.012204605807625 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.25449932867289 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1569,26 +1499,26 @@
       </link>
     </model>
 
-    <model name="bldg_21">
+    <model name="bldg_16">
       <static>true</static>
-      <pose>-42.0 98.0 11.320552342649343 0 0 0</pose>
+      <pose>-42.0 98.0 8.187884358222295 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>14.700849995382944 9.36291590950226 22.641104685298686</size></box></geometry>
+           <geometry><cylinder><radius>5.1270535653662455</radius><length>16.37576871644459</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>14.700849995382944 9.36291590950226 22.641104685298686</size></box></geometry>
-           <material><ambient>0.11507871745006737 0.7227367403792643 0.17421287777930727 1</ambient><diffuse>0.11507871745006737 0.7227367403792643 0.17421287777930727 1</diffuse></material>
+           <geometry><cylinder><radius>5.1270535653662455</radius><length>16.37576871644459</length></cylinder></geometry>
+           <material><ambient>0.32547679088761305 0.7877283173419841 0.9836225916744558 1</ambient><diffuse>0.32547679088761305 0.7877283173419841 0.9836225916744558 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_21">
+    <model name="door_16">
       <static>true</static>
-      <pose>-42.0 93.21854204524888 1.0 0 0 0</pose>
+      <pose>-42.0 89.93933041101761 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.900283331794315 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.4180357102441636 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1640,26 +1570,26 @@
       </link>
     </model>
 
-    <model name="bldg_22">
+    <model name="bldg_17">
       <static>true</static>
-      <pose>-42.0 126.0 2.514340982647993 0 0 0</pose>
+      <pose>-42.0 126.0 9.525055032280763 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>15.121830771768282 9.48774899664063 5.028681965295986</size></box></geometry>
+           <geometry><box><size>15.701362822979156 9.450235959792298 19.050110064561526</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>15.121830771768282 9.48774899664063 5.028681965295986</size></box></geometry>
-           <material><ambient>0.3387661318356855 0.07030340583595762 0.9519224633569586 1</ambient><diffuse>0.3387661318356855 0.07030340583595762 0.9519224633569586 1</diffuse></material>
+           <geometry><box><size>15.701362822979156 9.450235959792298 19.050110064561526</size></box></geometry>
+           <material><ambient>0.5679989177881775 0.4847383450541677 0.4688976092850521 1</ambient><diffuse>0.5679989177881775 0.4847383450541677 0.4688976092850521 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_22">
+    <model name="door_17">
       <static>true</static>
-      <pose>-42.0 121.1561255016797 1.0 0 0 0</pose>
+      <pose>-42.0 121.17488202010385 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>5.040610257256094 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.2337876076597185 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1697,26 +1627,26 @@
       </link>
     </model>
 
-    <model name="bldg_23">
+    <model name="bldg_18">
       <static>true</static>
-      <pose>-14.0 -98.0 11.181210757766559 0 0 0</pose>
+      <pose>-14.0 -98.0 3.8560939050084353 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>7.957392515845341</radius><length>22.362421515533118</length></cylinder></geometry>
+           <geometry><box><size>10.253962400846973 11.17725089507213 7.712187810016871</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>7.957392515845341</radius><length>22.362421515533118</length></cylinder></geometry>
-           <material><ambient>0.5262783151179734 0.37744430710894605 0.9497028422534497 1</ambient><diffuse>0.5262783151179734 0.37744430710894605 0.9497028422534497 1</diffuse></material>
+           <geometry><box><size>10.253962400846973 11.17725089507213 7.712187810016871</size></box></geometry>
+           <material><ambient>0.2759380565349887 0.791651058803078 0.898773091240485 1</ambient><diffuse>0.2759380565349887 0.791651058803078 0.898773091240485 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_23">
+    <model name="door_18">
       <static>true</static>
-      <pose>-14.0 -105.51658473925255 1.0 0 0 0</pose>
+      <pose>-14.0 -103.68862544753605 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>5.304928343896894 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.417987466948991 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1797,27 +1727,13 @@
       </link>
     </model>
 
-    <model name="bldg_24">
+    <model name="park_-1_-2">
       <static>true</static>
-      <pose>-14.0 -42.0 1.6089043914997254 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>15.507755681837377 15.833892372547492 3.217808782999451</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>15.507755681837377 15.833892372547492 3.217808782999451</size></box></geometry>
-           <material><ambient>0.10672365706418496 0.11960689199154817 0.3383643477552065 1</ambient><diffuse>0.10672365706418496 0.11960689199154817 0.3383643477552065 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_24">
-      <static>true</static>
-      <pose>-14.0 -50.01694618627375 1.0 0 0 0</pose>
+      <pose>-14.0 -42.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>5.169251893945792 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -1897,13 +1813,27 @@
       </link>
     </model>
 
-    <model name="park_-1_0">
+    <model name="bldg_19">
       <static>true</static>
-      <pose>-14.0 14.0 0.05 0 0 0</pose>
+      <pose>-14.0 14.0 2.757713768041565 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>12.140478911146484 14.036751003596061 5.51542753608313</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>12.140478911146484 14.036751003596061 5.51542753608313</size></box></geometry>
+           <material><ambient>0.5731753270957767 0.2038373489023103 0.19605695629109343 1</ambient><diffuse>0.5731753270957767 0.2038373489023103 0.19605695629109343 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_19">
+      <static>true</static>
+      <pose>-14.0 6.88162449820197 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>4.046826303715495 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -1940,26 +1870,26 @@
       </link>
     </model>
 
-    <model name="bldg_25">
+    <model name="bldg_20">
       <static>true</static>
-      <pose>-14.0 42.0 11.737906424604473 0 0 0</pose>
+      <pose>-14.0 42.0 7.672740519004155 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>4.082197923386916</radius><length>23.475812849208946</length></cylinder></geometry>
+           <geometry><box><size>12.881039106564529 11.936921281808964 15.34548103800831</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>4.082197923386916</radius><length>23.475812849208946</length></cylinder></geometry>
-           <material><ambient>0.703381560971716 0.36405746044436194 0.8251163846499471 1</ambient><diffuse>0.703381560971716 0.36405746044436194 0.8251163846499471 1</diffuse></material>
+           <geometry><box><size>12.881039106564529 11.936921281808964 15.34548103800831</size></box></geometry>
+           <material><ambient>0.3089189860773851 0.8969932661377837 0.3322621758122244 1</ambient><diffuse>0.3089189860773851 0.8969932661377837 0.3322621758122244 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_25">
+    <model name="door_20">
       <static>true</static>
-      <pose>-14.0 36.887228191190395 1.0 0 0 0</pose>
+      <pose>-14.0 35.93153935909552 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.721465282257944 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.293679702188176 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -1997,26 +1927,26 @@
       </link>
     </model>
 
-    <model name="bldg_26">
+    <model name="bldg_21">
       <static>true</static>
-      <pose>-14.0 70.0 2.6766582587847285 0 0 0</pose>
+      <pose>-14.0 70.0 8.666523748330219 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>15.180828620775088 11.683868804237804 5.353316517569457</size></box></geometry>
+           <geometry><cylinder><radius>4.649175699969307</radius><length>17.333047496660438</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>15.180828620775088 11.683868804237804 5.353316517569457</size></box></geometry>
-           <material><ambient>0.5763728516490956 0.26979225592672096 0.6775396475030818 1</ambient><diffuse>0.5763728516490956 0.26979225592672096 0.6775396475030818 1</diffuse></material>
+           <geometry><cylinder><radius>4.649175699969307</radius><length>17.333047496660438</length></cylinder></geometry>
+           <material><ambient>0.9140545132175812 0.7648078160391948 0.09196075143216109 1</ambient><diffuse>0.9140545132175812 0.7648078160391948 0.09196075143216109 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_26">
+    <model name="door_21">
       <static>true</static>
-      <pose>-14.0 64.0580655978811 1.0 0 0 0</pose>
+      <pose>-14.0 64.47551798296992 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>5.060276206925029 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.099450466646205 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2054,26 +1984,26 @@
       </link>
     </model>
 
-    <model name="bldg_27">
+    <model name="bldg_22">
       <static>true</static>
-      <pose>-14.0 98.0 12.313074809150335 0 0 0</pose>
+      <pose>-14.0 98.0 1.5162245402027925 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>10.765175903856377 10.309528147932424 24.62614961830067</size></box></geometry>
+           <geometry><box><size>14.177328477459566 15.376592342885587 3.032449080405585</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>10.765175903856377 10.309528147932424 24.62614961830067</size></box></geometry>
-           <material><ambient>0.9196524348296587 0.6438297722365618 0.9662839018175844 1</ambient><diffuse>0.9196524348296587 0.6438297722365618 0.9662839018175844 1</diffuse></material>
+           <geometry><box><size>14.177328477459566 15.376592342885587 3.032449080405585</size></box></geometry>
+           <material><ambient>0.6715406523524126 0.3362186619153813 0.853923451624441 1</ambient><diffuse>0.6715406523524126 0.3362186619153813 0.853923451624441 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_27">
+    <model name="door_22">
       <static>true</static>
-      <pose>-14.0 92.7452359260338 1.0 0 0 0</pose>
+      <pose>-14.0 90.2117038285572 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.5883919679521257 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.725776159153189 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2111,26 +2041,26 @@
       </link>
     </model>
 
-    <model name="bldg_28">
+    <model name="bldg_23">
       <static>true</static>
-      <pose>-14.0 126.0 2.4327403186303136 0 0 0</pose>
+      <pose>-14.0 126.0 5.76797907140169 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>11.927034647226005 11.301878713944614 4.865480637260627</size></box></geometry>
+           <geometry><cylinder><radius>7.475280069416048</radius><length>11.53595814280338</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>11.927034647226005 11.301878713944614 4.865480637260627</size></box></geometry>
-           <material><ambient>0.07195479698265816 0.7917557880715791 0.7148080917363597 1</ambient><diffuse>0.07195479698265816 0.7917557880715791 0.7148080917363597 1</diffuse></material>
+           <geometry><cylinder><radius>7.475280069416048</radius><length>11.53595814280338</length></cylinder></geometry>
+           <material><ambient>0.8143191471643694 0.643111451474141 0.1933663860682776 1</ambient><diffuse>0.8143191471643694 0.643111451474141 0.1933663860682776 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_28">
+    <model name="door_23">
       <static>true</static>
-      <pose>-14.0 120.2490606430277 1.0 0 0 0</pose>
+      <pose>-14.0 117.99811806132087 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.975678215742002 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.9835200462773654 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2182,13 +2112,27 @@
       </link>
     </model>
 
-    <model name="park_0_-4">
+    <model name="bldg_24">
       <static>true</static>
-      <pose>14.0 -98.0 0.05 0 0 0</pose>
+      <pose>14.0 -98.0 2.289148733467205 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>8.299808257160707 13.613628105386017 4.57829746693441</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>8.299808257160707 13.613628105386017 4.57829746693441</size></box></geometry>
+           <material><ambient>0.9259214915894293 0.43607325133066543 0.2295530499398044 1</ambient><diffuse>0.9259214915894293 0.43607325133066543 0.2295530499398044 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_24">
+      <static>true</static>
+      <pose>14.0 -104.90681405269301 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>2.7666027523869023 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -2225,26 +2169,26 @@
       </link>
     </model>
 
-    <model name="bldg_29">
+    <model name="bldg_25">
       <static>true</static>
-      <pose>14.0 -70.0 2.9489594839280073 0 0 0</pose>
+      <pose>14.0 -70.0 5.541431966501862 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>13.282190865219748 11.375294111102228 5.897918967856015</size></box></geometry>
+           <geometry><box><size>14.127245294799723 10.503995649685429 11.082863933003724</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>13.282190865219748 11.375294111102228 5.897918967856015</size></box></geometry>
-           <material><ambient>0.5683431328459037 0.026013489473907025 0.6962695748475615 1</ambient><diffuse>0.5683431328459037 0.026013489473907025 0.6962695748475615 1</diffuse></material>
+           <geometry><box><size>14.127245294799723 10.503995649685429 11.082863933003724</size></box></geometry>
+           <material><ambient>0.1553958568119016 0.546708557369807 0.9225921506838356 1</ambient><diffuse>0.1553958568119016 0.546708557369807 0.9225921506838356 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_29">
+    <model name="door_25">
       <static>true</static>
-      <pose>14.0 -75.7876470555511 1.0 0 0 0</pose>
+      <pose>14.0 -75.35199782484271 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.42739695507325 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.709081764933241 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2296,26 +2240,26 @@
       </link>
     </model>
 
-    <model name="bldg_30">
+    <model name="bldg_26">
       <static>true</static>
-      <pose>14.0 -42.0 11.818831444975896 0 0 0</pose>
+      <pose>14.0 -42.0 2.227329479472929 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>11.755561515385597 12.191813718318656 23.63766288995179</size></box></geometry>
+           <geometry><box><size>14.830618480299945 9.937693377669264 4.454658958945858</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>11.755561515385597 12.191813718318656 23.63766288995179</size></box></geometry>
-           <material><ambient>0.7889563436244859 0.10387922053017862 0.6247451478040856 1</ambient><diffuse>0.7889563436244859 0.10387922053017862 0.6247451478040856 1</diffuse></material>
+           <geometry><box><size>14.830618480299945 9.937693377669264 4.454658958945858</size></box></geometry>
+           <material><ambient>0.014944022647955912 0.2557046216939589 0.6436075818787669 1</ambient><diffuse>0.014944022647955912 0.2557046216939589 0.6436075818787669 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_30">
+    <model name="door_26">
       <static>true</static>
-      <pose>14.0 -48.19590685915933 1.0 0 0 0</pose>
+      <pose>14.0 -47.06884668883463 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.9185205051285323 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.943539493433315 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2353,13 +2297,27 @@
       </link>
     </model>
 
-    <model name="park_0_-1">
+    <model name="bldg_27">
       <static>true</static>
-      <pose>14.0 -14.0 0.05 0 0 0</pose>
+      <pose>14.0 -14.0 1.6210512188448476 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>14.226174363999363 11.5067165014431 3.242102437689695</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>14.226174363999363 11.5067165014431 3.242102437689695</size></box></geometry>
+           <material><ambient>0.6643178804394669 0.8339242576962013 0.04621864797523745 1</ambient><diffuse>0.6643178804394669 0.8339242576962013 0.04621864797523745 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_27">
+      <static>true</static>
+      <pose>14.0 -19.853358250721552 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>4.7420581213331205 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -2396,13 +2354,27 @@
       </link>
     </model>
 
-    <model name="park_0_0">
+    <model name="bldg_28">
       <static>true</static>
-      <pose>14.0 14.0 0.05 0 0 0</pose>
+      <pose>14.0 14.0 5.685499231946393 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>7.898367655879383</radius><length>11.370998463892786</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>7.898367655879383</radius><length>11.370998463892786</length></cylinder></geometry>
+           <material><ambient>0.6154740010831454 0.7744404887108762 0.7245290238562685 1</ambient><diffuse>0.6154740010831454 0.7744404887108762 0.7245290238562685 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_28">
+      <static>true</static>
+      <pose>14.0 7.712627595097462 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>5.265578437252922 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -2496,27 +2468,13 @@
       </link>
     </model>
 
-    <model name="bldg_31">
+    <model name="park_0_2">
       <static>true</static>
-      <pose>14.0 70.0 7.438344793438648 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><cylinder><radius>5.427457339887686</radius><length>14.876689586877296</length></cylinder></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><cylinder><radius>5.427457339887686</radius><length>14.876689586877296</length></cylinder></geometry>
-           <material><ambient>0.6674407134716245 0.37952077765462844 0.7366570738635275 1</ambient><diffuse>0.6674407134716245 0.37952077765462844 0.7366570738635275 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_31">
-      <static>true</static>
-      <pose>14.0 65.79238107754871 1.0 0 0 0</pose>
+      <pose>14.0 70.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.6183048932584576 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -2553,26 +2511,26 @@
       </link>
     </model>
 
-    <model name="bldg_32">
+    <model name="bldg_29">
       <static>true</static>
-      <pose>14.0 98.0 12.184514112497892 0 0 0</pose>
+      <pose>14.0 98.0 8.233082452544537 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>5.418892471016541</radius><length>24.369028224995784</length></cylinder></geometry>
+           <geometry><cylinder><radius>6.82322479609805</radius><length>16.466164905089073</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>5.418892471016541</radius><length>24.369028224995784</length></cylinder></geometry>
-           <material><ambient>0.4790617170899386 0.6204278464419478 0.6678922125654491 1</ambient><diffuse>0.4790617170899386 0.6204278464419478 0.6678922125654491 1</diffuse></material>
+           <geometry><cylinder><radius>6.82322479609805</radius><length>16.466164905089073</length></cylinder></geometry>
+           <material><ambient>0.583961199733589 0.6379405639750224 0.5292595040461351 1</ambient><diffuse>0.583961199733589 0.6379405639750224 0.5292595040461351 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_32">
+    <model name="door_29">
       <static>true</static>
-      <pose>14.0 91.9184786506228 1.0 0 0 0</pose>
+      <pose>14.0 90.7665104247635 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.612594980677694 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.548816530732034 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2624,26 +2582,26 @@
       </link>
     </model>
 
-    <model name="bldg_33">
+    <model name="bldg_30">
       <static>true</static>
-      <pose>14.0 126.0 10.46707074797624 0 0 0</pose>
+      <pose>14.0 126.0 3.6754944838925607 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>7.525329697805217</radius><length>20.93414149595248</length></cylinder></geometry>
+           <geometry><box><size>11.807731946299269 12.68857440061371 7.3509889677851215</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>7.525329697805217</radius><length>20.93414149595248</length></cylinder></geometry>
-           <material><ambient>0.12425530687047603 0.975498323182661 0.9531090720527141 1</ambient><diffuse>0.12425530687047603 0.975498323182661 0.9531090720527141 1</diffuse></material>
+           <geometry><box><size>11.807731946299269 12.68857440061371 7.3509889677851215</size></box></geometry>
+           <material><ambient>0.11802714076669352 0.8456183309541014 0.6024776619844604 1</ambient><diffuse>0.11802714076669352 0.8456183309541014 0.6024776619844604 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_33">
+    <model name="door_30">
       <static>true</static>
-      <pose>14.0 119.27640617656019 1.0 0 0 0</pose>
+      <pose>14.0 119.55571279969315 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>5.016886465203478 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.935910648766423 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2681,13 +2639,27 @@
       </link>
     </model>
 
-    <model name="park_1_-4">
+    <model name="bldg_31">
       <static>true</static>
-      <pose>42.0 -98.0 0.05 0 0 0</pose>
+      <pose>42.0 -98.0 8.404288380516794 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>14.20869889164246 14.167049217585973 16.80857676103359</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>14.20869889164246 14.167049217585973 16.80857676103359</size></box></geometry>
+           <material><ambient>0.750558616804145 0.07492896890688527 0.0869654473486281 1</ambient><diffuse>0.750558616804145 0.07492896890688527 0.0869654473486281 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_31">
+      <static>true</static>
+      <pose>42.0 -105.18352460879298 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>4.73623296388082 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -2724,26 +2696,26 @@
       </link>
     </model>
 
-    <model name="bldg_34">
+    <model name="bldg_32">
       <static>true</static>
-      <pose>42.0 -70.0 10.983665885205347 0 0 0</pose>
+      <pose>42.0 -70.0 2.687505807491285 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>13.838285845182355 12.306998247846611 21.967331770410695</size></box></geometry>
+           <geometry><cylinder><radius>4.201098558065695</radius><length>5.37501161498257</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>13.838285845182355 12.306998247846611 21.967331770410695</size></box></geometry>
-           <material><ambient>0.20745242142047626 0.9249405720932107 0.8412658047660417 1</ambient><diffuse>0.20745242142047626 0.9249405720932107 0.8412658047660417 1</diffuse></material>
+           <geometry><cylinder><radius>4.201098558065695</radius><length>5.37501161498257</length></cylinder></geometry>
+           <material><ambient>0.2552862374195416 0.2608873954348342 0.31461987145620296 1</ambient><diffuse>0.2552862374195416 0.2608873954348342 0.31461987145620296 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_34">
+    <model name="door_32">
       <static>true</static>
-      <pose>42.0 -76.2534991239233 1.0 0 0 0</pose>
+      <pose>42.0 -76.00262236780411 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.612761948394119 0.2 2.0</size></box></geometry>
+           <geometry><box><size>2.8007323720437967 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2781,26 +2753,26 @@
       </link>
     </model>
 
-    <model name="bldg_35">
+    <model name="bldg_33">
       <static>true</static>
-      <pose>42.0 -42.0 3.9616222420508573 0 0 0</pose>
+      <pose>42.0 -42.0 2.5856748670217677 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>11.30107821220248 11.273519879245065 7.923244484101715</size></box></geometry>
+           <geometry><box><size>12.516602339531532 10.679230928623316 5.1713497340435355</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>11.30107821220248 11.273519879245065 7.923244484101715</size></box></geometry>
-           <material><ambient>0.8163491426199313 0.43372550481370864 0.19169663520392577 1</ambient><diffuse>0.8163491426199313 0.43372550481370864 0.19169663520392577 1</diffuse></material>
+           <geometry><box><size>12.516602339531532 10.679230928623316 5.1713497340435355</size></box></geometry>
+           <material><ambient>0.5465976833056978 0.2647346233425515 0.6176293978911161 1</ambient><diffuse>0.5465976833056978 0.2647346233425515 0.6176293978911161 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_35">
+    <model name="door_33">
       <static>true</static>
-      <pose>42.0 -47.73675993962254 1.0 0 0 0</pose>
+      <pose>42.0 -47.43961546431166 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.76702607073416 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.172200779843844 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2838,26 +2810,26 @@
       </link>
     </model>
 
-    <model name="bldg_36">
+    <model name="bldg_34">
       <static>true</static>
-      <pose>42.0 -14.0 2.6038953407908165 0 0 0</pose>
+      <pose>42.0 -14.0 7.50124099914776 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>13.12771742425629 14.822500386729056 5.207790681581633</size></box></geometry>
+           <geometry><cylinder><radius>7.812921677906109</radius><length>15.00248199829552</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>13.12771742425629 14.822500386729056 5.207790681581633</size></box></geometry>
-           <material><ambient>0.802326745511586 0.9161492933389679 0.3716250167583074 1</ambient><diffuse>0.802326745511586 0.9161492933389679 0.3716250167583074 1</diffuse></material>
+           <geometry><cylinder><radius>7.812921677906109</radius><length>15.00248199829552</length></cylinder></geometry>
+           <material><ambient>0.061045437425707116 0.3574875815688916 0.7789574554997412 1</ambient><diffuse>0.061045437425707116 0.3574875815688916 0.7789574554997412 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_36">
+    <model name="door_34">
       <static>true</static>
-      <pose>42.0 -21.51125019336453 1.0 0 0 0</pose>
+      <pose>42.0 -18.463495962005645 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.37590580808543 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.2086144519374065 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2895,26 +2867,26 @@
       </link>
     </model>
 
-    <model name="bldg_37">
+    <model name="bldg_35">
       <static>true</static>
-      <pose>42.0 14.0 11.323702802745755 0 0 0</pose>
+      <pose>42.0 14.0 2.3201384446277333 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>4.958363549051546</radius><length>22.64740560549151</length></cylinder></geometry>
+           <geometry><box><size>15.550002278564541 12.712332024917666 4.640276889255467</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>4.958363549051546</radius><length>22.64740560549151</length></cylinder></geometry>
-           <material><ambient>0.3429069605260052 0.21816468775235387 0.3613156595776734 1</ambient><diffuse>0.3429069605260052 0.21816468775235387 0.3613156595776734 1</diffuse></material>
+           <geometry><box><size>15.550002278564541 12.712332024917666 4.640276889255467</size></box></geometry>
+           <material><ambient>0.14931626637363904 0.2856864660443016 0.40122810193149017 1</ambient><diffuse>0.14931626637363904 0.2856864660443016 0.40122810193149017 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_37">
+    <model name="door_35">
       <static>true</static>
-      <pose>42.0 6.335495480926434 1.0 0 0 0</pose>
+      <pose>42.0 7.543833987541167 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.3055756993676972 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.183334092854847 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -2952,26 +2924,26 @@
       </link>
     </model>
 
-    <model name="bldg_38">
+    <model name="bldg_36">
       <static>true</static>
-      <pose>42.0 42.0 5.94154224714813 0 0 0</pose>
+      <pose>42.0 42.0 2.310948062630259 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>8.975109272389602 10.063091929921127 11.88308449429626</size></box></geometry>
+           <geometry><box><size>10.402809922148496 12.175820120242573 4.621896125260518</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>8.975109272389602 10.063091929921127 11.88308449429626</size></box></geometry>
-           <material><ambient>0.2121959828412756 0.774058989437751 0.05266937876062938 1</ambient><diffuse>0.2121959828412756 0.774058989437751 0.05266937876062938 1</diffuse></material>
+           <geometry><box><size>10.402809922148496 12.175820120242573 4.621896125260518</size></box></geometry>
+           <material><ambient>0.8245447802084896 0.8660972322238838 0.5551744397448936 1</ambient><diffuse>0.8245447802084896 0.8660972322238838 0.5551744397448936 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_38">
+    <model name="door_36">
       <static>true</static>
-      <pose>42.0 36.868454035039434 1.0 0 0 0</pose>
+      <pose>42.0 35.81208993987871 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.991703090796534 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.467603307382832 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3095,26 +3067,26 @@
       </link>
     </model>
 
-    <model name="bldg_39">
+    <model name="bldg_37">
       <static>true</static>
-      <pose>42.0 126.0 7.724505370038588 0 0 0</pose>
+      <pose>42.0 126.0 2.664848281217337 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>4.253429247673923</radius><length>15.449010740077176</length></cylinder></geometry>
+           <geometry><box><size>13.393127164004394 9.942511189589126 5.329696562434674</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>4.253429247673923</radius><length>15.449010740077176</length></cylinder></geometry>
-           <material><ambient>0.4682009883048237 0.8336401989226697 0.4630833557455982 1</ambient><diffuse>0.4682009883048237 0.8336401989226697 0.4630833557455982 1</diffuse></material>
+           <geometry><box><size>13.393127164004394 9.942511189589126 5.329696562434674</size></box></geometry>
+           <material><ambient>0.663888598311164 0.721105243106654 0.8210436352093743 1</ambient><diffuse>0.663888598311164 0.721105243106654 0.8210436352093743 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_39">
+    <model name="door_37">
       <static>true</static>
-      <pose>42.0 119.04391467660241 1.0 0 0 0</pose>
+      <pose>42.0 120.92874440520544 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.8356194984492817 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.464375721334798 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3166,27 +3138,13 @@
       </link>
     </model>
 
-    <model name="bldg_40">
+    <model name="park_2_-4">
       <static>true</static>
-      <pose>70.0 -98.0 2.7797045269946974 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>14.159619330926969 13.682484197982818 5.559409053989395</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>14.159619330926969 13.682484197982818 5.559409053989395</size></box></geometry>
-           <material><ambient>0.7268359677074345 0.033543317233185266 0.1703011130633929 1</ambient><diffuse>0.7268359677074345 0.033543317233185266 0.1703011130633929 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_40">
-      <static>true</static>
-      <pose>70.0 -104.94124209899141 1.0 0 0 0</pose>
+      <pose>70.0 -98.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.719873110308989 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -3223,26 +3181,26 @@
       </link>
     </model>
 
-    <model name="bldg_41">
+    <model name="bldg_38">
       <static>true</static>
-      <pose>70.0 -70.0 12.123759288933673 0 0 0</pose>
+      <pose>70.0 -70.0 6.154425954870812 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>8.829085912141334 15.484340727989785 24.247518577867346</size></box></geometry>
+           <geometry><box><size>9.009073683840544 11.739423851144277 12.308851909741623</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>8.829085912141334 15.484340727989785 24.247518577867346</size></box></geometry>
-           <material><ambient>0.18212547393585143 0.06062654071256568 0.45283447120391607 1</ambient><diffuse>0.18212547393585143 0.06062654071256568 0.45283447120391607 1</diffuse></material>
+           <geometry><box><size>9.009073683840544 11.739423851144277 12.308851909741623</size></box></geometry>
+           <material><ambient>0.8473915560554008 0.34940695370986863 0.9401597498386961 1</ambient><diffuse>0.8473915560554008 0.34940695370986863 0.9401597498386961 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_41">
+    <model name="door_38">
       <static>true</static>
-      <pose>70.0 -77.84217036399488 1.0 0 0 0</pose>
+      <pose>70.0 -75.96971192557213 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.943028637380445 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.0030245612801814 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3294,26 +3252,26 @@
       </link>
     </model>
 
-    <model name="bldg_42">
+    <model name="bldg_39">
       <static>true</static>
-      <pose>70.0 -42.0 3.547601709638725 0 0 0</pose>
+      <pose>70.0 -42.0 2.7153059546897342 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>4.212027767805397</radius><length>7.09520341927745</length></cylinder></geometry>
+           <geometry><box><size>15.87618688394543 12.123913248613473 5.4306119093794685</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>4.212027767805397</radius><length>7.09520341927745</length></cylinder></geometry>
-           <material><ambient>0.905069593070165 0.8203432943144244 0.03206086044751899 1</ambient><diffuse>0.905069593070165 0.8203432943144244 0.03206086044751899 1</diffuse></material>
+           <geometry><box><size>15.87618688394543 12.123913248613473 5.4306119093794685</size></box></geometry>
+           <material><ambient>0.5268780875361152 0.5370015854207405 0.3526800237430878 1</ambient><diffuse>0.5268780875361152 0.5370015854207405 0.3526800237430878 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_42">
+    <model name="door_39">
       <static>true</static>
-      <pose>70.0 -48.29917716125376 1.0 0 0 0</pose>
+      <pose>70.0 -48.16195662430674 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.8080185118702645 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.292062294648477 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3351,26 +3309,26 @@
       </link>
     </model>
 
-    <model name="bldg_43">
+    <model name="bldg_40">
       <static>true</static>
-      <pose>70.0 -14.0 9.541716295566399 0 0 0</pose>
+      <pose>70.0 -14.0 2.693910421263247 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>12.559650107330844 8.459364309853122 19.083432591132798</size></box></geometry>
+           <geometry><box><size>9.326530692349271 10.558313755330133 5.387820842526494</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>12.559650107330844 8.459364309853122 19.083432591132798</size></box></geometry>
-           <material><ambient>0.457564809290429 0.21079636440820415 0.01350182609192474 1</ambient><diffuse>0.457564809290429 0.21079636440820415 0.01350182609192474 1</diffuse></material>
+           <geometry><box><size>9.326530692349271 10.558313755330133 5.387820842526494</size></box></geometry>
+           <material><ambient>0.8631135147435034 0.7215568437654141 0.5901288297784577 1</ambient><diffuse>0.8631135147435034 0.7215568437654141 0.5901288297784577 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_43">
+    <model name="door_40">
       <static>true</static>
-      <pose>70.0 -18.329682154926562 1.0 0 0 0</pose>
+      <pose>70.0 -19.379156877665068 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.186550035776948 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.1088435641164236 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3422,13 +3380,27 @@
       </link>
     </model>
 
-    <model name="park_2_0">
+    <model name="bldg_41">
       <static>true</static>
-      <pose>70.0 14.0 0.05 0 0 0</pose>
+      <pose>70.0 14.0 10.532635943801678 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>7.837646758557028</radius><length>21.065271887603355</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>7.837646758557028</radius><length>21.065271887603355</length></cylinder></geometry>
+           <material><ambient>0.29941993303598424 0.562408701392852 0.2496993738528701 1</ambient><diffuse>0.29941993303598424 0.562408701392852 0.2496993738528701 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_41">
+      <static>true</static>
+      <pose>70.0 8.818568813748506 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>5.2250978390380185 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -3465,26 +3437,26 @@
       </link>
     </model>
 
-    <model name="bldg_44">
+    <model name="bldg_42">
       <static>true</static>
-      <pose>70.0 42.0 9.834600709539338 0 0 0</pose>
+      <pose>70.0 42.0 1.770200113498316 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>5.218786493890248</radius><length>19.669201419078675</length></cylinder></geometry>
+           <geometry><box><size>13.552681564584802 8.598847044795242 3.540400226996632</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>5.218786493890248</radius><length>19.669201419078675</length></cylinder></geometry>
-           <material><ambient>0.4825845116439702 0.44378561824163454 0.9844329982084384 1</ambient><diffuse>0.4825845116439702 0.44378561824163454 0.9844329982084384 1</diffuse></material>
+           <geometry><box><size>13.552681564584802 8.598847044795242 3.540400226996632</size></box></geometry>
+           <material><ambient>0.6999712206346148 0.8655176366864179 0.34971847463449224 1</ambient><diffuse>0.6999712206346148 0.8655176366864179 0.34971847463449224 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_44">
+    <model name="door_42">
       <static>true</static>
-      <pose>70.0 34.72919698419754 1.0 0 0 0</pose>
+      <pose>70.0 37.60057647760238 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.479190995926832 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.517560521528267 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3536,26 +3508,26 @@
       </link>
     </model>
 
-    <model name="bldg_45">
+    <model name="bldg_43">
       <static>true</static>
-      <pose>70.0 70.0 1.5571991626048942 0 0 0</pose>
+      <pose>70.0 70.0 6.703978183150754 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>11.947262361935671 13.054310412293155 3.1143983252097884</size></box></geometry>
+           <geometry><box><size>15.415653457049263 12.055922982112625 13.407956366301509</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>11.947262361935671 13.054310412293155 3.1143983252097884</size></box></geometry>
-           <material><ambient>0.44397292263053967 0.912836535269207 0.1313352790782465 1</ambient><diffuse>0.44397292263053967 0.912836535269207 0.1313352790782465 1</diffuse></material>
+           <geometry><box><size>15.415653457049263 12.055922982112625 13.407956366301509</size></box></geometry>
+           <material><ambient>0.3062558256378711 0.7363833144302501 0.8857700893970769 1</ambient><diffuse>0.3062558256378711 0.7363833144302501 0.8857700893970769 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_45">
+    <model name="door_43">
       <static>true</static>
-      <pose>70.0 63.372844793853425 1.0 0 0 0</pose>
+      <pose>70.0 63.87203850894369 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.98242078731189 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.138551152349755 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3593,13 +3565,27 @@
       </link>
     </model>
 
-    <model name="park_2_3">
+    <model name="bldg_44">
       <static>true</static>
-      <pose>70.0 98.0 0.05 0 0 0</pose>
+      <pose>70.0 98.0 10.373371232007843 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>6.530054644071363</radius><length>20.746742464015686</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>6.530054644071363</radius><length>20.746742464015686</length></cylinder></geometry>
+           <material><ambient>0.2697642536592266 0.7035958267057905 0.8789883001597315 1</ambient><diffuse>0.2697642536592266 0.7035958267057905 0.8789883001597315 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_44">
+      <static>true</static>
+      <pose>70.0 92.13410493117442 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>4.353369762714242 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -3650,26 +3636,26 @@
       </link>
     </model>
 
-    <model name="bldg_46">
+    <model name="bldg_45">
       <static>true</static>
-      <pose>70.0 126.0 4.428804202147736 0 0 0</pose>
+      <pose>70.0 126.0 5.945886198092774 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>11.827498798616784 11.282253132188465 8.857608404295473</size></box></geometry>
+           <geometry><cylinder><radius>7.801518760929053</radius><length>11.891772396185548</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>11.827498798616784 11.282253132188465 8.857608404295473</size></box></geometry>
-           <material><ambient>0.6041832715771654 0.31911291872267333 0.05864005978734732 1</ambient><diffuse>0.6041832715771654 0.31911291872267333 0.05864005978734732 1</diffuse></material>
+           <geometry><cylinder><radius>7.801518760929053</radius><length>11.891772396185548</length></cylinder></geometry>
+           <material><ambient>0.4862680477424969 0.8900909542708757 0.8656160437973315 1</ambient><diffuse>0.4862680477424969 0.8900909542708757 0.8656160437973315 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_46">
+    <model name="door_45">
       <static>true</static>
-      <pose>70.0 120.25887343390578 1.0 0 0 0</pose>
+      <pose>70.0 121.798988188749 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.942499599538928 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.201012507286035 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3707,27 +3693,13 @@
       </link>
     </model>
 
-    <model name="bldg_47">
+    <model name="park_3_-4">
       <static>true</static>
-      <pose>98.0 -98.0 2.4760033705635203 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>14.144762352297604 11.141162690476484 4.9520067411270405</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>14.144762352297604 11.141162690476484 4.9520067411270405</size></box></geometry>
-           <material><ambient>0.042960148386934294 0.22586681408067444 0.4099325951826158 1</ambient><diffuse>0.042960148386934294 0.22586681408067444 0.4099325951826158 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_47">
-      <static>true</static>
-      <pose>98.0 -103.67058134523823 1.0 0 0 0</pose>
+      <pose>98.0 -98.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.714920784099202 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -3764,26 +3736,26 @@
       </link>
     </model>
 
-    <model name="bldg_48">
+    <model name="bldg_46">
       <static>true</static>
-      <pose>98.0 -70.0 2.4940031196679673 0 0 0</pose>
+      <pose>98.0 -70.0 4.153096538224782 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>9.832332931863014 8.744343341445699 4.988006239335935</size></box></geometry>
+           <geometry><cylinder><radius>4.3735702617982515</radius><length>8.306193076449564</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>9.832332931863014 8.744343341445699 4.988006239335935</size></box></geometry>
-           <material><ambient>0.03769489737396503 0.6820541181389579 0.050896807391846766 1</ambient><diffuse>0.03769489737396503 0.6820541181389579 0.050896807391846766 1</diffuse></material>
+           <geometry><cylinder><radius>4.3735702617982515</radius><length>8.306193076449564</length></cylinder></geometry>
+           <material><ambient>0.3590225104113234 0.7038481829484335 0.07840755687511325 1</ambient><diffuse>0.3590225104113234 0.7038481829484335 0.07840755687511325 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_48">
+    <model name="door_46">
       <static>true</static>
-      <pose>98.0 -74.47217167072284 1.0 0 0 0</pose>
+      <pose>98.0 -76.05665197296246 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.277444310621005 0.2 2.0</size></box></geometry>
+           <geometry><box><size>2.915713507865501 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3821,13 +3793,27 @@
       </link>
     </model>
 
-    <model name="park_3_-2">
+    <model name="bldg_47">
       <static>true</static>
-      <pose>98.0 -42.0 0.05 0 0 0</pose>
+      <pose>98.0 -42.0 2.904697196497991 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><cylinder><radius>5.180633058644766</radius><length>5.809394392995982</length></cylinder></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><cylinder><radius>5.180633058644766</radius><length>5.809394392995982</length></cylinder></geometry>
+           <material><ambient>0.13964670183557149 0.9764104807582136 0.10597364464249848 1</ambient><diffuse>0.13964670183557149 0.9764104807582136 0.10597364464249848 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_47">
+      <static>true</static>
+      <pose>98.0 -47.6723090819589 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>3.453755372429844 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -3864,13 +3850,27 @@
       </link>
     </model>
 
-    <model name="park_3_-1">
+    <model name="bldg_48">
       <static>true</static>
-      <pose>98.0 -14.0 0.05 0 0 0</pose>
+      <pose>98.0 -14.0 5.00470258643619 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>9.46797819578278 9.042620743693611 10.00940517287238</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>9.46797819578278 9.042620743693611 10.00940517287238</size></box></geometry>
+           <material><ambient>0.26253841622009166 0.9084985098863371 0.3827666087351749 1</ambient><diffuse>0.26253841622009166 0.9084985098863371 0.3827666087351749 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_48">
+      <static>true</static>
+      <pose>98.0 -18.621310371846807 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>3.1559927319275936 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -3909,24 +3909,24 @@
 
     <model name="bldg_49">
       <static>true</static>
-      <pose>98.0 14.0 1.874923487810798 0 0 0</pose>
+      <pose>98.0 14.0 2.6930699487190655 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>13.45500967144029 13.379955640539574 3.749846975621596</size></box></geometry>
+           <geometry><cylinder><radius>7.987913469225816</radius><length>5.386139897438131</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>13.45500967144029 13.379955640539574 3.749846975621596</size></box></geometry>
-           <material><ambient>0.1616267276044695 0.6862940645749233 0.42454073034004447 1</ambient><diffuse>0.1616267276044695 0.6862940645749233 0.42454073034004447 1</diffuse></material>
+           <geometry><cylinder><radius>7.987913469225816</radius><length>5.386139897438131</length></cylinder></geometry>
+           <material><ambient>0.08983854154211479 0.17435316990022853 0.17995896050059756 1</ambient><diffuse>0.08983854154211479 0.17435316990022853 0.17995896050059756 1</diffuse></material>
         </visual>
       </link>
     </model>
 
     <model name="door_49">
       <static>true</static>
-      <pose>98.0 7.210022179730213 1.0 0 0 0</pose>
+      <pose>98.0 8.133208421600303 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.48500322381343 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.325275646150544 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -3964,13 +3964,27 @@
       </link>
     </model>
 
-    <model name="park_3_1">
+    <model name="bldg_50">
       <static>true</static>
-      <pose>98.0 42.0 0.05 0 0 0</pose>
+      <pose>98.0 42.0 12.217812953869252 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>12.363990219283151 9.253213885697225 24.435625907738505</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>12.363990219283151 9.253213885697225 24.435625907738505</size></box></geometry>
+           <material><ambient>0.08996337602737992 0.871891380008465 0.4231008470675309 1</ambient><diffuse>0.08996337602737992 0.871891380008465 0.4231008470675309 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_50">
+      <static>true</static>
+      <pose>98.0 37.27339305715139 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>4.121330073094383 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -4007,26 +4021,26 @@
       </link>
     </model>
 
-    <model name="bldg_50">
+    <model name="bldg_51">
       <static>true</static>
-      <pose>98.0 70.0 2.1544109469440396 0 0 0</pose>
+      <pose>98.0 70.0 2.1167106733620726 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>13.20677466394767 13.33612496264464 4.308821893888079</size></box></geometry>
+           <geometry><box><size>10.286544711233306 13.026295480409665 4.233421346724145</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>13.20677466394767 13.33612496264464 4.308821893888079</size></box></geometry>
-           <material><ambient>0.5906646723101614 0.33432959265514584 0.2821052941341957 1</ambient><diffuse>0.5906646723101614 0.33432959265514584 0.2821052941341957 1</diffuse></material>
+           <geometry><box><size>10.286544711233306 13.026295480409665 4.233421346724145</size></box></geometry>
+           <material><ambient>0.8935981440515482 0.1250005623303453 0.42833029114481225 1</ambient><diffuse>0.8935981440515482 0.1250005623303453 0.42833029114481225 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_50">
+    <model name="door_51">
       <static>true</static>
-      <pose>98.0 63.231937518677675 1.0 0 0 0</pose>
+      <pose>98.0 63.38685225979517 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.40225822131589 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.428848237077769 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -4064,26 +4078,26 @@
       </link>
     </model>
 
-    <model name="bldg_51">
+    <model name="bldg_52">
       <static>true</static>
-      <pose>98.0 98.0 9.647242168974 0 0 0</pose>
+      <pose>98.0 98.0 10.439216257576494 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>4.027280596730828</radius><length>19.294484337948</length></cylinder></geometry>
+           <geometry><cylinder><radius>5.738015578121445</radius><length>20.878432515152987</length></cylinder></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>4.027280596730828</radius><length>19.294484337948</length></cylinder></geometry>
-           <material><ambient>0.3488481338387831 0.038816797652307944 0.44228152771015183 1</ambient><diffuse>0.3488481338387831 0.038816797652307944 0.44228152771015183 1</diffuse></material>
+           <geometry><cylinder><radius>5.738015578121445</radius><length>20.878432515152987</length></cylinder></geometry>
+           <material><ambient>0.034709052483059555 0.9033552916400889 0.9728137958600499 1</ambient><diffuse>0.034709052483059555 0.9033552916400889 0.9728137958600499 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_51">
+    <model name="door_52">
       <static>true</static>
-      <pose>98.0 92.1517660727427 1.0 0 0 0</pose>
+      <pose>98.0 90.47349273975608 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.684853731153885 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.82534371874763 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -4121,27 +4135,13 @@
       </link>
     </model>
 
-    <model name="bldg_52">
+    <model name="park_3_4">
       <static>true</static>
-      <pose>98.0 126.0 9.028366526424351 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>13.432274712109736 12.321290463343434 18.056733052848703</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>13.432274712109736 12.321290463343434 18.056733052848703</size></box></geometry>
-           <material><ambient>0.7576612520297531 0.029151772577920787 0.02970648804068088 1</ambient><diffuse>0.7576612520297531 0.029151772577920787 0.02970648804068088 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_52">
-      <static>true</static>
-      <pose>98.0 119.73935476832828 1.0 0 0 0</pose>
+      <pose>98.0 126.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.477424904036579 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -4194,24 +4194,24 @@
 
     <model name="bldg_53">
       <static>true</static>
-      <pose>126.0 -98.0 2.8960871203421803 0 0 0</pose>
+      <pose>126.0 -98.0 8.763392059063595 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>7.363902037085931</radius><length>5.792174240684361</length></cylinder></geometry>
+           <geometry><box><size>15.264887990252117 9.5737088134164 17.52678411812719</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>7.363902037085931</radius><length>5.792174240684361</length></cylinder></geometry>
-           <material><ambient>0.5358185512609552 0.4864896173106267 0.4956228758550968 1</ambient><diffuse>0.5358185512609552 0.4864896173106267 0.4956228758550968 1</diffuse></material>
+           <geometry><box><size>15.264887990252117 9.5737088134164 17.52678411812719</size></box></geometry>
+           <material><ambient>0.31294395350472315 0.20687178632723502 0.0983318054603306 1</ambient><diffuse>0.31294395350472315 0.20687178632723502 0.0983318054603306 1</diffuse></material>
         </visual>
       </link>
     </model>
 
     <model name="door_53">
       <static>true</static>
-      <pose>126.0 -103.90398616473567 1.0 0 0 0</pose>
+      <pose>126.0 -102.8868544067082 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.909268024723954 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.0882959967507055 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -4251,24 +4251,24 @@
 
     <model name="bldg_54">
       <static>true</static>
-      <pose>126.0 -70.0 9.449242356156958 0 0 0</pose>
+      <pose>126.0 -70.0 1.6351948389954145 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><cylinder><radius>5.975957591455291</radius><length>18.898484712313916</length></cylinder></geometry>
+           <geometry><box><size>15.294093018685516 14.253683830886382 3.270389677990829</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><cylinder><radius>5.975957591455291</radius><length>18.898484712313916</length></cylinder></geometry>
-           <material><ambient>0.9623923103458825 0.7692234049655675 0.1910457573715294 1</ambient><diffuse>0.9623923103458825 0.7692234049655675 0.1910457573715294 1</diffuse></material>
+           <geometry><box><size>15.294093018685516 14.253683830886382 3.270389677990829</size></box></geometry>
+           <material><ambient>0.10138619046186936 0.01670725085277247 0.09251673087435897 1</ambient><diffuse>0.10138619046186936 0.01670725085277247 0.09251673087435897 1</diffuse></material>
         </visual>
       </link>
     </model>
 
     <model name="door_54">
       <static>true</static>
-      <pose>126.0 -74.7603479061973 1.0 0 0 0</pose>
+      <pose>126.0 -77.22684191544319 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.983971727636861 0.2 2.0</size></box></geometry>
+           <geometry><box><size>5.0980310062285055 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -4320,13 +4320,27 @@
       </link>
     </model>
 
-    <model name="park_4_-2">
+    <model name="bldg_55">
       <static>true</static>
-      <pose>126.0 -42.0 0.05 0 0 0</pose>
+      <pose>126.0 -42.0 2.526576122839023 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>9.189649716644176 14.290638195438166 5.053152245678046</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>9.189649716644176 14.290638195438166 5.053152245678046</size></box></geometry>
+           <material><ambient>0.5144515623749106 0.6858444763094209 0.09532399879599818 1</ambient><diffuse>0.5144515623749106 0.6858444763094209 0.09532399879599818 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_55">
+      <static>true</static>
+      <pose>126.0 -49.24531909771908 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>3.0632165722147255 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -4420,26 +4434,26 @@
       </link>
     </model>
 
-    <model name="bldg_55">
+    <model name="bldg_56">
       <static>true</static>
-      <pose>126.0 14.0 10.173319078229802 0 0 0</pose>
+      <pose>126.0 14.0 5.481460461249301 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>12.2234581224381 12.290509616836506 20.346638156459605</size></box></geometry>
+           <geometry><box><size>13.959698036527644 14.97419453416859 10.962920922498602</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>12.2234581224381 12.290509616836506 20.346638156459605</size></box></geometry>
-           <material><ambient>0.2839925106201744 0.1893982847999831 0.2583863998145898 1</ambient><diffuse>0.2839925106201744 0.1893982847999831 0.2583863998145898 1</diffuse></material>
+           <geometry><box><size>13.959698036527644 14.97419453416859 10.962920922498602</size></box></geometry>
+           <material><ambient>0.20944841632348676 0.6286101714371993 0.10193807524128451 1</ambient><diffuse>0.20944841632348676 0.6286101714371993 0.10193807524128451 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_55">
+    <model name="door_56">
       <static>true</static>
-      <pose>126.0 7.754745191581748 1.0 0 0 0</pose>
+      <pose>126.0 6.412902732915706 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>4.0744860408127 0.2 2.0</size></box></geometry>
+           <geometry><box><size>4.653232678842548 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
@@ -4534,13 +4548,27 @@
       </link>
     </model>
 
-    <model name="park_4_2">
+    <model name="bldg_57">
       <static>true</static>
-      <pose>126.0 70.0 0.05 0 0 0</pose>
+      <pose>126.0 70.0 5.512521766293892 0 0 0</pose>
+      <link name="link">
+        <collision name="col">
+           <geometry><box><size>15.973943212373396 10.369330754219579 11.025043532587784</size></box></geometry>
+        </collision>
+        <visual name="vis">
+           <geometry><box><size>15.973943212373396 10.369330754219579 11.025043532587784</size></box></geometry>
+           <material><ambient>0.6464061973416908 0.015232507409610574 0.617861640652459 1</ambient><diffuse>0.6464061973416908 0.015232507409610574 0.617861640652459 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="door_57">
+      <static>true</static>
+      <pose>126.0 64.71533462289021 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
-            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
+           <geometry><box><size>5.3246477374577985 0.2 2.0</size></box></geometry>
+           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -4577,27 +4605,13 @@
       </link>
     </model>
 
-    <model name="bldg_56">
+    <model name="park_4_3">
       <static>true</static>
-      <pose>126.0 98.0 2.5229325545998806 0 0 0</pose>
-      <link name="link">
-        <collision name="col">
-           <geometry><box><size>9.847984850408054 13.566458877646927 5.045865109199761</size></box></geometry>
-        </collision>
-        <visual name="vis">
-           <geometry><box><size>9.847984850408054 13.566458877646927 5.045865109199761</size></box></geometry>
-           <material><ambient>0.8962399210022506 0.29964836665202566 0.8470874333825568 1</ambient><diffuse>0.8962399210022506 0.29964836665202566 0.8470874333825568 1</diffuse></material>
-        </visual>
-      </link>
-    </model>
-
-    <model name="door_56">
-      <static>true</static>
-      <pose>126.0 91.11677056117654 1.0 0 0 0</pose>
+      <pose>126.0 98.0 0.05 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>3.2826616168026845 0.2 2.0</size></box></geometry>
-           <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
+            <geometry><box><size>18.0 18.0 0.1</size></box></geometry>
+            <material><ambient>0.1 0.8 0.1 1</ambient><diffuse>0.1 0.8 0.1 1</diffuse></material>
         </visual>
       </link>
     </model>
@@ -4648,26 +4662,26 @@
       </link>
     </model>
 
-    <model name="bldg_57">
+    <model name="bldg_58">
       <static>true</static>
-      <pose>126.0 126.0 2.749874023195426 0 0 0</pose>
+      <pose>126.0 126.0 2.3281479118826978 0 0 0</pose>
       <link name="link">
         <collision name="col">
-           <geometry><box><size>8.54129450433376 8.422814704297934 5.499748046390852</size></box></geometry>
+           <geometry><box><size>9.149989189708567 8.434160235586065 4.6562958237653955</size></box></geometry>
         </collision>
         <visual name="vis">
-           <geometry><box><size>8.54129450433376 8.422814704297934 5.499748046390852</size></box></geometry>
-           <material><ambient>0.5800712296137642 0.661258634691803 0.17810294430203177 1</ambient><diffuse>0.5800712296137642 0.661258634691803 0.17810294430203177 1</diffuse></material>
+           <geometry><box><size>9.149989189708567 8.434160235586065 4.6562958237653955</size></box></geometry>
+           <material><ambient>0.0592736724559455 0.7236079870071604 0.43823183582606806 1</ambient><diffuse>0.0592736724559455 0.7236079870071604 0.43823183582606806 1</diffuse></material>
         </visual>
       </link>
     </model>
 
-    <model name="door_57">
+    <model name="door_58">
       <static>true</static>
-      <pose>126.0 121.68859264785104 1.0 0 0 0</pose>
+      <pose>126.0 121.68291988220697 1.0 0 0 0</pose>
       <link name="link">
         <visual name="vis">
-           <geometry><box><size>2.8470981681112533 0.2 2.0</size></box></geometry>
+           <geometry><box><size>3.0499963965695223 0.2 2.0</size></box></geometry>
            <material><ambient>0 0 0 1</ambient><diffuse>0 0 0 1</diffuse></material>
         </visual>
       </link>

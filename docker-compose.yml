@@ -1,12 +1,14 @@
 services:
   sim:
-    build: .
+    build:
+      context: .
+      network: host
     image: ros2-jazzy-swarm-sim
     container_name: rosette_sim
-    runtime: nvidia
+    # runtime: nvidia
     environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
+      # - NVIDIA_VISIBLE_DEVICES=all
+      # - NVIDIA_DRIVER_CAPABILITIES=all
       - GUI=vnc
       - DISPLAY=:1
     network_mode: host # Essential for ROS 2 communication between containers
@@ -23,10 +25,10 @@ services:
   slam:
     image: aserbremen/mrg_slam_jazzy
     container_name: rosette_slam
-    runtime: nvidia
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
+    # runtime: nvidia
+    # environment:
+    # - NVIDIA_VISIBLE_DEVICES=all
+    # - NVIDIA_DRIVER_CAPABILITIES=all
     network_mode: host # Must match 'sim' for DDS discovery
     volumes:
       - ./src:/home/ubuntu/mnt_src # Mount scripts separately to avoid breaking the workspace

@@ -43,6 +43,25 @@ def generate_launch_description():
         condition=IfCondition(run_slam)
     )
     
+    # Delayed Actions to prevent Crash (Race Condition Fix)
+    from launch.actions import TimerAction
+    
+    delayed_stations = TimerAction(
+        period=8.0, # Wait 8s for Gazebo to start
+        actions=[
+            IncludeLaunchDescription(
+                 PythonLaunchDescriptionSource(
+                     os.path.join(pkg_swarm_sim, 'launch', 'spawn_stations.launch.py')
+                 )
+            )
+        ]
+    )
+    
+    delayed_slam = TimerAction(
+        period=15.0, # Wait 15s for Drones to spawn
+        actions=[swarm_slam]
+    )
+
     # 2. RViz
     rviz_config = os.path.join(pkg_swarm_sim, 'default.rviz')
     
@@ -62,14 +81,11 @@ def generate_launch_description():
         
         main_sim,
         
-        # Spawn Physical Ground Stations
-        IncludeLaunchDescription(
-             PythonLaunchDescriptionSource(
-                 os.path.join(pkg_swarm_sim, 'launch', 'spawn_stations.launch.py')
-             )
-        ),
+        # Spawn Physical Ground Stations (DELAYED)
+        delayed_stations,
         
-        swarm_slam,
+        # Swarm SLAM (DELAYED)
+        delayed_slam,
         
         # OctoMap Server
         IncludeLaunchDescription(

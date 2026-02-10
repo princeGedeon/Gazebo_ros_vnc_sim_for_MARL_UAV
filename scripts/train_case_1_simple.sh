@@ -33,7 +33,7 @@ python3 scripts/spawn_visuals.py
 # 2. Run Training
 python3 src/swarm_sim_pkg/swarm_sim/training/train_mappo.py \
     --algo simple \
-    --num_drones 3 \
+    --num-drones 3 \
     --iterations 500
 
 # Cleanup

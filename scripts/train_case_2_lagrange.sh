@@ -29,9 +29,8 @@ sleep 15
 python3 scripts/spawn_visuals.py
 
 # 2. Run Training
-python3 src/swarm_sim_pkg/swarm_sim/training/train_mappo.py \
-    --algo lagrangian \
-    --num_drones 3 \
+python3 src/swarm_sim_pkg/swarm_sim/training/train_mappo_lagrangian.py \
+    --num-drones 3 \
     --iterations 500
 
 kill $SIM_PID

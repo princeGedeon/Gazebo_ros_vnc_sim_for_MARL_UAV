@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y \
     x11vnc \
     net-tools \
     novnc \
-    novnc \
     wget \
     curl \
     git \
@@ -38,7 +37,7 @@ RUN rm -rf /usr/lib/python3/dist-packages/typing_extensions* \
     /usr/lib/python3/dist-packages/kiwisolver* \
     /usr/lib/python3/dist-packages/zipp*
 
-RUN pip3 install --break-system-packages \
+RUN pip3 install --no-cache-dir --break-system-packages \
     gymnasium \
     websockify \
     pettingzoo \

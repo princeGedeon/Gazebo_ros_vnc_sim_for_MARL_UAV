@@ -51,7 +51,9 @@ def main():
     # ---------------------------
     
     # Boucle de Test
-    print("3. Boucle d'interaction (100 steps)...")
+    print("3. Boucle d'interaction (1000 steps)...")
+    print("   [INFO] Monitoring: Affichage des détails (NFZ, Collisions, etc.) toutes les 10 steps.")
+
     for step in range(1000):
         # Actions Aléatoires (Remplacer par votre Agent RL ici)
         actions = {agent: env.action_space(agent).sample() for agent in env.agents}
@@ -61,10 +63,29 @@ def main():
         
         # Affichage
         if step % 10 == 0:
-            print(f"   [Step {step}] Rewards: {rewards}")
+            print(f"--- Step {step} ---")
+            for agent in env.agents:
+                rew = rewards.get(agent, 0.0)
+                info = infos.get(agent, {})
+                breakdown = info.get("r_breakdown", {})
+                
+                # Format Breakdown string
+                breakdown_str = " | ".join([f"{k}:{v:.1f}" for k, v in breakdown.items() if v != 0])
+                
+                print(f"   [{agent}] Total Reward: {rew:.2f}")
+                if breakdown_str:
+                    print(f"      -> Breakdown: {breakdown_str}")
+                
+                # Check for specific violations
+                if info.get("collision", False):
+                    print(f"      !!! CRASH DETECTED !!!")
+                
+                cost = info.get("cost", 0.0)
+                if cost > 0:
+                     print(f"      [VIOLATION] Cost: {cost} (NFZ/Boundary/Safety)")
         
         # Simulation d'un délai (pour voir ce qui se passe si on regarde la Simu)
-        time.sleep(0.1)
+        time.sleep(0.05) 
 
     # Sauvegarde de la Carte (Fonctionnalité IGN)
     print("4. Test de sauvegarde de la carte...")

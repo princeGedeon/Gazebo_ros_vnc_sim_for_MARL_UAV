@@ -190,7 +190,7 @@ def train_lagrangian():
         "PPO",
         param_space=config.to_dict(),
         run_config=tune.RunConfig(
-        run_config=tune.RunConfig(
+
             name="mappo_lagrangian",
             stop={"timesteps_total": args.total_timesteps} if args.total_timesteps > 0 else {"training_iteration": args.iterations},
             checkpoint_config=tune.CheckpointConfig(checkpoint_frequency=args.checkpoint_freq),
