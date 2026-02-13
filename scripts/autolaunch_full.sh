@@ -86,8 +86,15 @@ if [ "$OPEN_RVIZ" = true ] || [ ! -f /.dockerenv ]; then
     echo "[Launcher] 🎨 Starting RViz2 with Dynamic Config..."
     
     # Only set DISPLAY if not already set (Native usually has it)
+    # Check if DISPLAY is set (Needed for GUI)
     if [ -z "$DISPLAY" ]; then
-        export DISPLAY=:1
+        if [ -f /.dockerenv ]; then
+            echo "[Launcher] ⚠️  DISPLAY not set inside Docker. Defaulting to :1 (VNC)..."
+            export DISPLAY=:1
+        else
+            echo "[Launcher] ❌ DISPLAY not set! GUI might fail."
+            echo "            If on WSL, ensure WSLg is working."
+        fi
     fi
     
     # Launch in background
