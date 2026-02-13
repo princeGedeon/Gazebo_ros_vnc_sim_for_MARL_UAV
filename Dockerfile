@@ -102,7 +102,29 @@ COPY . /root/ros2_ws/
 
 # Pre-build the workspace
 # Import dependencies automatically
-RUN vcs import src < src/Multi-Robot-Graph-SLAM/mrg_slam.repos
+# Auto-clone Multi-Robot-Graph-SLAM if missing (Resilience)
+RUN if [ ! -f "src/Multi-Robot-Graph-SLAM/mrg_slam.repos" ]; then \
+        echo "🚨 Multi-Robot-Graph-SLAM missing! Cloning automatically..." && \
+        rm -rf src/Multi-Robot-Graph-SLAM && \
+        git clone https://github.com/aserbremen/Multi-Robot-Graph-SLAM src/Multi-Robot-Graph-SLAM; \
+    fi
+
+# Auto-clone PX4-gazebo-models if missing
+RUN if [ ! -d "src/swarm_sim_pkg/swarm_sim/assets/PX4-gazebo-models/.git" ]; then \
+        echo "🚨 PX4-gazebo-models missing! Cloning automatically..." && \
+        rm -rf src/swarm_sim_pkg/swarm_sim/assets/PX4-gazebo-models && \
+        git clone https://github.com/PX4/PX4-gazebo-models src/swarm_sim_pkg/swarm_sim/assets/PX4-gazebo-models; \
+    fi
+
+# Import dependencies with retry logic
+RUN if [ -f "src/Multi-Robot-Graph-SLAM/mrg_slam.repos" ]; then \
+        for i in 1 2 3; do \
+            vcs import src < src/Multi-Robot-Graph-SLAM/mrg_slam.repos && break || \
+            echo "⚠️ vcs import failed (attempt $i/3). Retrying in 5s..." && sleep 5; \
+        done; \
+    else \
+        echo "⚠️ WARNING: mrg_slam.repos not found even after clone attempt. Skipping vcs import."; \
+    fi
 
 RUN . /opt/ros/jazzy/setup.sh && \
     colcon build --parallel-workers 1 || echo "Build failed, user can fix later"
