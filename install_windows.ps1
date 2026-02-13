@@ -4,6 +4,15 @@
 
 Write-Host "🚀 Starting Native Installation for Gazebo Swarm Sim (Windows)..." -ForegroundColor Green
 
+# 0. Prerequisites Check
+if (-not $Env:VisualStudioVersion -and -not $Env:VSCMD_VER) {
+    Write-Host "❌ Error: Not running in a Visual Studio Command Prompt!" -ForegroundColor Red
+    Write-Host "   ROS 2 builds on Windows require MSVC headers/libs."
+    Write-Host "   👉 Please open 'x64 Native Tools Command Prompt for VS 2022' and run this script again."
+    exit 1
+}
+Write-Host "✅ Detected Visual Studio Environment ($Env:VisualStudioVersion)" -ForegroundColor Green
+
 # 1. Check Python
 $pythonVersion = python --version
 if ($LASTEXITCODE -ne 0) {
