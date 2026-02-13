@@ -8,12 +8,12 @@ from pathlib import Path
 import sys
 
 
-FORMAT_STR_COMMENT_LINE = '# {comment}'
-FORMAT_STR_SET_ENV_VAR = 'export {name}="{value}"'
-FORMAT_STR_USE_ENV_VAR = '${name}'
-FORMAT_STR_INVOKE_SCRIPT = 'COLCON_CURRENT_PREFIX="{prefix}" _colcon_prefix_sh_source_script "{script_path}"'  # noqa: E501
-FORMAT_STR_REMOVE_LEADING_SEPARATOR = 'if [ "$(echo -n ${name} | head -c 1)" = ":" ]; then export {name}=${{{name}#?}} ; fi'  # noqa: E501
-FORMAT_STR_REMOVE_TRAILING_SEPARATOR = 'if [ "$(echo -n ${name} | tail -c 1)" = ":" ]; then export {name}=${{{name}%?}} ; fi'  # noqa: E501
+FORMAT_STR_COMMENT_LINE = ':: {comment}'
+FORMAT_STR_SET_ENV_VAR = 'set "{name}={value}"'
+FORMAT_STR_USE_ENV_VAR = '%{name}%'
+FORMAT_STR_INVOKE_SCRIPT = 'call:_colcon_prefix_bat_call_script "{script_path}"'  # noqa: E501
+FORMAT_STR_REMOVE_LEADING_SEPARATOR = 'call:_colcon_prefix_bat_strip_leading_semicolon "{name}"'  # noqa: E501
+FORMAT_STR_REMOVE_TRAILING_SEPARATOR = 'call:_colcon_prefix_bat_strip_trailing_semicolon "{name}"'  # noqa: E501
 
 DSV_TYPE_APPEND_NON_DUPLICATE = 'append-non-duplicate'
 DSV_TYPE_PREPEND_NON_DUPLICATE = 'prepend-non-duplicate'

@@ -1,3 +1,4 @@
+
 # generated from colcon_powershell/shell/template/prefix_chain.ps1.em
 
 # This script extends the environment with the environment of other prefix

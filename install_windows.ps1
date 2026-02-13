@@ -58,6 +58,12 @@ if (Test-Path "src\Multi-Robot-Graph-SLAM\mrg_slam.repos") {
 # 5. Build Workspace
 Write-Host "🔨 Building ROS 2 Workspace..." -ForegroundColor Yellow
 
+# Clean previous build artifacts (Fixes layout mismatch errors)
+Write-Host "🧹 Cleaning previous build artifacts..." -ForegroundColor Yellow
+if (Test-Path "install") { Remove-Item -Recurse -Force "install" -ErrorAction SilentlyContinue }
+if (Test-Path "build") { Remove-Item -Recurse -Force "build" -ErrorAction SilentlyContinue }
+if (Test-Path "log") { Remove-Item -Recurse -Force "log" -ErrorAction SilentlyContinue }
+
 # Try to source ROS 2 if standard location (adjust if needed)
 # Try to source ROS 2 (Check common locations)
 $ros2Paths = @(

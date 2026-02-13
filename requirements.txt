@@ -13,4 +13,4 @@ numba
 scikit-learn
 vcstool
 colcon-common-extensions
-setuptools
+setuptools<58.2.0

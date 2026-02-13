@@ -13,7 +13,30 @@ if [ -f /etc/os-release ]; then
     fi
 fi
 
-# 2. Install System Dependencies
+# 2. Check & Install ROS 2 Jazzy
+if [ ! -f /opt/ros/jazzy/setup.bash ]; then
+    echo "⚠️ ROS 2 Jazzy not found. Installing now (requires sudo)..."
+    
+    # 2.1 Enable Universe
+    sudo apt-get install -y software-properties-common
+    sudo add-apt-repository universe
+    
+    # 2.2 Add Key & Repo
+    sudo apt-get update && sudo apt-get install -y curl
+    sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+    
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+    
+    # 2.3 Install
+    sudo apt-get update
+    sudo apt-get install -y ros-jazzy-desktop-full python3-colcon-common-extensions
+    
+    echo "✅ ROS 2 Jazzy Installed!"
+else
+    echo "✅ ROS 2 Jazzy already installed."
+fi
+
+# 3. Install System Dependencies
 echo "📦 Installing System Dependencies..."
 sudo apt-get update
 sudo apt-get install -y \

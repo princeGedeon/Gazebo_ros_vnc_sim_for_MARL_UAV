@@ -6,11 +6,27 @@ $Env:NVIDIA_VISIBLE_DEVICES = "all"
 $Env:NVIDIA_DRIVER_CAPABILITIES = "all"
 $Env:QT_OPENGL = "desktop" # Force OpenGL desktop mode for PyQt/Rqt
 
-# Source ROS 2 (Adjust path if needed)
-if (Test-Path "C:\dev\ros2_jazzy\local_setup.ps1") {
-    . "C:\dev\ros2_jazzy\local_setup.ps1"
-} elseif (Test-Path "C:\opt\ros\jazzy\x64\local_setup.ps1") {
-    . "C:\opt\ros\jazzy\x64\local_setup.ps1"
+# Source ROS 2 (Check common locations)
+$ros2Paths = @(
+    "C:\dev\ros2_jazzy\local_setup.ps1",
+    "C:\opt\ros\jazzy\x64\local_setup.ps1",
+    "C:\ROS2\jazzy\local_setup.ps1",
+    "C:\Program Files\ros2_jazzy\local_setup.ps1"
+)
+
+$rosLoaded = $false
+foreach ($path in $ros2Paths) {
+    if (Test-Path $path) {
+        Write-Host "   Sourcing ROS 2 from: $path"
+        . $path
+        $rosLoaded = $true
+        break
+    }
+}
+
+if (-not $rosLoaded) {
+    Write-Host "⚠️ Could not find ROS 2 installation automatically." -ForegroundColor Red
+    Write-Host "   Script might fail if 'ros2' is not in PATH."
 }
 
 # Source venv
