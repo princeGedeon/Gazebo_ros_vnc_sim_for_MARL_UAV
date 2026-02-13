@@ -105,7 +105,7 @@ if (-not (Test-Path $colconPath)) {
     $colconPath = "colcon"
 }
 
-& $colconPath build --merge-install --parallel-workers 1
+& $colconPath build --merge-install --parallel-workers 1 --base-paths src
 
 Write-Host "✅ Installation Complete!" -ForegroundColor Green
 Write-Host "   Run '.\run_windows.ps1' to start the simulation."
