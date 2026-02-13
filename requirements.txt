@@ -1,0 +1,13 @@
+gymnasium
+websockify
+pettingzoo
+stable-baselines3
+ray[rllib,default]
+numpy<2.0.0
+torch
+supersuit
+shimmy
+scipy
+open3d
+numba
+scikit-learn

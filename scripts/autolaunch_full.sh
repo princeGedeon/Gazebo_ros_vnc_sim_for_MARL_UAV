@@ -22,16 +22,24 @@ echo -e "${GREEN}  AUTO-LAUNCH FULL SYSTEM${NC}"
 echo -e "${GREEN}  Scenario: ${SCENARIO}${NC}"
 echo -e "${GREEN}========================================${NC}"
 
-# Check if inside Docker
+# Check if inside Docker (Warning only)
 if [ ! -f /.dockerenv ]; then
-    echo -e "${YELLOW}WARNING: Not inside Docker container${NC}"
-    echo "Run: docker exec -it <container> bash"
-    exit 1
+    echo -e "${YELLOW}WARNING: Not inside Docker container. Running in Native Mode.${NC}"
+else
+    echo -e "${GREEN}Running inside Docker container.${NC}"
 fi
 
+# Detect Workspace
+export WORKSPACE_DIR=$(pwd)
+echo "Workspace: $WORKSPACE_DIR"
+
 # Source ROS2
-source /opt/ros/jazzy/setup.bash
-source ~/ros2_ws/install/setup.bash
+if [ -f /opt/ros/jazzy/setup.bash ]; then
+    source /opt/ros/jazzy/setup.bash
+fi
+if [ -f "$WORKSPACE_DIR/install/setup.bash" ]; then
+    source "$WORKSPACE_DIR/install/setup.bash"
+fi
 
 # Kill any existing processes
 echo -e "${YELLOW}[1/6] Cleaning existing processes...${NC}"
@@ -53,7 +61,7 @@ echo -e "${YELLOW}[2/6] Launching Gazebo + SLAM...${NC}"
 ros2 launch swarm_sim super_simulation.launch.py \
     num_drones:=$NUM_DRONES \
     slam:=true \
-    world_file:=/root/ros2_ws/src/swarm_sim_pkg/swarm_sim/assets/worlds/generated_city.sdf \
+    world_file:=$WORKSPACE_DIR/src/swarm_sim_pkg/swarm_sim/assets/worlds/generated_city.sdf \
     &> /tmp/gazebo_launch.log &
 
 GAZEBO_PID=$!
@@ -68,15 +76,19 @@ echo "[Launcher] Spawning Visuals (Constraints)..."
 python3 scripts/spawn_visuals.py &
 
 # 5. Generate Dynamic RViz Config
-RVIZ_CONFIG="/root/ros2_ws/rviz_configs/dynamic_swarm.rviz"
+RVIZ_CONFIG="$WORKSPACE_DIR/rviz_configs/dynamic_swarm.rviz"
 echo "[Launcher] Generating RViz config for $NUM_DRONES drones..."
 python3 scripts/generate_rviz.py $NUM_DRONES $RVIZ_CONFIG
 
 # 6. Open RViz (Dynamic Config)
-if [ "$OPEN_RVIZ" = true ]; then
+# Check if OPEN_RVIZ is set OR if we are native (no docker env)
+if [ "$OPEN_RVIZ" = true ] || [ ! -f /.dockerenv ]; then
     echo "[Launcher] 🎨 Starting RViz2 with Dynamic Config..."
-    # Ensure display is set
-    export DISPLAY=:1
+    
+    # Only set DISPLAY if not already set (Native usually has it)
+    if [ -z "$DISPLAY" ]; then
+        export DISPLAY=:1
+    fi
     
     # Launch in background
     rviz2 -d $RVIZ_CONFIG &

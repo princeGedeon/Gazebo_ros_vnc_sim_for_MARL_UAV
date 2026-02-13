@@ -41,6 +41,33 @@ docker run -it --gpus all \
     uav_swarm_rl
 ```
 
+### 2. Installation Native (Sans Docker) - Recommandé pour Perf 🚀
+
+#### Linux (Ubuntu 24.04)
+
+```bash
+# Donne les permissions
+chmod +x install_linux.sh run_linux.sh
+
+# Installe tout (ROS 2 deps, Python venv, Clone Repos)
+./install_linux.sh
+
+# Lance la simulation (GPU activé par défaut)
+./run_linux.sh
+```
+
+#### Windows (PowerShell)
+
+*Pré-requis : ROS 2 Jazzy installé sur Windows + Python 3.10+*
+
+```powershell
+# Installe tout (Python venv, Clone Repos, Build)
+.\install_windows.ps1
+
+# Lance la simulation (GPU activé par défaut)
+.\run_windows.ps1
+```
+
 ### 2. Build ROS2 Workspace
 
 ```bash
