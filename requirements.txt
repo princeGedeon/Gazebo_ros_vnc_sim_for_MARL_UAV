@@ -11,3 +11,6 @@ scipy
 open3d
 numba
 scikit-learn
+vcstool
+colcon-common-extensions
+setuptools

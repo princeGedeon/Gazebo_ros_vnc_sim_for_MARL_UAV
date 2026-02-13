@@ -43,8 +43,14 @@ if (-not (Test-Path "src\swarm_sim_pkg\swarm_sim\assets\PX4-gazebo-models\.git")
 
 # 4. VCS Import
 Write-Host "🔄 Importing dependencies via vcstool..." -ForegroundColor Yellow
+$vcsPath = "$PSScriptRoot\venv\Scripts\vcs.exe"
+if (-not (Test-Path $vcsPath)) {
+    Write-Host "⚠️ vcs.exe not found in venv! Trying global..." -ForegroundColor Yellow
+    $vcsPath = "vcs"
+}
+
 if (Test-Path "src\Multi-Robot-Graph-SLAM\mrg_slam.repos") {
-    vcs import src --input src\Multi-Robot-Graph-SLAM\mrg_slam.repos
+    & $vcsPath import src --input src\Multi-Robot-Graph-SLAM\mrg_slam.repos
 } else {
     Write-Host "⚠️ mrg_slam.repos not found, skipping vcs import." -ForegroundColor Yellow
 }
@@ -53,16 +59,40 @@ if (Test-Path "src\Multi-Robot-Graph-SLAM\mrg_slam.repos") {
 Write-Host "🔨 Building ROS 2 Workspace..." -ForegroundColor Yellow
 
 # Try to source ROS 2 if standard location (adjust if needed)
-if (Test-Path "C:\dev\ros2_jazzy\local_setup.ps1") {
-    . "C:\dev\ros2_jazzy\local_setup.ps1"
-} elseif (Test-Path "C:\opt\ros\jazzy\x64\local_setup.ps1") {
-    . "C:\opt\ros\jazzy\x64\local_setup.ps1"
-} else {
+# Try to source ROS 2 (Check common locations)
+$ros2Paths = @(
+    "C:\dev\ros2_jazzy\local_setup.ps1",
+    "C:\opt\ros\jazzy\x64\local_setup.ps1",
+    "C:\ROS2\jazzy\local_setup.ps1",
+    "C:\Program Files\ros2_jazzy\local_setup.ps1"
+)
+
+$rosLoaded = $false
+foreach ($path in $ros2Paths) {
+    if (Test-Path $path) {
+        Write-Host "   Sourcing ROS 2 from: $path"
+        . $path
+        $rosLoaded = $true
+        break
+    }
+}
+
+if (-not $rosLoaded) {
+    Write-Host "⚠️ Could not find ROS 2 installation automatically." -ForegroundColor Red
+    Write-Host "   Please ensure ROS 2 Jazzy is installed and local_setup.ps1 is reachable."
+    Write-Host "   You can manually source it before running this script."
+}
     Write-Host "⚠️ Could not find ROS 2 installation to source automatically." -ForegroundColor Yellow
     Write-Host "   Ensure ROS 2 is in your environment before running this script."
 }
 
-colcon build --merge-install --parallel-workers 1
+$colconPath = "$PSScriptRoot\venv\Scripts\colcon.exe"
+if (-not (Test-Path $colconPath)) {
+    Write-Host "⚠️ colcon.exe not found in venv! Trying global..." -ForegroundColor Yellow
+    $colconPath = "colcon"
+}
+
+& $colconPath build --merge-install --parallel-workers 1
 
 Write-Host "✅ Installation Complete!" -ForegroundColor Green
 Write-Host "   Run '.\run_windows.ps1' to start the simulation."
