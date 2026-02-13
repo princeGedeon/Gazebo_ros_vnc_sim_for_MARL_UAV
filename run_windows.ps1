@@ -25,8 +25,10 @@ foreach ($path in $ros2Paths) {
 }
 
 if (-not $rosLoaded) {
-    Write-Host "⚠️ Could not find ROS 2 installation automatically." -ForegroundColor Red
-    Write-Host "   Script might fail if 'ros2' is not in PATH."
+    Write-Host "❌ FATAL ERROR: Could not find ROS 2 installation automatically." -ForegroundColor Red
+    Write-Host "   Please ensure ROS 2 Jazzy is installed."
+    Write-Host "   If installed in a custom location, edit this script to add your path to `$ros2Paths`."
+    exit 1
 }
 
 # Source venv
