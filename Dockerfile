@@ -1,4 +1,4 @@
-FROM osrf/ros:jazzy-desktop-full
+FROM ros:jazzy-desktop-full
 
 USER root
 
