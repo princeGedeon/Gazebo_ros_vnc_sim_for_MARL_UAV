@@ -82,9 +82,7 @@ if (-not $rosLoaded) {
     Write-Host "   Please ensure ROS 2 Jazzy is installed and local_setup.ps1 is reachable."
     Write-Host "   You can manually source it before running this script."
 }
-    Write-Host "⚠️ Could not find ROS 2 installation to source automatically." -ForegroundColor Yellow
-    Write-Host "   Ensure ROS 2 is in your environment before running this script."
-}
+
 
 $colconPath = "$PSScriptRoot\venv\Scripts\colcon.exe"
 if (-not (Test-Path $colconPath)) {
