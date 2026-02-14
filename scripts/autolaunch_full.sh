@@ -124,30 +124,30 @@ echo -e "${YELLOW}[6/6] Launching Training (${SCENARIO})...${NC}"
 
 case "$SCENARIO" in
     case_1)
-        python3 ~/ros2_ws/src/swarm_sim_pkg/swarm_sim/training/train_mappo.py \
+        python3 "$WORKSPACE_DIR/src/swarm_sim_pkg/swarm_sim/training/train_mappo.py" \
             --num-drones 3 \
             --max-steps 1000 \
             --total-timesteps 500000 \
             --checkpoint-freq 50000 \
-            --output-dir outputs/case_1 \
+            --output-dir "$WORKSPACE_DIR/outputs/case_1" \
             &> /tmp/training.log &
         ;;
     case_2)
-        python3 ~/ros2_ws/src/swarm_sim_pkg/swarm_sim/training/train_mappo_lagrangian.py \
+        python3 "$WORKSPACE_DIR/src/swarm_sim_pkg/swarm_sim/training/train_mappo_lagrangian.py" \
             --num-drones 3 \
             --max-steps 1000 \
             --total-timesteps 500000 \
             --checkpoint-freq 50000 \
-            --output-dir outputs/case_2 \
+            --output-dir "$WORKSPACE_DIR/outputs/case_2" \
             &> /tmp/training.log &
         ;;
     case_3)
-        python3 ~/ros2_ws/src/swarm_sim_pkg/swarm_sim/training/train_mappo_cbf.py \
+        python3 "$WORKSPACE_DIR/src/swarm_sim_pkg/swarm_sim/training/train_mappo_cbf.py" \
             --num-drones 3 \
             --max-steps 1000 \
             --total-timesteps 500000 \
             --checkpoint-freq 50000 \
-            --output-dir outputs/case_3 \
+            --output-dir "$WORKSPACE_DIR/outputs/case_3" \
             &> /tmp/training.log &
         ;;
     *)

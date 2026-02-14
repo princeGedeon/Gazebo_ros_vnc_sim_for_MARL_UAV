@@ -49,6 +49,46 @@ Une fois l'installation finie :
 ./run_linux.sh
 ```
 
-### 💡 Astuce pour l'affichage (GUI)
-WSL 2 gère maintenant l'affichage graphique (WSLg) nativement sur Windows 10/11. Gazebo et RViz devraient s'ouvrir comme des fenêtres normales.
-Si l'affichage est noir ou lent, vérifie que tes pilotes NVIDIA Windows sont à jour (WSL utilise les drivers GPU de Windows).
+If the screen is black or slow, check your Windows GPU drivers (WSL uses them directly).
+
+---
+
+## 5. 🧠 Entraînement & Logs (Benchmark)
+
+Le script lance automatiquement l'entraînement (MAPPO par défaut).
+
+### 📍 Où sont les fichiers ?
+- **Logs Textuels** : `/tmp/training.log` (pour voir ce qui se passe en direct)
+- **Modèles & Stats** : `outputs/case_1` (sauvegardes, checkpoints, benchmarks)
+
+### 📊 Suivre l'entraînement en direct
+Dans un **nouveau terminal** WSL :
+```bash
+# Voir la progression en temps réel
+tail -f /tmp/training.log
+```
+
+### 📈 Visualiser avec TensorBoard
+Pour voir les courbes d'apprentissage (Reward, Loss, etc.) :
+
+1. Oouvre un nouveau terminal WSL.
+2. Active l'environnement :
+   ```bash
+   source venv/bin/activate
+   ```
+3. Lance TensorBoard :
+   ```bash
+   tensorboard --logdir outputs/
+   ```
+4. Oouvre ton navigateur Windows et va sur : **http://localhost:6006**
+
+---
+
+## 🛠️ Commandes Utiles
+
+- **Arrêter tout** : `pkill -f gazebo && pkill -f python3`
+- **Re-compiler (si tu changes du code C++)** : `./install_linux.sh`
+- **Changer de scénario** :
+  ```bash
+  ./scripts/autolaunch_full.sh case_2  # Pour le scénario Lagrangien
+  ```

@@ -47,7 +47,7 @@ sudo apt-get install -y \
     ros-jazzy-octomap-server ros-jazzy-pcl-ros ros-jazzy-ros-gz ros-jazzy-rtabmap-msgs \
     ros-jazzy-nav2-msgs ros-jazzy-rtabmap-conversions ros-jazzy-teleop-twist-keyboard \
     python3-vcstool libg2o-dev libsuitesparse-dev libgeographiclib-dev \
-    ros-jazzy-geodesy ros-jazzy-nmea-msgs
+    ros-jazzy-geodesy ros-jazzy-nmea-msgs python3-lark
 
 # 3. Python Environment
 echo "🐍 Setting up Python Virtual Environment..."
@@ -104,6 +104,10 @@ source /opt/ros/jazzy/setup.bash
 # Clean previous build artifacts (Fixes layout mismatch errors between Windows/Linux)
 echo "🧹 Cleaning previous build artifacts..."
 rm -rf build install log
+
+# Limit memory usage for WSL (Fixes 'Killed' / OOM errors)
+# PCL compilation is VERY memory hungry.
+export MAKEFLAGS="-j 1"
 
 colcon build --symlink-install --parallel-workers 1 --event-handlers console_direct+ --base-paths src
 

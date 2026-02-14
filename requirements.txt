@@ -17,3 +17,4 @@ vcstool
 colcon-common-extensions
 setuptools<70.0.0
 lark
+tensorboard
