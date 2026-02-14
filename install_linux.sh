@@ -63,8 +63,11 @@ fi
 source venv/bin/activate
 
 # Install specific pip versions (matches Dockerfile)
+echo "📦 Installing Python dependencies (Torch, Ray, etc.)..."
+echo "⚠️  This involves downloading ~2GB of data. It may take 10-20 minutes."
+echo "    Please wait... (I enabled logs so you can see progress)"
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements.txt -v
 
 # 4. Clone Missing Repos
 echo "📥 Checking source repositories..."
@@ -94,7 +97,12 @@ fi
 # 6. Build Workspace
 echo "🔨 Building ROS 2 Workspace..."
 source /opt/ros/jazzy/setup.bash
-colcon build --symlink-install --parallel-workers 1
+
+# Clean previous build artifacts (Fixes layout mismatch errors between Windows/Linux)
+echo "🧹 Cleaning previous build artifacts..."
+rm -rf build install log
+
+colcon build --symlink-install --parallel-workers 1 --event-handlers console_direct+
 
 echo "✅ Installation Complete!"
 echo "   Run './run_linux.sh' to start the simulation."
