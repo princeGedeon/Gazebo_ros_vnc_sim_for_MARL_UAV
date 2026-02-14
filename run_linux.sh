@@ -12,6 +12,10 @@ source install/setup.bash
 export NVIDIA_VISIBLE_DEVICES=all
 export NVIDIA_DRIVER_CAPABILITIES=all
 
+# Network Fix for WSL (Fixes 'Requesting list of world names' hang)
+export GZ_IP=127.0.0.1
+export GZ_PARTITION=sim_partition
+
 # Auto-Source Environment (Relative Path)
 if [ -f "install/setup.bash" ]; then
     source install/setup.bash
