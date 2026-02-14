@@ -34,10 +34,12 @@ export WORKSPACE_DIR=$(pwd)
 echo "Workspace: $WORKSPACE_DIR"
 
 # Auto-detect WSL and force software rendering if needed
+# Auto-detect WSL (Software rendering disabled by default to try GPU first)
 if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null; then
-    echo -e "${YELLOW}🐧 WSL Detected: Forcing software rendering for stability (fixes black screen/hangs).${NC}"
-    export LIBGL_ALWAYS_SOFTWARE=1
-    export MESA_GL_VERSION_OVERRIDE=3.3 # Optional: Uncomment if Ogre still complains
+    # echo -e "${YELLOW}🐧 WSL Detected: Forcing software rendering...${NC}"
+    # export LIBGL_ALWAYS_SOFTWARE=1
+    # export MESA_GL_VERSION_OVERRIDE=3.3 
+    echo -e "${GREEN}🐧 WSL Detected: Using native GPU rendering.${NC}"
 fi
 
 # Source ROS2
