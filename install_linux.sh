@@ -51,9 +51,15 @@ sudo apt-get install -y \
 
 # 3. Python Environment
 echo "🐍 Setting up Python Virtual Environment..."
-if [ ! -d "venv" ]; then
-    python3 -m venv venv
+# Ensure venv is created completely
+rm -rf venv
+python3 -m venv venv
+
+if [ ! -f "venv/bin/activate" ]; then
+    echo "❌ Error: Failed to create venv. 'python3-venv' might still be missing."
+    exit 1
 fi
+
 source venv/bin/activate
 
 # Install specific pip versions (matches Dockerfile)
