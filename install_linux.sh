@@ -60,6 +60,9 @@ if [ ! -f "venv/bin/activate" ]; then
     exit 1
 fi
 
+# Prevent colcon from building the venv
+touch venv/COLCON_IGNORE
+
 source venv/bin/activate
 
 # Install specific pip versions (matches Dockerfile)
@@ -102,7 +105,7 @@ source /opt/ros/jazzy/setup.bash
 echo "🧹 Cleaning previous build artifacts..."
 rm -rf build install log
 
-colcon build --symlink-install --parallel-workers 1 --event-handlers console_direct+
+colcon build --symlink-install --parallel-workers 1 --event-handlers console_direct+ --base-paths src
 
 echo "✅ Installation Complete!"
 echo "   Run './run_linux.sh' to start the simulation."
