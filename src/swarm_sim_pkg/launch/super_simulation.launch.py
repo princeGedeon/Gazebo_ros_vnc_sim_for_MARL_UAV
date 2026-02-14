@@ -17,17 +17,43 @@ def generate_launch_description():
     open_rviz = LaunchConfiguration('open_rviz')
     run_slam = LaunchConfiguration('slam')
     
-    # 1. Main Simulation (Multi Ops)
+    # 0. World Generation (Run BEFORE Simulation)
+    # We execute the python script directly.
+    gen_world_cmd = [
+        'python3',
+        os.path.join(pkg_swarm_sim, 'swarm_sim', 'assets', 'worlds', 'generate_city.py'),
+        '--output',
+        os.path.join(pkg_swarm_sim, 'swarm_sim', 'assets', 'worlds', 'generated_city.sdf'),
+        '--seed', '42' 
+    ]
+    
+    gen_world_proc = ExecuteProcess(
+        cmd=gen_world_cmd,
+        output='screen'
+    )
+
+    # 1. Main Simulation (Multi Ops) - Delayed until generation is done
     main_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(pkg_swarm_sim, 'launch', 'multi_ops.launch.py')
         ),
         launch_arguments={
             'num_drones': num_drones,
-            'num_stations': '3', # CRITICAL: Ensure multi_ops knows there are 3 stations so it spawns drones atop them
+            'num_stations': '3', 
             'map_type': map_type,
             'map_file': map_file
         }.items()
+    )
+
+    # Event Handler: Start main_sim only after gen_world_proc exits
+    from launch.event_handlers import OnProcessExit
+    from launch.actions import RegisterEventHandler
+
+    start_sim_after_gen = RegisterEventHandler(
+        event_handler=OnProcessExit(
+            target_action=gen_world_proc,
+            on_exit=[main_sim]
+        )
     )
 
     # 1.1 Swarm SLAM (Optional)
@@ -60,7 +86,11 @@ def generate_launch_description():
         DeclareLaunchArgument('slam', default_value='true', description='Run Swarm SLAM?'),
         DeclareLaunchArgument('octomap', default_value='false', description='Run OctoMap Server?'),
         
-        main_sim,
+        # Step 0: Generate World
+        gen_world_proc,
+        
+        # Step 1: Start Sim (Triggered by handler)
+        start_sim_after_gen,
         
         # Spawn Physical Ground Stations
         IncludeLaunchDescription(

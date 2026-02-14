@@ -53,89 +53,67 @@ If the screen is black or slow, check your Windows GPU drivers (WSL uses them di
 
 ---
 
-## 5. 🧠 Entraînement & Logs (Benchmark)
+## 5. 🧠 Guide de l'Entraînement (Reinforcement Learning)
 
-Le script lance automatiquement l'entraînement (MAPPO par défaut).
+L'environnement de simulation est prêt pour l'apprentissage par renforcement Multi-Agent (MARL).
 
-### 📍 Où sont les fichiers ?
-- **Logs Textuels** : `/tmp/training.log` (pour voir ce qui se passe en direct)
-- **Modèles & Stats** : `outputs/case_1` (sauvegardes, checkpoints, benchmarks)
+### 📍 Lancer un Scénario d'Entraînement
+Tu as 3 scénarios pré-configurés. Tu peux les lancer via le script principal :
 
-### 📊 Suivre l'entraînement en direct
-Dans un **nouveau terminal** WSL :
+| Scénario | Description | Commande |
+| :--- | :--- | :--- |
+| **Case 1** | **MAPPO Standard**<br>Entraînement collaboratif basique. | `./run_linux.sh case_1` |
+| **Case 2** | **MAPPO Lagrangien**<br>Avec contraintes de sécurité (Lagrangian). | `./run_linux.sh case_2` |
+| **Case 3** | **MAPPO CBF**<br>Avec Control Barrier Functions (Sécurité forte). | `./run_linux.sh case_3` |
+
+### 🛠️ Lancer l'Entraînement Manuellement (Sans Interface Graphique)
+Si tu veux juste entraîner le modèle (beaucoup plus rapide) sans voir les drones :
+
+1.  **Ouvre un terminal** et charge l'environnement :
+    ```bash
+    source /opt/ros/jazzy/setup.bash
+    source install/setup.bash
+    source venv/bin/activate
+    ```
+
+2.  **Lance le script Python directement** :
+    ```bash
+    # Exemple pour Case 1 (MAPPO)
+    python3 src/swarm_sim_pkg/swarm_sim/training/train_mappo.py \
+        --num-drones 3 \
+        --total-timesteps 1000000 \
+        --no-gui
+    ```
+
+### 📊 Suivre les Résultats (Logs & TensorBoard)
+
+**1. Logs en temps réel :**
 ```bash
-# Voir la progression en temps réel
 tail -f /tmp/training.log
 ```
 
-### 📈 Visualiser avec TensorBoard
-Pour voir les courbes d'apprentissage (Reward, Loss, etc.) :
-
-1. Oouvre un nouveau terminal WSL.
-2. Active l'environnement :
-   ```bash
-   source venv/bin/activate
-   ```
-3. Lance TensorBoard :
-   ```bash
-   tensorboard --logdir outputs/
-   ```
-4. Oouvre ton navigateur Windows et va sur : **http://localhost:6006**
+**2. Visualiser les courbes (TensorBoard) :**
+```bash
+source venv/bin/activate
+tensorboard --logdir outputs/
+```
+👉 Ouvre **http://localhost:6006** dans ton navigateur Windows.
 
 ---
 
-## 🛠️ Commandes Utiles
-
-- **Arrêter tout** : `pkill -f gazebo && pkill -f python3`
-- **Re-compiler (si tu changes du code C++)** : `./install_linux.sh`
-- **Changer de scénario** :
-  ```bash
-  ./scripts/autolaunch_full.sh case_2  # Pour le scénario Lagrangien
-  ```
+## 🐛 Dépannage
+Si Gazebo ne s'ouvre pas ou reste bloqué sur "Requesting world names" :
+1.  **TUE TOUT** (Commande magique) :
+    ```bash
+    pkill -f gazebo; pkill -f gz; pkill -f python3; pkill -f ros2
+    ```
+2.  **Relance** : `./run_linux.sh`
 
 ---
-
-## 🐛 Dépannage & Mode Manuel
-
-Si Gazebo ne s'ouvre pas ou si tu veux déboguer :
-
-### 1. Voir pourquoi Gazebo plante
-Les logs sont cachés par défaut. Pour les voir en direct :
-```bash
-./run_linux.sh --debug
-```
-*Cela affichera toutes les erreurs dans le terminal. Cherche des lignes rouges parlant de "Ogre", "OpenGL" ou "Display".*
-
-Si tu as des erreurs d'affichage (écran noir), essaie de forcer le rendu logiciel :
-```bash
-export LIBGL_ALWAYS_SOFTWARE=1
-./run_linux.sh
-```
-
-### 2. Lancer composant par composant (Mode Debug)
-Au lieu de tout lancer d'un coup, tu peux ouvrir plusieurs terminaux et lancer chaque partie séparément :
-
-**Terminal 1 : Gazebo + ROS 2**
-```bash
-source venv/bin/activate
-source install/setup.bash
-# Lancer Gazebo sans le fondre en arrière-plan
-ros2 launch swarm_sim super_simulation.launch.py num_drones:=3 slam:=true
-```
-
-**Terminal 2 : Entraînement (RL)**
-```bash
-source venv/bin/activate
-source install/setup.bash
-# Lancer l'entraînement seul
-python3 src/swarm_sim_pkg/swarm_sim/training/train_mappo.py --num-drones 3 --no-gui
-```
-
-### 3. Contrôler un drone manuellement (Teleop)
-Si tu veux piloter un drone avec le clavier pour tester la physique :
+### 🎮 Contrôle Manuel (Test Physique)
+Pour piloter un drone avec le clavier sans IA :
 ```bash
 source install/setup.bash
-# Piloter le drone n°0 (uav_0)
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/uav_0/cmd_vel
 ```
-*(Utilise les touches : `i`=avancer, `k`=stop, `j`=gauche, `l`=droite)*
+*(Touches : `i`=avancer, `k`=stop, `j`/`l`=tourner)*

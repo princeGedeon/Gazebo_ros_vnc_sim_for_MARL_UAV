@@ -265,6 +265,11 @@ def generate_launch_description():
             'GZ_SIM_RESOURCE_PATH',
             kepco_maps
         ),
+        
+        # WSL Network Fix (Injecting directly into launch)
+        # Forces Gazebo to use loopback interface to prevent "Requesting world names" hang
+        AppendEnvironmentVariable('GZ_IP', '127.0.0.1'),
+        AppendEnvironmentVariable('GZ_PARTITION', 'sim_partition'),
 
         DeclareLaunchArgument('num_drones', default_value='3', description='Number of drones'),
         DeclareLaunchArgument('num_drones', default_value='3', description='Number of drones'),
