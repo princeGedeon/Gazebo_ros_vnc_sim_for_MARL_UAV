@@ -13,4 +13,7 @@ numba
 scikit-learn
 vcstool
 colcon-common-extensions
+vcstool
+colcon-common-extensions
 setuptools<70.0.0
+lark
