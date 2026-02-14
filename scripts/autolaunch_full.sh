@@ -58,11 +58,21 @@ python3 src/swarm_sim_pkg/swarm_sim/assets/worlds/generate_city.py --output src/
 
 # Launch Simulation (Gazebo + ROS2 + SLAM)
 echo -e "${YELLOW}[2/6] Launching Gazebo + SLAM...${NC}"
-ros2 launch swarm_sim super_simulation.launch.py \
-    num_drones:=$NUM_DRONES \
-    slam:=true \
-    world_file:=$WORKSPACE_DIR/src/swarm_sim_pkg/swarm_sim/assets/worlds/generated_city.sdf \
-    &> /tmp/gazebo_launch.log &
+
+LOG_OUTPUT="&> /tmp/gazebo_launch.log"
+if [ "$2" == "--debug" ]; then
+    echo -e "${RED}DEBUG MODE ENABLED: Streaming Gazebo output to terminal.${NC}"
+    ros2 launch swarm_sim super_simulation.launch.py \
+        num_drones:=$NUM_DRONES \
+        slam:=true \
+        world_file:=$WORKSPACE_DIR/src/swarm_sim_pkg/swarm_sim/assets/worlds/generated_city.sdf &
+else
+    ros2 launch swarm_sim super_simulation.launch.py \
+        num_drones:=$NUM_DRONES \
+        slam:=true \
+        world_file:=$WORKSPACE_DIR/src/swarm_sim_pkg/swarm_sim/assets/worlds/generated_city.sdf \
+        &> /tmp/gazebo_launch.log &
+fi
 
 GAZEBO_PID=$!
 echo "Gazebo PID: $GAZEBO_PID"

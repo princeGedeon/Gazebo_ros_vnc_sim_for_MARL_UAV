@@ -92,3 +92,50 @@ Pour voir les courbes d'apprentissage (Reward, Loss, etc.) :
   ```bash
   ./scripts/autolaunch_full.sh case_2  # Pour le scénario Lagrangien
   ```
+
+---
+
+## 🐛 Dépannage & Mode Manuel
+
+Si Gazebo ne s'ouvre pas ou si tu veux déboguer :
+
+### 1. Voir pourquoi Gazebo plante
+Les logs sont cachés par défaut. Pour les voir en direct :
+```bash
+./run_linux.sh --debug
+```
+*Cela affichera toutes les erreurs dans le terminal. Cherche des lignes rouges parlant de "Ogre", "OpenGL" ou "Display".*
+
+Si tu as des erreurs d'affichage (écran noir), essaie de forcer le rendu logiciel :
+```bash
+export LIBGL_ALWAYS_SOFTWARE=1
+./run_linux.sh
+```
+
+### 2. Lancer composant par composant (Mode Debug)
+Au lieu de tout lancer d'un coup, tu peux ouvrir plusieurs terminaux et lancer chaque partie séparément :
+
+**Terminal 1 : Gazebo + ROS 2**
+```bash
+source venv/bin/activate
+source install/setup.bash
+# Lancer Gazebo sans le fondre en arrière-plan
+ros2 launch swarm_sim super_simulation.launch.py num_drones:=3 slam:=true
+```
+
+**Terminal 2 : Entraînement (RL)**
+```bash
+source venv/bin/activate
+source install/setup.bash
+# Lancer l'entraînement seul
+python3 src/swarm_sim_pkg/swarm_sim/training/train_mappo.py --num-drones 3 --no-gui
+```
+
+### 3. Contrôler un drone manuellement (Teleop)
+Si tu veux piloter un drone avec le clavier pour tester la physique :
+```bash
+source install/setup.bash
+# Piloter le drone n°0 (uav_0)
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=/uav_0/cmd_vel
+```
+*(Utilise les touches : `i`=avancer, `k`=stop, `j`=gauche, `l`=droite)*

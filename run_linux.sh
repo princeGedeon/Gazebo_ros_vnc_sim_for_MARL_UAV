@@ -16,4 +16,4 @@ echo "🚁 Starting Simulation..."
 echo "   Mode: Native Linux"
 
 # Launch main script
-./scripts/autolaunch_full.sh case_1
+./scripts/autolaunch_full.sh case_1 "$@"
