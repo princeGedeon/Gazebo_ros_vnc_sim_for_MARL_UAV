@@ -53,6 +53,44 @@ If the screen is black or slow, check your Windows GPU drivers (WSL uses them di
 
 ---
 
+## 4.5. 🔍 Mode Manuel & Dépannage (Si rien ne marche)
+
+Si `./run_linux.sh` ne lance rien ou que Gazebo plante ("Requesting list of world names"), fais ces étapes une par une :
+
+### Étape 1 : Générer le Monde (Ville)
+```bash
+source install/setup.bash
+# Génère le fichier SDF dans assets/worlds/generated_city.sdf
+python3 src/swarm_sim_pkg/swarm_sim/assets/worlds/generate_city.py \
+    --output src/swarm_sim_pkg/swarm_sim/assets/worlds/generated_city.sdf \
+    --seed 42
+```
+*Si tu vois des erreurs ici, le problème est Python/Lark.*
+
+### Étape 2 : Lancer Gazebo seul
+Lance ça pour voir si l'affichage Gazebo fonctionne (sans le reste) :
+```bash
+# Force l'IP locale pour éviter le bug WSL
+export GZ_IP=127.0.0.1
+export GZ_PARTITION=sim_partition
+
+# Lance la simulation minimaliste avec la ville générée
+ros2 launch swarm_sim multi_ops.launch.py \
+    num_drones:=3 \
+    map_type:=world \
+    map_file:=generated_city.sdf
+```
+*Si Gazebo s'ouvre, c'est gagné ! Tu peux passer à l'entraînement.*
+
+### Étape 3 : Lancer l'Entraînement (dans un autre terminal)
+```bash
+source install/setup.bash
+source venv/bin/activate
+python3 src/swarm_sim_pkg/swarm_sim/training/train_mappo.py --num-drones 3 --no-gui
+```
+
+---
+
 ## 5. 🧠 Guide de l'Entraînement (Reinforcement Learning)
 
 L'environnement de simulation est prêt pour l'apprentissage par renforcement Multi-Agent (MARL).
@@ -85,19 +123,36 @@ Si tu veux juste entraîner le modèle (beaucoup plus rapide) sans voir les dron
         --no-gui
     ```
 
-### 📊 Suivre les Résultats (Logs & TensorBoard)
+### 📊 Visualiser les Résultats (Ray / TensorBoard)
 
-**1. Logs en temps réel :**
-```bash
-tail -f /tmp/training.log
-```
+Comme tu ne veux pas lancer ça en parallèle ("je veux même pas fait tout pas parallèle"), voici comment analyser les résultats **après ou pendant** l'entraînement, dans un terminal séparé.
 
-**2. Visualiser les courbes (TensorBoard) :**
+**1. TensorBoard (Courbes d'apprentissage)**
+C'est l'outil standard pour voir si tes drones apprennent (Reward qui monte, Loss qui descend).
 ```bash
+# Ouvre un NOUVEAU terminal
 source venv/bin/activate
 tensorboard --logdir outputs/
 ```
-👉 Ouvre **http://localhost:6006** dans ton navigateur Windows.
+👉 Ensuite, ouvre ton navigateur Windows et tape : **http://localhost:6006**
+
+**2. Ray Dashboard (Avancé)**
+Si tu veux voir les processus Ray en détail (RAM, CPU par acteur) :
+*   Ray lance un dashboard automatiquement sur **http://localhost:8265** pendant l'entraînement.
+*   Tu peux l'ouvrir directement dans ton navigateur Windows tant que le script d'entraînement tourne.
+
+---
+
+## 🛑 Comment tout arrêter proprement (Nettoyage)
+Si tu lances les choses manuellement dans plusieurs terminaux, il faut penser à tout killer à la fin :
+
+```bash
+pkill -f gazebo
+pkill -f gz
+pkill -f python3
+pkill -f ros2
+pkill -f rviz2
+```
 
 ---
 
