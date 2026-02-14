@@ -33,6 +33,13 @@ fi
 export WORKSPACE_DIR=$(pwd)
 echo "Workspace: $WORKSPACE_DIR"
 
+# Auto-detect WSL and force software rendering if needed
+if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null; then
+    echo -e "${YELLOW}🐧 WSL Detected: Forcing software rendering for stability (fixes black screen/hangs).${NC}"
+    export LIBGL_ALWAYS_SOFTWARE=1
+    export MESA_GL_VERSION_OVERRIDE=3.3 # Optional: Uncomment if Ogre still complains
+fi
+
 # Source ROS2
 if [ -f /opt/ros/jazzy/setup.bash ]; then
     source /opt/ros/jazzy/setup.bash

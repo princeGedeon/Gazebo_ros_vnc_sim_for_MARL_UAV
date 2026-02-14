@@ -37,7 +37,7 @@ def launch_setup(context, *args, **kwargs):
             world_path = map_file
         else:
             world_path = find_asset(os.path.join('assets', 'worlds', map_file))
-        gz_args = f"-r {world_path}"
+        gz_args = f"-r -v 4 --render-engine ogre {world_path}"
     else:
         # map_type == 'model' -> Load empty.sdf
         world_path = find_asset(os.path.join('assets', 'worlds', 'empty.sdf'))
@@ -47,7 +47,7 @@ def launch_setup(context, *args, **kwargs):
              print(f"WARNING: empty.sdf not found at {world_path}, falling back to city.sdf")
              world_path = find_asset(os.path.join('assets', 'worlds', 'city.sdf'))
         
-        gz_args = f"-r {world_path}"
+        gz_args = f"-r -v 4 --render-engine ogre {world_path}"
 
     gz_sim = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
