@@ -3,9 +3,11 @@ set -e
 
 # 1. Kill old VNC sessions
 echo "🧹 Cleaning old VNC sessions..."
-vncserver -kill :1 || true
+vncserver -kill :1 2>/dev/null || true
+pkill -f Xtigervnc || true
 rm -rf /tmp/.X11-unix/X1
 rm -rf /tmp/.X1-lock
+rm -rf ~/.vnc/*.log
 
 # 2. Start VNC Server geometry 1920x1080
 echo "🚀 Starting VNC Server on :1 (Port 5901)..."
